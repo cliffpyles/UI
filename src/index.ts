@@ -150,6 +150,13 @@ export {
   StalenessBadge,
   SyncStatus,
   ConnectionStatus,
+  InlineMessage,
+  UnreadIndicator,
+  BannerAlert,
+  NotificationItem,
+  Toast,
+  ToastProvider,
+  useToast,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -187,6 +194,20 @@ export type {
   SyncState,
   ConnectionStatusProps,
   ConnectionState,
+  InlineMessageProps,
+  InlineMessageVariant,
+  UnreadIndicatorProps,
+  UnreadIndicatorVariant,
+  BannerAlertProps,
+  BannerAlertVariant,
+  NotificationItemProps,
+  NotificationData,
+  ToastProps,
+  ToastVariant,
+  ToastProviderProps,
+  ToastPosition,
+  ToastOptions,
+  ToastContextValue,
 } from "./domain";
 
 // Utilities — Level 3-4

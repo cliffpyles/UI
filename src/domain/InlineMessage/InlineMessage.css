@@ -1,0 +1,51 @@
+.ui-inline-message {
+  display: flex;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.ui-inline-message--info {
+  background: var(--color-status-info-bg);
+  color: var(--color-status-info-text);
+}
+.ui-inline-message--success {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-text);
+}
+.ui-inline-message--warning {
+  background: var(--color-status-warning-bg);
+  color: var(--color-status-warning-text);
+}
+.ui-inline-message--error {
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-text);
+}
+
+.ui-inline-message__icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ui-inline-message--info .ui-inline-message__icon { color: var(--color-status-info-icon); }
+.ui-inline-message--success .ui-inline-message__icon { color: var(--color-status-success-icon); }
+.ui-inline-message--warning .ui-inline-message__icon { color: var(--color-status-warning-icon); }
+.ui-inline-message--error .ui-inline-message__icon { color: var(--color-status-error-icon); }
+
+.ui-inline-message__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ui-inline-message__title {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-0-5);
+}
+
+[data-density="compact"] .ui-inline-message {
+  padding: var(--spacing-1-5) var(--spacing-2);
+  font-size: var(--font-size-xs);
+}

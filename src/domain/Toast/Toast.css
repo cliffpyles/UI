@@ -1,0 +1,87 @@
+.ui-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--font-size-sm);
+  min-width: 280px;
+  max-width: 420px;
+  pointer-events: auto;
+}
+
+.ui-toast__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ui-toast--info .ui-toast__icon { color: var(--color-status-info-icon); }
+.ui-toast--success .ui-toast__icon { color: var(--color-status-success-icon); }
+.ui-toast--warning .ui-toast__icon { color: var(--color-status-warning-icon); }
+.ui-toast--error .ui-toast__icon { color: var(--color-status-error-icon); }
+
+.ui-toast__body {
+  flex: 1;
+  min-width: 0;
+  color: var(--color-text-primary);
+}
+
+.ui-toast__title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ui-toast__description {
+  margin-top: var(--spacing-0-5);
+  color: var(--color-text-secondary);
+}
+
+.ui-toast__action {
+  flex-shrink: 0;
+}
+
+.ui-toast__dismiss {
+  flex-shrink: 0;
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-1);
+  margin: calc(var(--spacing-1) * -1);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.ui-toast__dismiss:hover {
+  color: var(--color-text-primary);
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-toast__dismiss:focus-visible {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: 1px;
+}
+
+.ui-toast-viewport {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  pointer-events: none;
+  z-index: var(--z-toast);
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.ui-toast-viewport--top-right { top: 0; right: 0; }
+.ui-toast-viewport--top-left { top: 0; left: 0; }
+.ui-toast-viewport--bottom-right { bottom: 0; right: 0; flex-direction: column-reverse; }
+.ui-toast-viewport--bottom-left { bottom: 0; left: 0; flex-direction: column-reverse; }
+.ui-toast-viewport--top-center { top: 0; left: 50%; transform: translateX(-50%); align-items: center; }
+.ui-toast-viewport--bottom-center {
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  flex-direction: column-reverse; align-items: center;
+}

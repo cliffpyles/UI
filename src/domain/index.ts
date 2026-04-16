@@ -62,3 +62,26 @@ export type { SyncStatusProps, SyncState } from "./SyncStatus";
 
 export { ConnectionStatus } from "./ConnectionStatus";
 export type { ConnectionStatusProps, ConnectionState } from "./ConnectionStatus";
+
+// Group 9: Notification & Messaging
+export { InlineMessage } from "./InlineMessage";
+export type { InlineMessageProps, InlineMessageVariant } from "./InlineMessage";
+
+export { UnreadIndicator } from "./UnreadIndicator";
+export type { UnreadIndicatorProps, UnreadIndicatorVariant } from "./UnreadIndicator";
+
+export { BannerAlert } from "./BannerAlert";
+export type { BannerAlertProps, BannerAlertVariant } from "./BannerAlert";
+
+export { NotificationItem } from "./NotificationItem";
+export type { NotificationItemProps, NotificationData } from "./NotificationItem";
+
+export { Toast, ToastProvider, useToast } from "./Toast";
+export type {
+  ToastProps,
+  ToastVariant,
+  ToastProviderProps,
+  ToastPosition,
+  ToastOptions,
+  ToastContextValue,
+} from "./Toast";
