@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Light Theme — Semantic Tokens
-   Default theme applied at :root level.
+   Light Theme — Semantic Tokens — AUTO-GENERATED from src/tokens/semantic/
+   Do not edit manually. Run: npx tsx scripts/generate-css-tokens.ts
    ========================================================================== */
 
 :root,

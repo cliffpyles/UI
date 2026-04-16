@@ -1,14 +1,14 @@
-import { colors } from "../primitives/colors";
+import { lightColors } from "../semantic/colors";
 
 export const inputTokens = {
-  background: colors.white,
-  backgroundDisabled: colors.gray[50],
-  text: colors.gray[900],
-  textPlaceholder: colors.gray[400],
-  border: colors.gray[300],
-  borderHover: colors.gray[400],
-  borderFocus: colors.blue[600],
-  borderError: colors.red[500],
+  background: lightColors.background.surface,
+  backgroundDisabled: lightColors.background.surfaceRaised,
+  text: lightColors.text.primary,
+  textPlaceholder: lightColors.text.tertiary,
+  border: lightColors.border.strong,
+  borderHover: lightColors.text.tertiary,
+  borderFocus: lightColors.action.primary,
+  borderError: lightColors.status.error.icon,
 } as const;
 
 export type InputTokens = typeof inputTokens;

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Dark Theme — Semantic Tokens
-   Activated via data-theme="dark" on the root element.
+   Dark Theme — Semantic Tokens — AUTO-GENERATED from src/tokens/semantic/
+   Do not edit manually. Run: npx tsx scripts/generate-css-tokens.ts
    ========================================================================== */
 
 [data-theme="dark"] {

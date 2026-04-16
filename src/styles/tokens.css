@@ -1,7 +1,6 @@
 /* ==========================================================================
-   Primitive Design Tokens
-   All raw values as CSS custom properties. These are not used directly in
-   components — semantic tokens (themes) reference these primitives.
+   Primitive Design Tokens — AUTO-GENERATED from src/tokens/primitives/
+   Do not edit manually. Run: npx tsx scripts/generate-css-tokens.ts
    ========================================================================== */
 
 :root {
