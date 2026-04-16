@@ -1,0 +1,13 @@
+.ui-unit-input {
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--spacing-1);
+}
+
+.ui-unit-input__value {
+  flex: 1;
+}
+
+.ui-unit-input__unit {
+  flex-shrink: 0;
+}

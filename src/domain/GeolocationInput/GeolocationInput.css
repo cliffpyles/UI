@@ -1,0 +1,24 @@
+.ui-geolocation-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ui-geolocation-input__coords {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2);
+}
+
+.ui-geolocation-input__map {
+  background: var(--color-background-surface-sunken);
+  border: 1px dashed var(--color-border-default);
+  border-radius: var(--radius-md);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
