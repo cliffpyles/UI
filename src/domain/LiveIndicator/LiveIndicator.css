@@ -1,0 +1,59 @@
+.ui-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.ui-live-indicator__pulse {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+}
+
+.ui-live-indicator__dot {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+}
+
+.ui-live-indicator--active .ui-live-indicator__dot {
+  background: var(--color-status-error-icon);
+}
+
+.ui-live-indicator__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-status-error-icon);
+  opacity: 0.75;
+  animation: ui-live-pulse 1.5s var(--easing-default) infinite;
+}
+
+.ui-live-indicator--active .ui-live-indicator__label {
+  color: var(--color-status-error-text);
+}
+
+@keyframes ui-live-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-live-indicator__ring {
+    animation: none;
+    opacity: 0.3;
+  }
+}

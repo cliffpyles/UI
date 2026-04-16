@@ -1,0 +1,16 @@
+.ui-health-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.ui-health-indicator__label {
+  line-height: 1;
+}
+
+[data-density="compact"] .ui-health-indicator {
+  gap: var(--spacing-1);
+  font-size: var(--font-size-xs);
+}

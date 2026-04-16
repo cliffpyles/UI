@@ -1,0 +1,9 @@
+.ui-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.ui-status-badge__label {
+  line-height: 1;
+}

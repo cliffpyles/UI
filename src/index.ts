@@ -142,6 +142,14 @@ export {
   Sparkline,
   RatioBar,
   MetricCard,
+  StatusBadge,
+  HealthIndicator,
+  ProgressPill,
+  EnvironmentTag,
+  LiveIndicator,
+  StalenessBadge,
+  SyncStatus,
+  ConnectionStatus,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -163,6 +171,22 @@ export type {
   RatioBarVariant,
   RatioBarSize,
   MetricCardProps,
+  StatusBadgeProps,
+  StatusDef,
+  StatusMap,
+  HealthIndicatorProps,
+  Health,
+  ProgressPillProps,
+  ProgressPillVariant,
+  EnvironmentTagProps,
+  Environment,
+  EnvironmentTagVariant,
+  LiveIndicatorProps,
+  StalenessBadgeProps,
+  SyncStatusProps,
+  SyncState,
+  ConnectionStatusProps,
+  ConnectionState,
 } from "./domain";
 
 // Utilities — Level 3-4
