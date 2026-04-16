@@ -1,6 +1,16 @@
 # UI Component Library
 
-A design system and React component library built with Vite + TypeScript.
+A design system and React component library built with Vite + TypeScript, purpose-built for **data-intensive web applications** (dashboards, analytics tools, admin panels, enterprise SaaS).
+
+## Design Documentation
+
+The `design/` directory contains the authoritative documentation for the design system. Start with [design/README.md](./design/README.md) for navigation.
+
+Key documents to read before building components:
+- [Principles](./design/principles.md) — trade-off resolution framework
+- [Architecture](./design/architecture.md) — 7-level component hierarchy and dependency rules
+- [Tokens](./design/foundations/tokens.md) — 3-tier token architecture
+- [API Design](./design/standards/api-design.md) — component API conventions
 
 ## Quick Reference
 
