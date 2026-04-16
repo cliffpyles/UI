@@ -78,6 +78,10 @@ export {
   Accordion,
   Pagination,
   SearchInput,
+  EmptyState,
+  ErrorState,
+  ProgressBar,
+  Table,
 } from "./components";
 export type {
   InputProps,
@@ -111,4 +115,36 @@ export type {
   AccordionContentProps,
   PaginationProps,
   SearchInputProps,
+  EmptyStateProps,
+  ErrorStateProps,
+  ProgressBarProps,
+  TableProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableRowProps,
+  TableHeadProps,
+  TableCellProps,
 } from "./components";
+
+// Utilities — Level 3-4
+export {
+  formatNumber,
+  formatCompact,
+  formatCurrency,
+  formatPercent,
+  formatDate,
+  formatDuration,
+  formatBytes,
+} from "./utils";
+export type {
+  FormatNumberOptions,
+  FormatCompactOptions,
+  FormatCurrencyOptions,
+  FormatPercentOptions,
+  FormatDateOptions,
+  DateFormatStyle,
+  FormatDurationOptions,
+  DurationStyle,
+  FormatBytesOptions,
+} from "./utils";

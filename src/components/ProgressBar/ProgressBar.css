@@ -1,0 +1,95 @@
+.ui-progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1-5);
+  width: 100%;
+}
+
+.ui-progress-bar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ui-progress-bar__label {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-tight);
+}
+
+.ui-progress-bar__value {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Track */
+.ui-progress-bar__track {
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface-sunken);
+}
+
+.ui-progress-bar--md .ui-progress-bar__track {
+  height: var(--spacing-2);
+}
+
+.ui-progress-bar--sm .ui-progress-bar__track {
+  height: var(--spacing-1);
+}
+
+/* Fill */
+.ui-progress-bar__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--easing-default);
+}
+
+/* Variant colors */
+.ui-progress-bar--default .ui-progress-bar__fill {
+  background-color: var(--color-action-primary);
+}
+
+.ui-progress-bar--success .ui-progress-bar__fill {
+  background-color: var(--color-status-success-icon);
+}
+
+.ui-progress-bar--warning .ui-progress-bar__fill {
+  background-color: var(--color-status-warning-icon);
+}
+
+.ui-progress-bar--error .ui-progress-bar__fill {
+  background-color: var(--color-status-error-icon);
+}
+
+/* Indeterminate animation */
+.ui-progress-bar--indeterminate .ui-progress-bar__fill {
+  width: 40%;
+  animation: ui-progress-bar-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes ui-progress-bar-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+/* Density: compact */
+[data-density="compact"] .ui-progress-bar__label {
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-progress-bar__value {
+  font-size: var(--font-size-2xs);
+}
+
+[data-density="compact"] .ui-progress-bar {
+  gap: var(--spacing-1);
+}
