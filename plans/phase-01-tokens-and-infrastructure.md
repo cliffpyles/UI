@@ -214,14 +214,14 @@ describe("DensityProvider", () => {
 
 ## Completion Criteria
 
-- [ ] All primitive token categories defined (colors, spacing, typography, radius, shadows, motion, z-index).
-- [ ] Semantic tokens defined for light and dark themes.
-- [ ] Component tokens defined for button, input, table.
-- [ ] CSS custom properties generated and importable.
-- [ ] CSS reset in place.
-- [ ] ThemeProvider works with light/dark switching and system preference.
-- [ ] DensityProvider works with compact/default/comfortable switching and nesting.
-- [ ] vitest-axe configured and working in test suite.
-- [ ] Custom render utility available for all future component tests.
-- [ ] Dev playground demonstrates theme and density switching.
-- [ ] `npm run typecheck && npm run lint && npm test` passes.
+- [x] All primitive token categories defined (colors, spacing, typography, radius, shadows, motion, z-index).
+- [x] Semantic tokens defined for light and dark themes.
+- [x] Component tokens defined for button, input, table.
+- [x] CSS custom properties generated and importable.
+- [x] CSS reset in place.
+- [x] ThemeProvider works with light/dark switching and system preference.
+- [x] DensityProvider works with compact/default/comfortable switching and nesting.
+- [x] vitest-axe configured and working in test suite.
+- [x] Custom render utility available for all future component tests.
+- [x] Dev playground demonstrates theme and density switching.
+- [x] `npm run typecheck && npm run lint && npm test` passes.
