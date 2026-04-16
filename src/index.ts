@@ -207,6 +207,12 @@ export {
   AccessIndicator,
   PermissionRow,
   ShareControl,
+  AuditEntry,
+  ActivityItem,
+  ChangeLog,
+  ActivityFeed,
+  CommentThread,
+  VersionHistory,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -347,6 +353,17 @@ export type {
   PermissionRowProps,
   PermissionOption,
   ShareControlProps,
+  AuditEntryProps,
+  AuditRecord,
+  ActivityItemProps,
+  ChangeLogProps,
+  FieldChange,
+  ActivityFeedProps,
+  ActivityFeedItem,
+  CommentThreadProps,
+  Comment,
+  VersionHistoryProps,
+  Version,
 } from "./domain";
 
 // Utilities — Level 3-4

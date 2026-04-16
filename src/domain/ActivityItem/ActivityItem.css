@@ -1,0 +1,56 @@
+.ui-activity-item {
+  display: flex;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) 0;
+}
+
+.ui-activity-item__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ui-activity-item__summary {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.ui-activity-item__actor {
+  font-weight: var(--font-weight-semibold);
+}
+
+.ui-activity-item__action {
+  color: var(--color-text-secondary);
+}
+
+.ui-activity-item__target {
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-activity-item__time {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-0-5);
+}
+
+.ui-activity-item__toggle {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-1) 0;
+  color: var(--color-action-primary);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.ui-activity-item__detail {
+  padding: var(--spacing-2);
+  margin-top: var(--spacing-1);
+  background: var(--color-background-surface-sunken);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}

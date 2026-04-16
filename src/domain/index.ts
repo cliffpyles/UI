@@ -247,3 +247,22 @@ export type { PermissionRowProps, PermissionOption } from "./PermissionRow";
 
 export { ShareControl } from "./ShareControl";
 export type { ShareControlProps } from "./ShareControl";
+
+// Group 8: Activity & Audit
+export { AuditEntry } from "./AuditEntry";
+export type { AuditEntryProps, AuditRecord } from "./AuditEntry";
+
+export { ActivityItem } from "./ActivityItem";
+export type { ActivityItemProps } from "./ActivityItem";
+
+export { ChangeLog } from "./ChangeLog";
+export type { ChangeLogProps, FieldChange } from "./ChangeLog";
+
+export { ActivityFeed } from "./ActivityFeed";
+export type { ActivityFeedProps, ActivityFeedItem } from "./ActivityFeed";
+
+export { CommentThread } from "./CommentThread";
+export type { CommentThreadProps, Comment } from "./CommentThread";
+
+export { VersionHistory } from "./VersionHistory";
+export type { VersionHistoryProps, Version } from "./VersionHistory";
