@@ -127,6 +127,44 @@ export type {
   TableCellProps,
 } from "./components";
 
+// Domain Components — Level 5
+export {
+  Currency,
+  Percentage,
+  Duration,
+  Timestamp,
+  DateRange,
+  FileSize,
+  NumberRange,
+  MetricValue,
+  TrendIndicator,
+  Delta,
+  Sparkline,
+  RatioBar,
+  MetricCard,
+} from "./domain";
+export type {
+  CurrencyProps,
+  PercentageProps,
+  DurationProps,
+  TimestampProps,
+  TimestampFormat,
+  DateRangeProps,
+  FileSizeProps,
+  NumberRangeProps,
+  MetricValueProps,
+  MetricFormat,
+  TrendIndicatorProps,
+  TrendDirection,
+  DeltaProps,
+  DeltaFormat,
+  SparklineProps,
+  RatioBarProps,
+  RatioBarVariant,
+  RatioBarSize,
+  MetricCardProps,
+} from "./domain";
+
 // Utilities — Level 3-4
 export {
   formatNumber,

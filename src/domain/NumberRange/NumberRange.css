@@ -1,0 +1,4 @@
+.ui-number-range {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

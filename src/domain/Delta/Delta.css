@@ -1,0 +1,16 @@
+.ui-delta {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-delta--up {
+  color: var(--color-status-success-text);
+}
+
+.ui-delta--down {
+  color: var(--color-status-error-text);
+}
+
+.ui-delta--flat {
+  color: var(--color-text-secondary);
+}
