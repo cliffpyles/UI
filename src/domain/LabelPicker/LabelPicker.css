@@ -1,0 +1,67 @@
+.ui-label-picker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ui-label-picker__selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.ui-label-picker__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: var(--spacing-1) 0 0;
+  padding: var(--spacing-1);
+  list-style: none;
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: var(--z-dropdown);
+}
+
+.ui-label-picker__option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-1-5) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.ui-label-picker__option:hover {
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-label-picker__option--selected {
+  background: var(--color-action-primary-bg);
+}
+
+.ui-label-picker__option--create {
+  color: var(--color-action-primary);
+  font-style: italic;
+}
+
+.ui-label-picker__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.ui-label-picker__empty {
+  padding: var(--spacing-3);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}

@@ -183,6 +183,11 @@ export {
   DataTableToolbar,
   DataTable,
   useDataTableState,
+  PriorityPicker,
+  defaultPriorities,
+  LabelPicker,
+  WorkflowStatePicker,
+  AssigneePicker,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -287,6 +292,13 @@ export type {
   DataTableStateOptions,
   DataTableStateProps,
   DataTableStateResult,
+  PriorityPickerProps,
+  PriorityDef,
+  LabelPickerProps,
+  LabelDef,
+  WorkflowStatePickerProps,
+  WorkflowState,
+  AssigneePickerProps,
 } from "./domain";
 
 // Utilities — Level 3-4

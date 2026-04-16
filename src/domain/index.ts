@@ -177,3 +177,16 @@ export type {
   QueryGroup,
   LogicalOp,
 } from "./QueryExpressionNode";
+
+// Group 10: Selection & Assignment
+export { PriorityPicker, defaultPriorities } from "./PriorityPicker";
+export type { PriorityPickerProps, PriorityDef } from "./PriorityPicker";
+
+export { LabelPicker } from "./LabelPicker";
+export type { LabelPickerProps, LabelDef } from "./LabelPicker";
+
+export { WorkflowStatePicker } from "./WorkflowStatePicker";
+export type { WorkflowStatePickerProps, WorkflowState } from "./WorkflowStatePicker";
+
+export { AssigneePicker } from "./AssigneePicker";
+export type { AssigneePickerProps } from "./AssigneePicker";
