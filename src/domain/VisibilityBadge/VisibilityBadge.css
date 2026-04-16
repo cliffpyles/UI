@@ -1,0 +1,20 @@
+.ui-visibility-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-0-5) var(--spacing-2);
+  border-radius: var(--radius-full);
+  background: var(--color-background-surface-sunken);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.ui-visibility-badge--public {
+  background: var(--color-status-info-bg);
+  color: var(--color-status-info-text);
+}
+
+.ui-visibility-badge--private {
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-text);
+}

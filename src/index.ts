@@ -202,6 +202,11 @@ export {
   FilePreview,
   AttachmentList,
   FileUploader,
+  RoleBadge,
+  VisibilityBadge,
+  AccessIndicator,
+  PermissionRow,
+  ShareControl,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -333,6 +338,15 @@ export type {
   AttachmentListProps,
   FileUploaderProps,
   UploadProgress,
+  RoleBadgeProps,
+  RoleBadgeSize,
+  RoleDef,
+  VisibilityBadgeProps,
+  Visibility,
+  AccessIndicatorProps,
+  PermissionRowProps,
+  PermissionOption,
+  ShareControlProps,
 } from "./domain";
 
 // Utilities — Level 3-4

@@ -1,0 +1,22 @@
+.ui-permission-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) 0;
+}
+
+.ui-permission-row__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ui-permission-row__label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.ui-permission-row__description {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-0-5);
+}

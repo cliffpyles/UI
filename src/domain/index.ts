@@ -231,3 +231,19 @@ export type { AttachmentListProps } from "./AttachmentList";
 
 export { FileUploader } from "./FileUploader";
 export type { FileUploaderProps, UploadProgress } from "./FileUploader";
+
+// Group 12: Permission & Access
+export { RoleBadge } from "./RoleBadge";
+export type { RoleBadgeProps, RoleBadgeSize, RoleDef } from "./RoleBadge";
+
+export { VisibilityBadge } from "./VisibilityBadge";
+export type { VisibilityBadgeProps, Visibility } from "./VisibilityBadge";
+
+export { AccessIndicator } from "./AccessIndicator";
+export type { AccessIndicatorProps } from "./AccessIndicator";
+
+export { PermissionRow } from "./PermissionRow";
+export type { PermissionRowProps, PermissionOption } from "./PermissionRow";
+
+export { ShareControl } from "./ShareControl";
+export type { ShareControlProps } from "./ShareControl";

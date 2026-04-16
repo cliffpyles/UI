@@ -1,0 +1,16 @@
+.ui-access-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+}
+
+.ui-access-indicator--allowed {
+  color: var(--color-status-success-icon);
+}
+
+.ui-access-indicator--restricted {
+  color: var(--color-text-tertiary);
+}
