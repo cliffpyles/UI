@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Tabs — Composite Component
+   ========================================================================== */
+
+.ui-tabs {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-sans);
+}
+
+/* ---------- Tab List ---------- */
+
+.ui-tabs__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-0);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* ---------- Tab ---------- */
+
+.ui-tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: var(--font-line-height-normal);
+  transition: color var(--duration-fast) var(--easing-default);
+  outline: none;
+}
+
+.ui-tabs__tab:hover:not(:disabled) {
+  color: var(--color-text-primary);
+}
+
+.ui-tabs__tab:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+  border-radius: var(--radius-md);
+}
+
+/* Active tab */
+.ui-tabs__tab--active {
+  color: var(--color-action-primary);
+}
+
+.ui-tabs__tab--active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-action-primary);
+  border-radius: var(--radius-full);
+}
+
+/* Disabled tab */
+.ui-tabs__tab--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Panel ---------- */
+
+.ui-tabs__panel {
+  padding: var(--spacing-4) 0;
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-normal);
+  outline: none;
+}
+
+.ui-tabs__panel:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-tabs__tab {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-tabs__panel {
+  padding: var(--spacing-3) 0;
+}

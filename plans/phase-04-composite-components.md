@@ -275,12 +275,12 @@ Composite component tests emphasize:
 
 ## Completion Criteria
 
-- [ ] All 8 composite components implemented.
-- [ ] All compound component APIs work (Dropdown, Tabs, Accordion, Card).
-- [ ] Modal focus trapping and scroll locking work correctly.
-- [ ] All keyboard interactions work per ARIA patterns.
-- [ ] All components support density and theming.
-- [ ] All components have comprehensive tests with axe-core.
-- [ ] Components exported from barrel files.
-- [ ] Dev playground updated with Composite Components section.
-- [ ] `npm run typecheck && npm run lint && npm test` passes.
+- [x] All 8 composite components implemented.
+- [x] All compound component APIs work (Dropdown, Tabs, Accordion, Card).
+- [x] Modal focus trapping and scroll locking work correctly.
+- [x] All keyboard interactions work per ARIA patterns.
+- [x] All components support density and theming.
+- [x] All components have comprehensive tests with axe-core.
+- [x] Components exported from barrel files.
+- [x] Dev playground updated with Composite Components section.
+- [x] `npm run typecheck && npm run lint && npm test` passes.

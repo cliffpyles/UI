@@ -1,0 +1,89 @@
+/* ==========================================================================
+   Card — Composite Component
+   ========================================================================== */
+
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-family-sans);
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+
+.ui-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4) var(--spacing-5);
+}
+
+.ui-card__title {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-tight);
+}
+
+.ui-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+/* ---------- Body ---------- */
+
+.ui-card__body {
+  padding: var(--spacing-0) var(--spacing-5) var(--spacing-4);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-normal);
+}
+
+/* When body is the first child (no header) */
+.ui-card__body:first-child {
+  padding-top: var(--spacing-4);
+}
+
+/* ---------- Footer ---------- */
+
+.ui-card__footer {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-5);
+  border-top: 1px solid var(--color-border-default);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--font-line-height-normal);
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-card__header {
+  padding: var(--spacing-3) var(--spacing-4);
+}
+
+[data-density="compact"] .ui-card__title {
+  font-size: var(--font-size-sm);
+}
+
+[data-density="compact"] .ui-card__body {
+  padding: var(--spacing-0) var(--spacing-4) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+[data-density="compact"] .ui-card__body:first-child {
+  padding-top: var(--spacing-3);
+}
+
+[data-density="compact"] .ui-card__footer {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-xs);
+}

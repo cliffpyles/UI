@@ -1,0 +1,106 @@
+/* ==========================================================================
+   Accordion — Composite Component
+   ========================================================================== */
+
+.ui-accordion {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-sans);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* ---------- Item ---------- */
+
+.ui-accordion__item {
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ui-accordion__item:last-child {
+  border-bottom: none;
+}
+
+/* ---------- Heading ---------- */
+
+.ui-accordion__heading {
+  margin: 0;
+}
+
+/* ---------- Trigger ---------- */
+
+.ui-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: var(--color-background-surface);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  line-height: var(--font-line-height-normal);
+  transition: background-color var(--duration-fast) var(--easing-default);
+  outline: none;
+}
+
+.ui-accordion__trigger:hover {
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-accordion__trigger:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
+
+.ui-accordion__trigger-text {
+  flex: 1 1 auto;
+}
+
+/* ---------- Chevron ---------- */
+
+.ui-accordion__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: transform var(--duration-normal) var(--easing-default);
+}
+
+.ui-accordion__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* ---------- Content ---------- */
+
+.ui-accordion__content {
+  overflow: hidden;
+  transition: max-height var(--duration-normal) var(--easing-default);
+}
+
+.ui-accordion__content[hidden] {
+  display: none;
+}
+
+.ui-accordion__content-inner {
+  padding: var(--spacing-0) var(--spacing-4) var(--spacing-4);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-normal);
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-accordion__trigger {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-accordion__content-inner {
+  padding: var(--spacing-0) var(--spacing-3) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
