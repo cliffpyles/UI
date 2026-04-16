@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Dark Theme — Semantic Tokens
+   Activated via data-theme="dark" on the root element.
+   ========================================================================== */
+
+[data-theme="dark"] {
+  /* ---------- Structural ---------- */
+  --color-background-surface: var(--color-gray-900);
+  --color-background-surface-raised: var(--color-gray-800);
+  --color-background-surface-sunken: var(--color-gray-950);
+  --color-background-overlay: rgba(0, 0, 0, 0.7);
+
+  --color-text-primary: var(--color-gray-100);
+  --color-text-secondary: var(--color-gray-400);
+  --color-text-tertiary: var(--color-gray-500);
+  --color-text-disabled: var(--color-gray-600);
+
+  --color-border-default: var(--color-gray-700);
+  --color-border-strong: var(--color-gray-600);
+
+  /* ---------- Action ---------- */
+  --color-action-primary: var(--color-blue-400);
+  --color-action-primary-hover: var(--color-blue-300);
+  --color-action-primary-bg: var(--color-blue-950);
+  --color-action-secondary: var(--color-gray-300);
+  --color-action-destructive: var(--color-red-400);
+  --color-focus-ring: rgba(96, 165, 250, 0.5);
+
+  /* ---------- Status: Success ---------- */
+  --color-status-success-bg: var(--color-green-950);
+  --color-status-success-text: var(--color-green-400);
+  --color-status-success-icon: var(--color-green-400);
+
+  /* ---------- Status: Warning ---------- */
+  --color-status-warning-bg: var(--color-amber-950);
+  --color-status-warning-text: var(--color-amber-400);
+  --color-status-warning-icon: var(--color-amber-400);
+
+  /* ---------- Status: Error ---------- */
+  --color-status-error-bg: var(--color-red-950);
+  --color-status-error-text: var(--color-red-400);
+  --color-status-error-icon: var(--color-red-400);
+
+  /* ---------- Status: Info ---------- */
+  --color-status-info-bg: var(--color-blue-950);
+  --color-status-info-text: var(--color-blue-400);
+  --color-status-info-icon: var(--color-blue-400);
+
+  /* ---------- Categorical (Charts / Tags) ---------- */
+  --color-categorical-1: var(--color-blue-400);
+  --color-categorical-2: var(--color-teal-400);
+  --color-categorical-3: var(--color-amber-400);
+  --color-categorical-4: var(--color-purple-400);
+  --color-categorical-5: var(--color-pink-400);
+  --color-categorical-6: var(--color-indigo-400);
+  --color-categorical-7: var(--color-orange-400);
+  --color-categorical-8: var(--color-cyan-400);
+}

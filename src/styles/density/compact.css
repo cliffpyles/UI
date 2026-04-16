@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Compact Density
+   Tighter spacing and smaller type for data-dense views.
+   ========================================================================== */
+
+[data-density="compact"] {
+  --spacing-content-gap: var(--spacing-1);
+  --spacing-section-gap: var(--spacing-3);
+  --spacing-page-padding: var(--spacing-3);
+  --spacing-component-padding-x: var(--spacing-2);
+  --spacing-component-padding-y: var(--spacing-1);
+  --spacing-inline-gap: var(--spacing-1);
+  --font-size-body: var(--font-size-xs);
+  --font-size-caption: var(--font-size-2xs);
+  --font-size-label: var(--font-size-xs);
+  --font-size-heading: var(--font-size-sm);
+  --line-height-body: var(--font-line-height-tight);
+}

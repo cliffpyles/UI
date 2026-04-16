@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Comfortable Density
+   Generous spacing and larger type for relaxed layouts.
+   ========================================================================== */
+
+[data-density="comfortable"] {
+  --spacing-content-gap: var(--spacing-4);
+  --spacing-section-gap: var(--spacing-8);
+  --spacing-page-padding: var(--spacing-8);
+  --spacing-component-padding-x: var(--spacing-5);
+  --spacing-component-padding-y: var(--spacing-2-5);
+  --spacing-inline-gap: var(--spacing-2);
+  --font-size-body: var(--font-size-base);
+  --font-size-caption: var(--font-size-sm);
+  --font-size-label: var(--font-size-base);
+  --font-size-heading: var(--font-size-xl);
+  --line-height-body: var(--font-line-height-normal);
+}
