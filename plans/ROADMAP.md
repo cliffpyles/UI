@@ -78,4 +78,5 @@ Every phase is complete when:
 ## Current Status
 
 - **Phase 1**: Complete. 3-tier token system (primitives → semantic → component), CSS custom properties pipeline with generation utility, ThemeProvider (light/dark/system), DensityProvider (compact/default/comfortable), CSS reset, vitest-axe test infrastructure, dev playground with theme/density switching.
-- **Phases 2-8**: Not started.
+- **Phase 2**: Complete. All 8 primitives (VisuallyHidden, Text, Box, Icon, Divider, Dot, Badge, Spinner) implemented with full prop APIs, token-based CSS, forwardRef, colocated tests (230 total with axe-core a11y checks), 30 inline SVG icons, barrel exports, and dev playground section.
+- **Phases 3-8**: Not started.

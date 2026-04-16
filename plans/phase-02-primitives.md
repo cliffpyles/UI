@@ -247,11 +247,11 @@ describe("ComponentName", () => {
 
 ## Completion Criteria
 
-- [ ] All 8 primitives implemented with full props.
-- [ ] All primitives use CSS custom properties — zero hardcoded values.
-- [ ] All primitives forward refs and spread remaining props.
-- [ ] All primitives have colocated tests with axe-core a11y checks.
-- [ ] Icon component includes the initial icon set (30+ icons).
-- [ ] Primitives exported from `src/primitives/index.ts`.
-- [ ] Dev playground updated with a Primitives section.
-- [ ] All tests pass: `npm run typecheck && npm run lint && npm test`.
+- [x] All 8 primitives implemented with full props.
+- [x] All primitives use CSS custom properties — zero hardcoded values.
+- [x] All primitives forward refs and spread remaining props.
+- [x] All primitives have colocated tests with axe-core a11y checks.
+- [x] Icon component includes the initial icon set (30+ icons).
+- [x] Primitives exported from `src/primitives/index.ts`.
+- [x] Dev playground updated with a Primitives section.
+- [x] All tests pass: `npm run typecheck && npm run lint && npm test`.
