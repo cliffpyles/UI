@@ -217,6 +217,15 @@ export {
   DependencyLink,
   WorkflowStepIndicator,
   TaskCard,
+  EmptyChart,
+  ChartTooltip,
+  ChartLegend,
+  ChartHeader,
+  TimeSeriesChart,
+  CategoryChart,
+  DistributionChart,
+  FunnelChart,
+  HeatmapGrid,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -377,6 +386,21 @@ export type {
   StepState,
   TaskCardProps,
   TaskData,
+  EmptyChartProps,
+  ChartTooltipProps,
+  ChartTooltipRow,
+  ChartLegendProps,
+  LegendSeries,
+  ChartHeaderProps,
+  TimeSeriesChartProps,
+  TimeSeriesSeries,
+  TimeSeriesPoint,
+  CategoryChartProps,
+  CategoryBar,
+  DistributionChartProps,
+  FunnelChartProps,
+  FunnelStage,
+  HeatmapGridProps,
 } from "./domain";
 
 // Utilities — Level 3-4

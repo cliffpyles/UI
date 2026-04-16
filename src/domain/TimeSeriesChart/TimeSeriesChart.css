@@ -1,0 +1,13 @@
+.ui-time-series-chart {
+  display: block;
+  width: 100%;
+}
+
+.ui-time-series-chart__svg {
+  max-width: 100%;
+}
+
+.ui-time-series-chart__axis line {
+  stroke: var(--color-border-default);
+  stroke-width: 1;
+}

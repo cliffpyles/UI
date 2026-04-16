@@ -1,0 +1,30 @@
+.ui-heatmap-grid {
+  display: inline-block;
+  overflow-x: auto;
+}
+
+.ui-heatmap-grid__table {
+  border-collapse: collapse;
+  font-size: var(--font-size-xs);
+}
+
+.ui-heatmap-grid__table th {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-1);
+  text-align: center;
+}
+
+.ui-heatmap-grid__cell {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-background-surface);
+}
+
+.ui-heatmap-grid__value {
+  display: inline-block;
+  padding: var(--spacing-0-5);
+  font-size: var(--font-size-2xs);
+  color: rgba(0, 0, 0, 0.8);
+}

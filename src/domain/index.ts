@@ -283,3 +283,35 @@ export type {
 
 export { TaskCard } from "./TaskCard";
 export type { TaskCardProps, TaskData } from "./TaskCard";
+
+// Group 6: Chart & Visualization
+export { EmptyChart } from "./EmptyChart";
+export type { EmptyChartProps } from "./EmptyChart";
+
+export { ChartTooltip } from "./ChartTooltip";
+export type { ChartTooltipProps, ChartTooltipRow } from "./ChartTooltip";
+
+export { ChartLegend } from "./ChartLegend";
+export type { ChartLegendProps, LegendSeries } from "./ChartLegend";
+
+export { ChartHeader } from "./ChartHeader";
+export type { ChartHeaderProps } from "./ChartHeader";
+
+export { TimeSeriesChart } from "./TimeSeriesChart";
+export type {
+  TimeSeriesChartProps,
+  TimeSeriesSeries,
+  TimeSeriesPoint,
+} from "./TimeSeriesChart";
+
+export { CategoryChart } from "./CategoryChart";
+export type { CategoryChartProps, CategoryBar } from "./CategoryChart";
+
+export { DistributionChart } from "./DistributionChart";
+export type { DistributionChartProps } from "./DistributionChart";
+
+export { FunnelChart } from "./FunnelChart";
+export type { FunnelChartProps, FunnelStage } from "./FunnelChart";
+
+export { HeatmapGrid } from "./HeatmapGrid";
+export type { HeatmapGridProps } from "./HeatmapGrid";

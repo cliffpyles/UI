@@ -1,0 +1,36 @@
+.ui-funnel-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.ui-funnel-chart__stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.ui-funnel-chart__header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-primary);
+}
+
+.ui-funnel-chart__label {
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-funnel-chart__value {
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-funnel-chart__bar {
+  height: 24px;
+  border-radius: var(--radius-sm);
+}
+
+.ui-funnel-chart__conversion {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}

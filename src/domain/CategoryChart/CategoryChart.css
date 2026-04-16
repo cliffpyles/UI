@@ -1,0 +1,8 @@
+.ui-category-chart {
+  display: block;
+  width: 100%;
+}
+
+.ui-category-chart__svg {
+  max-width: 100%;
+}
