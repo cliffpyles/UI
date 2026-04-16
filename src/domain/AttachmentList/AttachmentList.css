@@ -1,0 +1,23 @@
+.ui-attachment-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ui-attachment-list__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.ui-attachment-list__empty {
+  padding: var(--spacing-4);
+  border: 1px dashed var(--color-border-default);
+  border-radius: var(--radius-md);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}

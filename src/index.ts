@@ -198,6 +198,10 @@ export {
   CronInput,
   FormulaInput,
   GeolocationInput,
+  FileAttachment,
+  FilePreview,
+  AttachmentList,
+  FileUploader,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -323,6 +327,12 @@ export type {
   FormulaSchemaField,
   GeolocationInputProps,
   LatLng,
+  FileAttachmentProps,
+  FileData,
+  FilePreviewProps,
+  AttachmentListProps,
+  FileUploaderProps,
+  UploadProgress,
 } from "./domain";
 
 // Utilities — Level 3-4

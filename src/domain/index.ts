@@ -218,3 +218,16 @@ export type { FormulaInputProps, FormulaSchemaField } from "./FormulaInput";
 
 export { GeolocationInput } from "./GeolocationInput";
 export type { GeolocationInputProps, LatLng } from "./GeolocationInput";
+
+// Group 11: File & Attachment
+export { FileAttachment } from "./FileAttachment";
+export type { FileAttachmentProps, FileData } from "./FileAttachment";
+
+export { FilePreview } from "./FilePreview";
+export type { FilePreviewProps } from "./FilePreview";
+
+export { AttachmentList } from "./AttachmentList";
+export type { AttachmentListProps } from "./AttachmentList";
+
+export { FileUploader } from "./FileUploader";
+export type { FileUploaderProps, UploadProgress } from "./FileUploader";
