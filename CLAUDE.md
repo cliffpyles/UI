@@ -107,9 +107,17 @@ Use subagents for parallelizable or scoped work. Common patterns for this projec
 - **Test coverage**: Spawn a subagent to write tests for an existing component while continuing to build the next component.
 - **Cross-component refactor**: When changing tokens or shared patterns, use an Explore subagent to find all affected components before making changes.
 
-## Skills Reference
+## Project Skills
 
-Relevant skills for this project:
+Custom skills for this design system (`.claude/skills/`):
+
+| Skill | Invocation | Purpose |
+|-------|-----------|---------|
+| `/implement-phase` | `/implement-phase 1` | Build a roadmap phase end-to-end: reads the plan, loads design docs, implements components with tests, verifies completion criteria |
+| `/iterate` | `/iterate Button` or `/iterate fix keyboard nav in Dropdown` | Audit and fix existing work — compliance checks against design docs, bug fixes, test expansion, review feedback |
+| `/new-component` | `/new-component Popover` or `/new-component MetricCard domain` | Add a new component following the full lifecycle: level classification, API design, implementation, tests, barrel exports |
+
+### Bundled skills also useful here
 
 - `/simplify` — Review changed code for reuse, quality, and efficiency.
 - `design:design-system` — Audit naming consistency and hardcoded values.
