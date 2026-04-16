@@ -302,14 +302,14 @@ Every base component test file includes:
 
 ## Completion Criteria
 
-- [ ] All 10 base components implemented.
-- [ ] All components use CSS custom properties from tokens.
-- [ ] All components support density via DensityProvider context.
-- [ ] All components work in light and dark themes.
-- [ ] All components forward refs and spread props.
-- [ ] All components have comprehensive test suites with axe-core.
-- [ ] Input components support controlled and uncontrolled usage.
-- [ ] Tooltip supports keyboard focus, delay, and viewport flipping.
-- [ ] Components exported from `src/components/index.ts` and `src/index.ts`.
-- [ ] Dev playground updated with Base Components section.
-- [ ] `npm run typecheck && npm run lint && npm test` passes.
+- [x] All 10 base components implemented.
+- [x] All components use CSS custom properties from tokens.
+- [x] All components support density via DensityProvider context.
+- [x] All components work in light and dark themes.
+- [x] All components forward refs and spread props.
+- [x] All components have comprehensive test suites with axe-core.
+- [x] Input components support controlled and uncontrolled usage.
+- [x] Tooltip supports keyboard focus, delay, and viewport flipping.
+- [x] Components exported from `src/components/index.ts` and `src/index.ts`.
+- [x] Dev playground updated with Base Components section.
+- [x] `npm run typecheck && npm run lint && npm test` passes.
