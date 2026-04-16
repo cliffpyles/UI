@@ -13,9 +13,9 @@ The design documents in `design/` are the source of truth for every specificatio
 | 3 | [Base Components](./phase-03-base-components.md) | Level 3 | Button, Input, Checkbox, Radio, Toggle, Select, Tag, Avatar, Tooltip, Skeleton |
 | 4 | [Composite Components](./phase-04-composite-components.md) | Level 4 | FormField, Dropdown, Modal, Card, Tabs, Accordion, Pagination, SearchInput |
 | 5 | [Data Utilities & Display](./phase-05-data-utilities-and-display.md) | Level 3-4 | Formatting utilities, Table, EmptyState, ErrorState, ProgressBar |
-| 6 | [Domain Components](./phase-06-domain-components.md) | Level 5 | DataTable, MetricCard, StatusBadge, FilterBar, DateRangePicker |
-| 7 | [Layout & Patterns](./phase-07-layouts-and-patterns.md) | Level 6 | DashboardLayout, DetailView, SplitView, ReportLayout, AppShell |
-| 8 | [Advanced Features](./phase-08-advanced-features.md) | Cross-cutting | Real-time data, export/sharing, help/onboarding, keyboard shortcut system |
+| 6 | [Domain Components](./phase-06-domain-components.md) | Level 5 | 80+ domain components across 13 groups: data display, identity, status, tables, filtering, charts, forms, activity, notifications, selection, files, permissions, workflow |
+| 7 | [Layout & Pattern Components](./phase-07-layouts-and-patterns.md) | Level 6 | 60+ layout components across 10 groups: page frames, data display layouts, exploration, drill-down, forms, monitoring, reporting, administration, onboarding, navigation |
+| 8 | [Advanced Cross-Cutting Features](./phase-08-advanced-features.md) | Cross-cutting | Keyboard shortcut system, coachmark tours, value change animation, real-time data hooks, drag and drop |
 
 ## Dependency Graph
 
@@ -30,12 +30,27 @@ Phase 4: Composite Components ← Phase 5: Data Utilities & Display
     ↓                                ↓
 Phase 6: Domain Components ←────────┘
     ↓
-Phase 7: Layout & Patterns
+Phase 7: Layout & Pattern Components
     ↓
-Phase 8: Advanced Features
+Phase 8: Advanced Cross-Cutting Features
 ```
 
 Phases 4 and 5 can be worked on in parallel — they share a dependency on Phase 3 but not on each other. All other phases are sequential.
+
+### Recommended sub-phase ordering
+
+Phases 6 and 7 are large (80+ and 60+ components respectively). They can be broken into sub-phases executed in group order as defined in each plan file. Within each phase, groups are ordered by dependency — earlier groups are used by later groups.
+
+**Phase 6 natural sub-phases:**
+- **6a**: Groups 1-3 — Data display primitives, status & state, notification & messaging (foundation used by everything else)
+- **6b**: Groups 4-5 — Data table & grid, filtering & query (core data workflow)
+- **6c**: Groups 6-9 — Charts, form inputs, activity & audit, identity & entity
+- **6d**: Groups 10-13 — Selection, files, permissions, workflow & task
+
+**Phase 7 natural sub-phases:**
+- **7a**: Shared utilities + Groups 1, 10 — ResizablePanel, Breadcrumbs, page frames, navigation frames
+- **7b**: Groups 2-4 — Data display layouts, exploration & filtering, detail & drill-down
+- **7c**: Groups 5-9 — Forms, monitoring, reporting, administration, onboarding
 
 ## Cross-Cutting Concerns
 
@@ -47,12 +62,12 @@ These are not standalone phases. They are baked into every phase:
 - ARIA attributes verified per the patterns in [design/standards/accessibility.md](../design/standards/accessibility.md).
 - Manual testing checklist completed before a component is considered done.
 
-### Density (phases 1-6)
+### Density (phases 1-7)
 - Token system defines density variants in Phase 1.
 - Every component from Phase 2 onward supports all three density levels via DensityProvider.
 - Density tests are included in every component's test suite.
 
-### Theming (phases 1-6)
+### Theming (phases 1-7)
 - Theme engine and CSS custom properties are established in Phase 1.
 - Every component from Phase 2 onward works in both light and dark themes.
 - Theme tests are included in every component's test suite.

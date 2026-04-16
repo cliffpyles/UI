@@ -2,270 +2,417 @@
 
 **Architecture Level:** Level 5 (Domain)
 **Dependencies:** Phase 4 (Composite Components), Phase 5 (Data Utilities & Display)
-**Source of truth:** [design/architecture.md](../design/architecture.md) (Level 5 rules), [design/patterns/data-display.md](../design/patterns/data-display.md), [design/patterns/filtering-and-search.md](../design/patterns/filtering-and-search.md), [design/patterns/states.md](../design/patterns/states.md), [design/patterns/data-entry.md](../design/patterns/data-entry.md)
+**Source of truth:** [design/architecture.md](../design/architecture.md) (Level 5 rules), [design/patterns/data-display.md](../design/patterns/data-display.md), [design/patterns/filtering-and-search.md](../design/patterns/filtering-and-search.md), [design/patterns/states.md](../design/patterns/states.md), [design/patterns/data-entry.md](../design/patterns/data-entry.md), [design/patterns/real-time-data.md](../design/patterns/real-time-data.md), [design/patterns/permissions-and-access.md](../design/patterns/permissions-and-access.md), [design/patterns/error-handling.md](../design/patterns/error-handling.md), [design/patterns/help-and-onboarding.md](../design/patterns/help-and-onboarding.md)
 
 ## Objective
 
-Build domain-aware components that encode product-level conventions. These are the primary productivity multipliers — they understand data shapes, handle all states (loading, empty, error, stale), and enforce consistency for high-frequency patterns. They compose Level 3-4 components and never reference application-specific data fetching layers.
+Build domain-aware components that encode product-level conventions for data-intensive applications. These sit between generic composites (Level 4) and fully wired feature components (Level 7). They understand data shapes, handle all states (loading, empty, error, stale), and enforce consistency for high-frequency patterns. They compose Level 3-4 components and never reference application-specific data fetching layers.
+
+Domain components are where the design system earns its keep. Levels 1-4 save teams from rebuilding buttons and modals. Level 5 saves teams from every feature inventing its own way to display a status, a metric, a user, or a date.
 
 ## Directory Structure
 
 ```
 src/
-  domain/                    # New directory
-    DataTable/
-      DataTable.tsx
-      DataTable.css
-      DataTable.test.tsx
-      useDataTableState.ts   # Hook for sort/filter/pagination state
-      index.ts
+  domain/
+    # Group 1: Data Display
+    MetricValue/
     MetricCard/
+    TrendIndicator/
+    Sparkline/
+    Delta/
+    Currency/
+    Percentage/
+    Duration/
+    Timestamp/
+    DateRange/
+    FileSize/
+    NumberRange/
+    RatioBar/
+
+    # Group 2: Identity & Entity
+    UserAvatar/
+    UserChip/
+    UserPicker/
+    TeamBadge/
+    OrgSwitcher/
+    EntityLink/
+    MentionToken/
+
+    # Group 3: Status & State
     StatusBadge/
-    FilterBar/
-    DateRangePicker/
+    HealthIndicator/
+    ProgressPill/
+    SyncStatus/
+    ConnectionStatus/
+    StalenessBadge/
+    LiveIndicator/
+    EnvironmentTag/
+
+    # Group 4: Data Table & Grid
+    DataTable/
+    DataTableToolbar/
+    ColumnPicker/
+    RowActionsMenu/
+    BulkActionBar/
+    CellRenderer/
+    ExpandableRow/
+    GroupedRowHeader/
+
+    # Group 5: Filtering & Query
+    FilterChip/
+    FilterPicker/
+    OperatorSelect/
+    ValueInput/
+    QueryExpressionNode/
+    SavedViewPicker/
+    SmartDateRange/
+
+    # Group 6: Chart & Visualization
+    TimeSeriesChart/
+    CategoryChart/
+    DistributionChart/
+    FunnelChart/
+    HeatmapGrid/
+    ChartHeader/
+    ChartLegend/
+    ChartTooltip/
+    EmptyChart/
+
+    # Group 7: Form & Input Domain
+    CurrencyInput/
+    PercentageInput/
+    UnitInput/
+    TagInput/
+    CategoryPicker/
+    FormulaInput/
+    CronInput/
+    GeolocationInput/
+    ColorPicker/
+
+    # Group 8: Activity & Audit
+    ActivityItem/
+    ActivityFeed/
+    ChangeLog/
+    CommentThread/
+    VersionHistory/
+    AuditEntry/
+
+    # Group 9: Notification & Messaging
+    NotificationItem/
+    Toast/
+    BannerAlert/
+    InlineMessage/
+    UnreadIndicator/
+
+    # Group 10: Selection & Assignment
+    AssigneePicker/
+    LabelPicker/
+    PriorityPicker/
+    WorkflowStatePicker/
+
+    # Group 11: File & Attachment
+    FileAttachment/
+    FileUploader/
+    FilePreview/
+    AttachmentList/
+
+    # Group 12: Permission & Access
+    RoleBadge/
+    PermissionRow/
+    AccessIndicator/
+    ShareControl/
+    VisibilityBadge/
+
+    # Group 13: Workflow & Task
+    TaskCard/
+    DueDateIndicator/
+    DependencyLink/
+    WorkflowStepIndicator/
+
     index.ts
 ```
 
-## Components
+## Component Groups
 
-### DataTable
+### Group 1: Data Display Primitives
 
-The Level 5 table that wraps the generic Table (Level 4) with sort state, filter state, pagination, row selection, loading/empty/error states, and column configuration.
+Components that render specific types of data with correct formatting, localization, and semantic meaning. These use the formatting utilities from Phase 5 internally.
 
-**Props:**
-| Prop | Type | Default |
-|------|------|---------|
-| `columns` | `ColumnDef<T>[]` | required |
-| `data` | `T[]` | required |
-| `loading` | `boolean` | `false` |
-| `error` | `ReactNode` | — |
-| `onRetry` | `() => void` | — |
-| `emptyState` | `ReactNode` | default EmptyState |
-| `sortable` | `boolean` | `true` |
-| `sort` | `{ column: string; direction: "asc" \| "desc" } \| null` | — |
-| `onSortChange` | `(sort) => void` | — |
-| `selectable` | `boolean` | `false` |
-| `selectedRows` | `Set<string>` | — |
-| `onSelectionChange` | `(selected: Set<string>) => void` | — |
-| `getRowId` | `(row: T) => string` | — |
-| `pagination` | `{ page: number; pageSize: number; total: number }` | — |
-| `onPageChange` | `(page: number) => void` | — |
-| `onPageSizeChange` | `(size: number) => void` | — |
-| `stickyHeader` | `boolean` | `true` |
-| `striped` | `boolean` | `true` |
-| `onRowClick` | `(row: T) => void` | — |
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **MetricValue** | Numeric value with unit, locale-aware formatting, optional abbreviation | `value`, `format`, `unit`, `precision`, `compact` |
+| **MetricCard** | Value + label + trend + sparkline + comparison target. Full state coverage. | `label`, `value`, `format`, `trend`, `sparkline`, `info`, `loading`, `error` |
+| **TrendIndicator** | Arrow + percentage change, semantically colored for direction | `value`, `direction: "up" \| "down" \| "flat"`, `label` |
+| **Sparkline** | Inline micro-chart for trends without axes or labels | `data: number[]`, `width`, `height`, `color` |
+| **Delta** | Absolute or percentage difference between two values | `current`, `previous`, `format: "absolute" \| "percent"` |
+| **Currency** | Number with correct symbol, precision, locale-aware grouping | `value`, `currency`, `locale` |
+| **Percentage** | Formatted percentage with configurable precision | `value`, `precision`, `showSign` |
+| **Duration** | Time span in human-readable form | `value` (ms), `format: "short" \| "long"` |
+| **Timestamp** | Date/time with relative/absolute display, tooltip for opposite form | `date`, `format: "relative" \| "absolute" \| "auto"` |
+| **DateRange** | Two dates rendered compactly ("Jan 1 – Mar 31, 2026") | `start`, `end`, `format` |
+| **FileSize** | Byte count with appropriate unit | `bytes`, `precision` |
+| **NumberRange** | Min–max pair with consistent formatting | `min`, `max`, `format` |
+| **RatioBar** | Visual bar showing part/whole ratio | `value`, `max`, `label`, `variant` |
 
-**ColumnDef:**
-```typescript
-interface ColumnDef<T> {
-  key: string;
-  header: ReactNode;
-  cell: (row: T) => ReactNode;
-  sortable?: boolean;
-  numeric?: boolean;
-  width?: string | number;
-  minWidth?: string | number;
-  truncate?: boolean;
-}
-```
+**Tests:** Each component tested with: typical values, zero, negative, null/undefined (renders "—"), very large numbers, locale variations, axe-core.
 
-**State management:** Provide a `useDataTableState` hook that manages sort, pagination, and selection state locally, so consumers can use it without wiring up their own state:
+### Group 2: Identity & Entity
 
+Components representing people, organizations, or other first-class entities.
+
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **UserAvatar** | Profile image with fallback to initials, presence indicator, tooltip | `user: { name, image?, status? }`, `size`, `showPresence` |
+| **UserChip** | Avatar + name, used inline in tables and feeds | `user`, `size`, `removable`, `onRemove` |
+| **UserPicker** | Searchable input for selecting users, async loading, multi-select | `value`, `onChange`, `onSearch`, `multiple`, `loading` |
+| **TeamBadge** | Visual identifier for a team or group with color/icon | `team: { name, color?, icon? }`, `size` |
+| **OrgSwitcher** | Selector for switching between organizations/workspaces | `orgs`, `currentOrg`, `onChange` |
+| **EntityLink** | Clickable reference to any record with type-specific icon | `entity: { type, id, label }`, `href`, `preview` |
+| **MentionToken** | Inline reference to a user/entity inside text | `entity`, `variant` |
+
+**Tests:** Fallback chains (image → initials → icon), async search in UserPicker, presence indicators, accessible names, axe-core.
+
+### Group 3: Status & State
+
+Components communicating the state of a record, process, or system.
+
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **StatusBadge** | Maps product status enum to colored badge with icon and label | `status`, `statusMap`, `size` |
+| **HealthIndicator** | Green/yellow/red indicator for system health with text alternative | `health: "healthy" \| "degraded" \| "down"`, `label` |
+| **ProgressPill** | Progress bar with percentage for long-running operations | `progress`, `label`, `variant` |
+| **SyncStatus** | Sync state (syncing/synced/error/paused) with last-synced timestamp | `status`, `lastSynced`, `onRetry` |
+| **ConnectionStatus** | Live indicator of connection state per [design/patterns/real-time-data.md](../design/patterns/real-time-data.md) | `status: "connected" \| "connecting" \| "disconnected" \| "recovered"`, `lastUpdated`, `onRetry` |
+| **StalenessBadge** | "Data from X minutes ago" indicator per [design/patterns/real-time-data.md](../design/patterns/real-time-data.md) | `lastUpdated`, `staleThreshold`, `criticalThreshold` |
+| **LiveIndicator** | Pulsing dot + label signaling real-time data streaming | `active`, `label` |
+| **EnvironmentTag** | Badge identifying current environment (prod/staging/dev) | `environment`, `variant` |
+
+**Tests:** All status variants render correctly, color is never sole indicator, ARIA live regions for connection changes, reduced motion for LiveIndicator pulse, axe-core.
+
+### Group 4: Data Table & Grid
+
+Components layering domain behavior on top of the generic Table from Phase 5.
+
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **DataTable** | Table with sorting, pagination, column visibility, loading/empty/error states, typed query objects | `columns`, `data`, `sort`, `pagination`, `selectable`, `loading`, `error`, `emptyState` |
+| **DataTableToolbar** | Standardized toolbar with search, filter chips, column settings, export, bulk actions | `onSearch`, `filters`, `onExport`, `selectedCount` |
+| **ColumnPicker** | Show/hide/reorder columns with persistence | `columns`, `visible`, `onChange` |
+| **RowActionsMenu** | Per-row action menu with product-aware actions | `actions: ActionDef[]`, `row` |
+| **BulkActionBar** | Sticky bar when rows selected, showing count and available actions | `selectedCount`, `actions`, `onClear` |
+| **CellRenderer** | Registry of cell renderers keyed to data types (currency, date, user, status) | `type`, `value`, `options` |
+| **ExpandableRow** | Row revealing additional content below when expanded | `expanded`, `onToggle`, `content` |
+| **GroupedRowHeader** | Aggregation row with group name and summary statistics | `group`, `count`, `aggregates`, `expanded`, `onToggle` |
+
+**DataTable state hook:**
 ```tsx
-const table = useDataTableState({ defaultSort: { column: "name", direction: "asc" } });
+const table = useDataTableState({
+  defaultSort: { column: "name", direction: "asc" },
+  defaultPageSize: 25,
+});
 <DataTable {...table.props} columns={columns} data={data} />
 ```
 
 **States per [design/patterns/states.md](../design/patterns/states.md):**
-- **Loading**: Skeleton rows matching column layout.
-- **Empty (no data)**: Full-width EmptyState within table body.
-- **Empty (no results)**: EmptyState with "No results match" and filter context.
-- **Error**: ErrorState with retry button within table body.
-- **Refreshing**: Existing data visible with subtle loading indicator in header.
+- **Loading**: Skeleton rows matching column layout
+- **Empty (no data)**: Full-width EmptyState
+- **Empty (no results)**: EmptyState with "No results match" and active filter context
+- **Error**: ErrorState with retry button
+- **Refreshing**: Existing data visible, subtle loading indicator in header
 
-**Tests:**
-- Renders columns and rows from data.
-- Sort: clicking header sorts, arrow indicators show direction, onSortChange fires.
-- Selection: checkbox column appears, select all toggles current page, onSelectionChange fires.
-- Pagination: integrates Pagination component, pages data correctly.
-- Loading state: skeleton rows render.
-- Empty state: EmptyState renders when data is [].
-- Error state: ErrorState renders with retry.
-- Row click fires onRowClick.
-- Numeric columns right-aligned with tabular numerals.
-- Sticky header works.
-- All three density levels.
-- axe-core passes (grid role, aria-sort, aria-selected).
-- Edge cases: 0 columns, 1 row, 1000 rows (performance check), null cell values.
+**Tests:** Sorting, selection (single/all/across pages), pagination, all state variants, column visibility, bulk actions, row expansion, grouped headers, keyboard navigation (arrow keys through grid), ARIA grid pattern, density variants, data edge cases (0 rows, 1000 rows, null cells), axe-core.
 
-### MetricCard
+### Group 5: Filtering & Query
 
-Displays a single KPI per [design/patterns/data-display.md](../design/patterns/data-display.md) metric card anatomy.
+Components for constructing and managing data filters.
 
-**Props:**
-| Prop | Type | Default |
-|------|------|---------|
-| `label` | `string` | required |
-| `value` | `number \| string \| null` | required |
-| `format` | `"number" \| "currency" \| "percent" \| "compact" \| "custom"` | `"number"` |
-| `formatOptions` | `FormatOptions` | — |
-| `trend` | `{ value: number; direction: "up" \| "down" \| "flat"; label?: string }` | — |
-| `sparkline` | `number[]` | — |
-| `info` | `ReactNode` | — |
-| `loading` | `boolean` | `false` |
-| `error` | `ReactNode` | — |
-| `onRetry` | `() => void` | — |
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **FilterChip** | Pill showing active filter: field name + operator + value, removable | `field`, `operator`, `value`, `onRemove` |
+| **FilterPicker** | Dropdown for choosing which field to filter on, grouped by data model category | `fields: FieldDef[]`, `onSelect` |
+| **OperatorSelect** | Operator dropdown that changes options based on field data type | `fieldType: "string" \| "number" \| "date" \| "enum"`, `value`, `onChange` |
+| **ValueInput** | Input widget adapting to field type (date picker, user picker, multi-select for enums) | `fieldType`, `value`, `onChange`, `options` |
+| **QueryExpressionNode** | Recursive node for AND/OR expression trees in visual query builders | `node`, `onChange`, `onRemove`, `depth` |
+| **SavedViewPicker** | Dropdown for switching between saved filter/sort/column configurations | `views`, `current`, `onChange`, `onSave`, `onDelete` |
+| **SmartDateRange** | Date range picker with domain-aware presets ("Last 7 days", "This quarter", "YTD") | `value`, `onChange`, `presets`, `minDate`, `maxDate` |
 
-**Behavior:**
-- Primary value rendered large and bold with tabular numerals.
-- Uses `formatNumber`/`formatCurrency`/etc. from Phase 5 utilities.
-- Trend indicator: ▲/▼/— icon + formatted value + optional comparison label. Color signals direction (green up, red down) but icon shape is the primary signal per [design/principles.md](../design/principles.md).
-- Info tooltip (ℹ icon) per [design/patterns/help-and-onboarding.md](../design/patterns/help-and-onboarding.md).
-- Loading: skeleton for value and trend, label remains visible.
-- Error: label visible, value area shows compact error with retry.
-- null value: shows "—".
+**Tests:** Operator options change per field type, query expression tree nesting, saved view CRUD, date preset ranges computed correctly, keyboard navigation, axe-core.
 
-**Tests:**
-- Renders label and formatted value.
-- Each format type applies correct formatter.
-- Trend indicator shows correct icon and color.
-- Info tooltip shows on hover/focus.
-- Loading state: skeleton renders, label visible.
-- Error state: error message with retry.
-- Null value renders "—".
-- Very large numbers use compact formatting.
-- axe-core passes.
+### Group 6: Chart & Visualization
 
-### StatusBadge
+Charts wrapped with product-specific formatting, states, and conventions. Built on a charting library (e.g., Recharts, D3, or Observable Plot).
 
-Maps a status string to a consistent visual representation (color + icon + label).
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **TimeSeriesChart** | Line or area chart over time with domain-aware axes, tooltips, legend | `data`, `series`, `xAxis`, `yAxis`, `height` |
+| **CategoryChart** | Bar/column chart for comparing across discrete categories | `data`, `categories`, `metric`, `orientation` |
+| **DistributionChart** | Histogram or density plot with consistent bucketing | `data`, `bins`, `metric` |
+| **FunnelChart** | Multi-stage funnel with conversion rates between stages | `stages: { label, value }[]` |
+| **HeatmapGrid** | Two-dimensional heatmap for density/intensity data | `data`, `xLabels`, `yLabels`, `colorScale` |
+| **ChartHeader** | Title, subtitle, time range selector, menu (export, fullscreen, edit) | `title`, `subtitle`, `timeRange`, `onExport` |
+| **ChartLegend** | Legend with interactive series toggling and consistent formatting | `series`, `onToggle`, `orientation` |
+| **ChartTooltip** | Unified tooltip for all chart types with correct formatters | `data`, `formatters`, `position` |
+| **EmptyChart** | Empty state for charts with no data, with explanatory text | `variant`, `message`, `action` |
 
-**Props:**
-| Prop | Type | Default |
-|------|------|---------|
-| `status` | `string` | required |
-| `statusMap` | `Record<string, StatusConfig>` | required |
-| `size` | `"sm" \| "md"` | `"md"` |
+**Tests:** Chart renders with data, empty state renders correctly, legend toggling hides/shows series, tooltip positions correctly, responsive resizing, categorical color palette applied, axe-core (chart ARIA roles, axis labels).
 
-**StatusConfig:**
-```typescript
-interface StatusConfig {
-  label: string;
-  variant: "success" | "warning" | "error" | "info" | "neutral";
-  icon?: ReactNode;
-}
+### Group 7: Form & Input Domain
+
+Inputs encoding product-specific data shapes and validation.
+
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **CurrencyInput** | Numeric input with currency symbol, locale formatting, multi-currency | `value`, `onChange`, `currency`, `locale` |
+| **PercentageInput** | Numeric input bounded 0-100 with % suffix | `value`, `onChange`, `min`, `max`, `precision` |
+| **UnitInput** | Numeric input paired with unit selector | `value`, `onChange`, `unit`, `units: UnitOption[]` |
+| **TagInput** | Multi-value input with autocomplete from existing tag set, create new | `value`, `onChange`, `suggestions`, `onSearch`, `allowCreate` |
+| **CategoryPicker** | Hierarchical category selector understanding your taxonomy | `categories`, `value`, `onChange`, `multiple` |
+| **FormulaInput** | Expression editor with syntax highlighting and autocomplete | `value`, `onChange`, `schema`, `onValidate` |
+| **CronInput** | Schedule input with expert (cron expression) and friendly (visual) modes | `value`, `onChange`, `mode: "expert" \| "friendly"` |
+| **GeolocationInput** | Map-based location picker with address autocomplete | `value`, `onChange`, `mapProvider` |
+| **ColorPicker** | Picker restricted to approved palette or fully flexible | `value`, `onChange`, `palette`, `allowCustom` |
+
+**Tests:** Currency formatting per locale, percentage bounds enforcement, unit switching preserves value, tag autocomplete and creation, formula syntax validation, cron expression parsing, controlled/uncontrolled, axe-core.
+
+### Group 8: Activity & Audit
+
+Components for history, changes, and user activity per [design/patterns/permissions-and-access.md](../design/patterns/permissions-and-access.md).
+
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **ActivityItem** | Single feed entry: actor + action + target + timestamp, expandable detail | `actor`, `action`, `target`, `timestamp`, `detail` |
+| **ActivityFeed** | Chronologically grouped stream with infinite scroll or pagination | `items`, `loading`, `onLoadMore`, `groupBy: "day" \| "week"` |
+| **ChangeLog** | Before/after comparison of field changes with diff styling | `changes: { field, before, after }[]`, `timestamp`, `actor` |
+| **CommentThread** | Threaded discussion with mentions and reactions | `comments`, `onAdd`, `onReply`, `onReact` |
+| **VersionHistory** | List of prior versions with restore and compare actions | `versions`, `current`, `onRestore`, `onCompare` |
+| **AuditEntry** | Single audit log entry with actor, action, IP, user agent, resource | `entry: AuditRecord` |
+
+**Tests:** Feed pagination/infinite scroll, change log diff rendering, comment threading, version restore confirmation, timestamp formatting, axe-core.
+
+### Group 9: Notification & Messaging
+
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **NotificationItem** | Single notification with icon, title, body, timestamp, read/unread state | `notification`, `onRead`, `onClick` |
+| **Toast** | Transient notification with auto-dismiss, stacking, action button | `title`, `description`, `variant`, `duration`, `action` |
+| **BannerAlert** | Persistent page-level alert for system status or account issues | `variant`, `title`, `description`, `dismissible`, `action` |
+| **InlineMessage** | Field- or section-level informational/warning/error message | `variant`, `children` |
+| **UnreadIndicator** | Dot or count badge for unread items | `count`, `variant`, `max` |
+
+**Toast system** requires a provider:
+```tsx
+<ToastProvider position="bottom-right" maxVisible={5}>
+  {children}
+</ToastProvider>
+
+// Usage via hook
+const { toast } = useToast();
+toast({ title: "Saved", variant: "success" });
 ```
 
-**Behavior:**
-- Renders a Badge with a Dot indicator (color) and the status label.
-- Icon provides the secondary signal (non-color) per accessibility requirements.
-- Unknown status values render as neutral with the raw status string.
+**Tests:** Toast auto-dismiss timing, stacking order, pause on hover, persistent variant, ARIA roles (status for info/success, alert for error/warning), banner dismissal, unread count truncation at max, axe-core.
 
-**Tests:**
-- Renders correct label, color, and icon for each status in the map.
-- Unknown status renders as neutral fallback.
-- Dot color matches variant.
-- axe-core passes.
+### Group 10: Selection & Assignment
 
-### FilterBar
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **AssigneePicker** | Specialized user picker for assigning records | `value`, `onChange`, `users`, `onSearch` |
+| **LabelPicker** | Multi-select for applying labels/tags to records | `value`, `onChange`, `labels`, `allowCreate` |
+| **PriorityPicker** | Select with product-specific priority levels and consistent coloring | `value`, `onChange`, `priorities` |
+| **WorkflowStatePicker** | Dropdown for moving through workflow states, respecting allowed transitions | `value`, `onChange`, `states`, `allowedTransitions` |
 
-A horizontal bar of filter controls with active filter display per [design/patterns/filtering-and-search.md](../design/patterns/filtering-and-search.md).
+**Tests:** AssigneePicker search, LabelPicker create new, PriorityPicker coloring, WorkflowStatePicker transition enforcement, keyboard navigation, axe-core.
 
-**Props:**
-| Prop | Type | Default |
-|------|------|---------|
-| `filters` | `FilterDef[]` | required |
-| `values` | `Record<string, unknown>` | required |
-| `onChange` | `(values: Record<string, unknown>) => void` | required |
-| `onClear` | `() => void` | — |
+### Group 11: File & Attachment
 
-**FilterDef:**
-```typescript
-interface FilterDef {
-  key: string;
-  label: string;
-  type: "select" | "multiselect" | "date" | "daterange" | "search";
-  options?: Array<{ value: string; label: string; count?: number }>;
-  placeholder?: string;
-}
-```
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **FileAttachment** | Attached file with icon by type, filename, size, download/preview | `file: { name, size, type, url }`, `onDownload`, `onPreview` |
+| **FileUploader** | Drop zone with progress, multi-file, type restrictions, error handling | `onUpload`, `accept`, `maxSize`, `multiple` |
+| **FilePreview** | Inline preview for images, PDFs, text; fallback for unsupported types | `file`, `maxHeight` |
+| **AttachmentList** | List of files attached to a record with add/remove controls | `files`, `onAdd`, `onRemove`, `editable` |
 
-**Behavior:**
-- Renders filter controls horizontally (scrollable if overflows).
-- Active filters shown as removable Tag chips below the filter bar.
-- "Clear all" action visible when any filter is active.
-- Active filter count shown.
-- Filter controls use Phase 3-4 components (Select, SearchInput, DateRangePicker).
+**Tests:** File type icon mapping, drag-and-drop upload, progress indication, type restriction enforcement, preview rendering per file type, axe-core.
 
-**Tests:**
-- Renders filter controls from definitions.
-- Changing a filter fires onChange with updated values.
-- Active filters appear as removable chips.
-- Removing a chip clears that filter.
-- "Clear all" resets all filters.
-- Handles empty filter values gracefully.
-- axe-core passes.
+### Group 12: Permission & Access
 
-### DateRangePicker
+Per [design/patterns/permissions-and-access.md](../design/patterns/permissions-and-access.md).
 
-A specialized input for selecting start and end dates with preset ranges.
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **RoleBadge** | Visual representation of a user's role with consistent coloring | `role`, `size` |
+| **PermissionRow** | Single permission entry (action × resource) with control | `permission`, `value`, `onChange`, `disabled` |
+| **AccessIndicator** | Lock icon + tooltip showing access status and reason | `hasAccess`, `reason` |
+| **ShareControl** | Inline control for opening a share/permissions dialog | `onShare`, `currentAccess` |
+| **VisibilityBadge** | Indicator of record visibility scope | `visibility: "private" \| "team" \| "public" \| "org"` |
 
-**Props:**
-| Prop | Type | Default |
-|------|------|---------|
-| `value` | `{ start: Date; end: Date } \| null` | — |
-| `onChange` | `(range: { start: Date; end: Date } \| null) => void` | required |
-| `presets` | `Array<{ label: string; range: { start: Date; end: Date } }>` | common presets |
-| `minDate` | `Date` | — |
-| `maxDate` | `Date` | — |
-| `disabled` | `boolean` | `false` |
+**Tests:** Role coloring, permission toggle states, access tooltip content, visibility icon mapping, disabled vs read-only vs restricted states distinct, axe-core.
 
-**Presets (default):** Last 7 days, Last 30 days, Last 90 days, This month, Last month, This year.
+### Group 13: Workflow & Task
 
-**Behavior:**
-- Opens a popover with two month calendars (start and end).
-- Preset buttons for quick selection.
-- Validates start < end.
-- Display format follows locale via `formatDate`.
+| Component | Description | Key props |
+|-----------|-------------|-----------|
+| **TaskCard** | Work item with title, assignee, due date, status, priority | `task: TaskData`, `onClick`, `onStatusChange` |
+| **DueDateIndicator** | Date with semantic coloring for approaching/overdue | `date`, `status: "upcoming" \| "approaching" \| "overdue" \| "completed"` |
+| **DependencyLink** | Visual link showing task/record dependencies | `from`, `to`, `type: "blocks" \| "requires"` |
+| **WorkflowStepIndicator** | Linear workflow progress with completed/current/pending states | `steps: StepDef[]`, `currentStep` |
 
-**Tests:**
-- Selecting start then end date fires onChange.
-- Preset selection fires onChange with correct range.
-- Validation: start must be before end.
-- minDate/maxDate constraints disable out-of-range dates.
-- Keyboard navigation through calendar days.
-- Closing popover returns focus to trigger.
-- axe-core passes.
+**Tests:** TaskCard displays all fields, DueDateIndicator colors per status, WorkflowStepIndicator step states, completed/current/pending visual distinction, axe-core.
 
 ## Development Order
 
-1. StatusBadge (simplest, wraps Badge + Dot)
-2. MetricCard (self-contained, demonstrates formatter integration)
-3. DateRangePicker (complex but independent)
-4. FilterBar (depends on Select, SearchInput, DateRangePicker)
-5. DataTable (most complex, depends on Table, Pagination, EmptyState, ErrorState)
-6. Barrel exports + dev playground updates
+Build groups in dependency order. Within each group, build simpler components first.
+
+1. **Group 1: Data Display** (foundation — many other groups use these)
+   - MetricValue → TrendIndicator → Delta → Currency → Percentage → Duration → Timestamp → DateRange → FileSize → NumberRange → Sparkline → RatioBar → MetricCard
+2. **Group 3: Status & State** (widely used across groups)
+   - StatusBadge → HealthIndicator → ProgressPill → EnvironmentTag → LiveIndicator → StalenessBadge → SyncStatus → ConnectionStatus
+3. **Group 9: Notification & Messaging** (Toast provider needed by many)
+   - InlineMessage → UnreadIndicator → BannerAlert → NotificationItem → Toast (with ToastProvider)
+4. **Group 2: Identity & Entity**
+   - UserAvatar → UserChip → TeamBadge → EntityLink → MentionToken → UserPicker → OrgSwitcher
+5. **Group 5: Filtering & Query**
+   - FilterChip → OperatorSelect → ValueInput → FilterPicker → SmartDateRange → SavedViewPicker → QueryExpressionNode
+6. **Group 4: Data Table & Grid**
+   - CellRenderer → ExpandableRow → GroupedRowHeader → RowActionsMenu → ColumnPicker → BulkActionBar → DataTableToolbar → DataTable (with useDataTableState)
+7. **Group 10: Selection & Assignment**
+   - PriorityPicker → LabelPicker → WorkflowStatePicker → AssigneePicker
+8. **Group 7: Form & Input Domain**
+   - CurrencyInput → PercentageInput → UnitInput → TagInput → ColorPicker → CategoryPicker → CronInput → FormulaInput → GeolocationInput
+9. **Group 11: File & Attachment**
+   - FileAttachment → FilePreview → AttachmentList → FileUploader
+10. **Group 12: Permission & Access**
+    - RoleBadge → VisibilityBadge → AccessIndicator → PermissionRow → ShareControl
+11. **Group 8: Activity & Audit**
+    - AuditEntry → ActivityItem → ChangeLog → ActivityFeed → CommentThread → VersionHistory
+12. **Group 13: Workflow & Task**
+    - DueDateIndicator → DependencyLink → WorkflowStepIndicator → TaskCard
+13. **Group 6: Chart & Visualization** (last — depends on a charting library decision)
+    - EmptyChart → ChartTooltip → ChartLegend → ChartHeader → TimeSeriesChart → CategoryChart → DistributionChart → FunnelChart → HeatmapGrid
+14. Barrel exports + dev playground updates
 
 ## Testing Strategy
 
 Domain component tests emphasize:
 
-1. **State coverage**: Every component tested in all states — loading, empty, error, data, stale.
-2. **Formatter integration**: Verify correct formatting functions are used, including edge cases.
-3. **Data edge cases**: Null values, empty arrays, very large datasets (for DataTable).
-4. **Accessibility**: Color is never the sole indicator. Icons and text always supplement color.
-5. **Integration**: Uses real lower-level components, not mocks.
-6. **Consumer API**: `useDataTableState` hook tested independently.
+1. **State coverage**: Every component tested in all applicable states — loading, empty, error, data, stale.
+2. **Formatter integration**: Verify correct formatting functions from Phase 5 are used, including null/NaN handling.
+3. **Data edge cases**: Null values, empty arrays, very large numbers, very long strings, special characters.
+4. **Accessibility**: Color is never the sole indicator. Icons and text always supplement color. ARIA live regions for status changes.
+5. **Integration**: Uses real lower-level components, not mocks. CellRenderer uses real Currency, StatusBadge, etc.
+6. **Consumer API**: Hooks (useDataTableState, useToast) tested independently.
+7. **Reduced motion**: LiveIndicator, Toast, ConnectionStatus animations respect `prefers-reduced-motion`.
 
 ## Completion Criteria
 
-- [ ] All 5 domain components implemented.
-- [ ] DataTable supports sort, selection, pagination, and all states.
-- [ ] `useDataTableState` hook provides convenient state management.
-- [ ] MetricCard integrates with all format utilities.
-- [ ] FilterBar composes filter controls and manages active filter display.
-- [ ] DateRangePicker supports presets, min/max, and keyboard navigation.
-- [ ] StatusBadge never relies on color alone for meaning.
+- [ ] All 13 groups implemented (80+ components).
+- [ ] DataTable supports sort, selection, pagination, column visibility, and all states.
+- [ ] Toast system with provider, hook, stacking, auto-dismiss, and persistent variant.
+- [ ] Chart components integrate with a charting library and share consistent grammar.
+- [ ] All formatting components use Phase 5 utilities internally.
+- [ ] All status/state components have secondary non-color indicators.
+- [ ] All picker components support keyboard navigation and async search.
 - [ ] All components handle null/empty/error data gracefully.
 - [ ] All components support density and theming.
 - [ ] All components have comprehensive tests with axe-core.
