@@ -9,6 +9,16 @@ import { Badge } from "./primitives/Badge";
 import { Dot } from "./primitives/Dot";
 import { Spinner } from "./primitives/Spinner";
 import { VisuallyHidden } from "./primitives/VisuallyHidden";
+import { Input } from "./components/Input";
+import { Button } from "./components/Button";
+import { Checkbox } from "./components/Checkbox";
+import { Radio, RadioGroup } from "./components/Radio";
+import { Toggle } from "./components/Toggle";
+import { Select } from "./components/Select";
+import { Tag } from "./components/Tag";
+import { Avatar } from "./components/Avatar";
+import { Tooltip } from "./components/Tooltip";
+import { Skeleton } from "./components/Skeleton";
 import "./App.css";
 
 function Playground() {
@@ -242,7 +252,206 @@ function PlaygroundContent({
           </Text>
         </Box>
       </section>
+
+      <Divider spacing="6" />
+
+      <BaseComponentsSection />
     </div>
+  );
+}
+
+function BaseComponentsSection() {
+  const [inputValue, setInputValue] = useState("");
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState("apple");
+  const [toggleChecked, setToggleChecked] = useState(false);
+  const [selectValue, setSelectValue] = useState("banana");
+
+  const selectOptions = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "cherry", label: "Cherry" },
+    { value: "durian", label: "Durian", disabled: true },
+  ];
+
+  return (
+    <section>
+      <h2>Base Components</h2>
+
+      <h3>Button</h3>
+      <Box display="flex" gap="3" align="center">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button variant="destructive">Destructive</Button>
+      </Box>
+      <Box display="flex" gap="3" align="center" style={{ marginTop: "var(--spacing-2)" }}>
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
+        <Button loading>Loading</Button>
+        <Button disabled>Disabled</Button>
+      </Box>
+      <Box display="flex" gap="3" align="center" style={{ marginTop: "var(--spacing-2)" }}>
+        <Button as="a" href="#">Link Button</Button>
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Input</h3>
+      <Box display="flex" direction="column" gap="3" style={{ maxWidth: "320px" }}>
+        <Input placeholder="Default input" aria-label="Default" />
+        <Input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Controlled"
+          aria-label="Controlled"
+        />
+        <Input size="sm" placeholder="Small" aria-label="Small" />
+        <Input size="lg" placeholder="Large" aria-label="Large" />
+        <Input error placeholder="Error state" aria-label="Error" />
+        <Input disabled placeholder="Disabled" aria-label="Disabled" />
+        <Input
+          leadingIcon={<Icon name="search" size="sm" />}
+          placeholder="With icon"
+          aria-label="Search"
+        />
+        <Input
+          leadingAddon="https://"
+          trailingAddon=".com"
+          placeholder="domain"
+          aria-label="Domain"
+        />
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Checkbox</h3>
+      <Box display="flex" direction="column" gap="2">
+        <Checkbox
+          checked={checkboxChecked}
+          onChange={setCheckboxChecked}
+          label="Controlled checkbox"
+        />
+        <Checkbox defaultChecked label="Default checked" />
+        <Checkbox indeterminate label="Indeterminate" />
+        <Checkbox disabled label="Disabled" />
+        <Checkbox
+          label="With description"
+          description="Additional information about this option"
+        />
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Radio</h3>
+      <RadioGroup value={radioValue} onChange={setRadioValue} aria-label="Fruits">
+        <Radio value="apple" label="Apple" />
+        <Radio value="banana" label="Banana" />
+        <Radio value="cherry" label="Cherry" description="A sweet red fruit" />
+        <Radio value="durian" label="Durian" disabled />
+      </RadioGroup>
+
+      <Divider spacing="4" />
+
+      <h3>Toggle</h3>
+      <Box display="flex" direction="column" gap="2">
+        <Toggle
+          checked={toggleChecked}
+          onChange={setToggleChecked}
+          label="Feature toggle"
+        />
+        <Toggle defaultChecked label="Default on" />
+        <Toggle size="sm" label="Small toggle" />
+        <Toggle disabled label="Disabled" />
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Select</h3>
+      <Box display="flex" direction="column" gap="3" style={{ maxWidth: "320px" }}>
+        <Select
+          options={selectOptions}
+          value={selectValue}
+          onChange={setSelectValue}
+          aria-label="Fruit"
+        />
+        <Select
+          options={selectOptions}
+          placeholder="Choose a fruit..."
+          aria-label="Fruit placeholder"
+        />
+        <Select options={selectOptions} size="sm" aria-label="Small select" />
+        <Select options={selectOptions} size="lg" aria-label="Large select" />
+        <Select options={selectOptions} error aria-label="Error select" />
+        <Select options={selectOptions} disabled aria-label="Disabled select" />
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Tag</h3>
+      <Box display="flex" gap="2" align="center">
+        <Tag variant="neutral">Neutral</Tag>
+        <Tag variant="primary">Primary</Tag>
+        <Tag variant="success">Success</Tag>
+        <Tag variant="warning">Warning</Tag>
+        <Tag variant="error">Error</Tag>
+      </Box>
+      <Box display="flex" gap="2" align="center" style={{ marginTop: "var(--spacing-2)" }}>
+        <Tag size="sm">Small</Tag>
+        <Tag removable onRemove={() => {}}>Removable</Tag>
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Avatar</h3>
+      <Box display="flex" gap="3" align="center">
+        <Avatar src="https://i.pravatar.cc/150?u=a" alt="User A" size="sm" />
+        <Avatar src="https://i.pravatar.cc/150?u=b" alt="User B" size="md" />
+        <Avatar src="https://i.pravatar.cc/150?u=c" alt="User C" size="lg" />
+        <Avatar src="https://i.pravatar.cc/150?u=d" alt="User D" size="xl" />
+      </Box>
+      <Box display="flex" gap="3" align="center" style={{ marginTop: "var(--spacing-2)" }}>
+        <Avatar alt="Jane Doe" name="Jane Doe" />
+        <Avatar alt="John Smith" name="John Smith" />
+        <Avatar alt="Unknown" />
+        <Avatar alt="Square" name="Square User" shape="square" />
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Tooltip</h3>
+      <Box display="flex" gap="4" align="center">
+        <Tooltip content="I'm on top" side="top">
+          <Button variant="secondary" size="sm">Top</Button>
+        </Tooltip>
+        <Tooltip content="I'm on the bottom" side="bottom">
+          <Button variant="secondary" size="sm">Bottom</Button>
+        </Tooltip>
+        <Tooltip content="I'm on the left" side="left">
+          <Button variant="secondary" size="sm">Left</Button>
+        </Tooltip>
+        <Tooltip content="I'm on the right" side="right">
+          <Button variant="secondary" size="sm">Right</Button>
+        </Tooltip>
+      </Box>
+
+      <Divider spacing="4" />
+
+      <h3>Skeleton</h3>
+      <Box display="flex" direction="column" gap="3" style={{ maxWidth: "320px" }}>
+        <Skeleton />
+        <Skeleton lines={3} />
+        <Box display="flex" gap="3" align="center">
+          <Skeleton variant="circle" width={40} />
+          <Box display="flex" direction="column" gap="1" style={{ flex: 1 }}>
+            <Skeleton width="60%" />
+            <Skeleton width="40%" />
+          </Box>
+        </Box>
+        <Skeleton variant="rect" width="100%" height={120} />
+      </Box>
+    </section>
   );
 }
 

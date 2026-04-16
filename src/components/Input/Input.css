@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Input — Base Component
+   ========================================================================== */
+
+.ui-input-wrapper {
+  display: inline-flex;
+  align-items: stretch;
+  width: 100%;
+  font-family: var(--font-family-sans);
+}
+
+/* ---------- Field wrapper (contains input + icons) ---------- */
+
+.ui-input__field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default);
+}
+
+/* Remove inner border-radius when addons are present */
+.ui-input-wrapper--has-leading-addon .ui-input__field-wrapper {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+
+.ui-input-wrapper--has-trailing-addon .ui-input__field-wrapper {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+
+/* ---------- The actual input ---------- */
+
+.ui-input__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  outline: none;
+}
+
+.ui-input__field::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* ---------- Sizes ---------- */
+
+.ui-input-wrapper--sm .ui-input__field {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-input-wrapper--md .ui-input__field {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-base);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-input-wrapper--lg .ui-input__field {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-normal);
+}
+
+/* Adjust padding when icons are present */
+.ui-input__icon--leading + .ui-input__field,
+.ui-input__icon--leading ~ .ui-input__field {
+  padding-left: 0;
+}
+
+.ui-input__field:has(~ .ui-input__icon--trailing) {
+  padding-right: 0;
+}
+
+/* ---------- Icons ---------- */
+
+.ui-input__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.ui-input__icon--leading {
+  padding-left: var(--spacing-2-5);
+}
+
+.ui-input__icon--trailing {
+  padding-right: var(--spacing-2-5);
+}
+
+/* ---------- Addons ---------- */
+
+.ui-input__addon {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-3);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.ui-input__addon--leading {
+  border-right: 0;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.ui-input__addon--trailing {
+  border-left: 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* ---------- States ---------- */
+
+/* Hover */
+.ui-input__field-wrapper:hover {
+  border-color: var(--color-text-tertiary);
+}
+
+/* Focus */
+.ui-input__field-wrapper:focus-within {
+  border-color: var(--color-action-primary);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+/* Error */
+.ui-input-wrapper--error .ui-input__field-wrapper {
+  border-color: var(--color-status-error-icon);
+}
+
+.ui-input-wrapper--error .ui-input__field-wrapper:focus-within {
+  border-color: var(--color-status-error-icon);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+/* Disabled */
+.ui-input-wrapper--disabled .ui-input__field-wrapper {
+  background: var(--color-background-surface-raised);
+  border-color: var(--color-border-default);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ui-input-wrapper--disabled .ui-input__field {
+  cursor: not-allowed;
+  color: var(--color-text-disabled);
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-input-wrapper--sm .ui-input__field {
+  padding: var(--spacing-0-5) var(--spacing-1-5);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-input-wrapper--md .ui-input__field {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+}
+
+[data-density="compact"] .ui-input-wrapper--lg .ui-input__field {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-base);
+}

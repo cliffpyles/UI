@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Avatar — Base Component
+   ========================================================================== */
+
+.ui-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-background-surface-raised);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  vertical-align: middle;
+}
+
+/* ---------- Shapes ---------- */
+
+.ui-avatar--circle {
+  border-radius: var(--radius-full);
+}
+
+.ui-avatar--square {
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Sizes ---------- */
+
+.ui-avatar--sm {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: var(--font-size-2xs);
+}
+
+.ui-avatar--md {
+  width: 2rem;
+  height: 2rem;
+  font-size: var(--font-size-xs);
+}
+
+.ui-avatar--lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: var(--font-size-sm);
+}
+
+.ui-avatar--xl {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: var(--font-size-lg);
+}
+
+/* ---------- Image ---------- */
+
+.ui-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Initials ---------- */
+
+.ui-avatar__initials {
+  line-height: 1;
+  user-select: none;
+}

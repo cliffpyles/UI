@@ -1,0 +1,145 @@
+/* ==========================================================================
+   Button — Base Component
+   ========================================================================== */
+
+.ui-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-normal);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--easing-default),
+    border-color var(--duration-fast) var(--easing-default),
+    color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default);
+}
+
+/* ---------- Sizes ---------- */
+
+.ui-button--sm {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.ui-button--md {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-base);
+}
+
+.ui-button--lg {
+  padding: var(--spacing-2-5) var(--spacing-5);
+  font-size: var(--font-size-lg);
+}
+
+/* Minimum 44px hit area per accessibility spec */
+.ui-button--sm::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+/* ---------- Variants ---------- */
+
+/* Primary */
+.ui-button--primary {
+  background-color: var(--color-action-primary);
+  border-color: var(--color-action-primary);
+  color: var(--color-white);
+}
+
+.ui-button--primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-action-primary-hover);
+  border-color: var(--color-action-primary-hover);
+}
+
+/* Secondary */
+.ui-button--secondary {
+  background-color: var(--color-background-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+.ui-button--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-background-surface-sunken);
+  border-color: var(--color-text-tertiary);
+}
+
+/* Ghost */
+.ui-button--ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-text-primary);
+}
+
+.ui-button--ghost:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-background-surface-sunken);
+}
+
+/* Destructive */
+.ui-button--destructive {
+  background-color: var(--color-action-destructive);
+  border-color: var(--color-action-destructive);
+  color: var(--color-white);
+}
+
+.ui-button--destructive:hover:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-red-700);
+  border-color: var(--color-red-700);
+}
+
+/* ---------- Focus ---------- */
+
+.ui-button:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Disabled ---------- */
+
+.ui-button:disabled,
+.ui-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Loading ---------- */
+
+.ui-button--loading {
+  cursor: wait;
+}
+
+.ui-button__spinner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-button__label--hidden {
+  visibility: hidden;
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-button--sm {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-button--md {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+[data-density="compact"] .ui-button--lg {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-base);
+}

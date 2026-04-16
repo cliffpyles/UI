@@ -1,0 +1,136 @@
+/* ==========================================================================
+   Toggle — Base Component
+   ========================================================================== */
+
+.ui-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  font-family: var(--font-family-sans);
+  position: relative;
+}
+
+/* Hidden native input */
+.ui-toggle__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Track ---------- */
+
+.ui-toggle__track {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  transition: background-color var(--duration-fast) var(--easing-default);
+}
+
+/* Sizes */
+.ui-toggle--md .ui-toggle__track {
+  width: 2.25rem;
+  height: 1.25rem;
+  padding: var(--spacing-0-5);
+}
+
+.ui-toggle--sm .ui-toggle__track {
+  width: 1.75rem;
+  height: 1rem;
+  padding: 0.125rem;
+}
+
+/* ---------- Thumb ---------- */
+
+.ui-toggle__thumb {
+  display: block;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-fast) var(--easing-default);
+}
+
+.ui-toggle--md .ui-toggle__thumb {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.ui-toggle--sm .ui-toggle__thumb {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+/* ---------- Checked state ---------- */
+
+.ui-toggle__input:checked + .ui-toggle__track {
+  background: var(--color-action-primary);
+}
+
+.ui-toggle--md .ui-toggle__input:checked + .ui-toggle__track .ui-toggle__thumb {
+  transform: translateX(1rem);
+}
+
+.ui-toggle--sm .ui-toggle__input:checked + .ui-toggle__track .ui-toggle__thumb {
+  transform: translateX(0.75rem);
+}
+
+/* ---------- Focus ---------- */
+
+.ui-toggle__input:focus-visible + .ui-toggle__track {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Hover ---------- */
+
+.ui-toggle:hover .ui-toggle__track {
+  background: var(--color-text-tertiary);
+}
+
+.ui-toggle:hover .ui-toggle__input:checked + .ui-toggle__track {
+  background: var(--color-action-primary-hover);
+}
+
+/* ---------- Disabled ---------- */
+
+.ui-toggle--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ui-toggle--disabled:hover .ui-toggle__track {
+  background: var(--color-border-strong);
+}
+
+.ui-toggle--disabled:hover .ui-toggle__input:checked + .ui-toggle__track {
+  background: var(--color-action-primary);
+}
+
+/* ---------- Label ---------- */
+
+.ui-toggle__label {
+  font-size: var(--font-size-body);
+  line-height: var(--font-line-height-normal);
+  color: var(--color-text-primary);
+}
+
+/* Minimum hit area */
+.ui-toggle::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-toggle {
+  gap: var(--spacing-1-5);
+}

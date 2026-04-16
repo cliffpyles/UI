@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Skeleton — Base Component
+   ========================================================================== */
+
+.ui-skeleton {
+  background: var(--color-background-surface-raised);
+  animation: ui-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.ui-skeleton--text {
+  border-radius: var(--radius-sm);
+}
+
+.ui-skeleton--rect {
+  border-radius: var(--radius-md);
+}
+
+.ui-skeleton--circle {
+  border-radius: var(--radius-full);
+}
+
+/* ---------- Multi-line group ---------- */
+
+.ui-skeleton__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* ---------- Pulse animation ---------- */
+
+@keyframes ui-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-skeleton {
+    animation: none;
+  }
+}

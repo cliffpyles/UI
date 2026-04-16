@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Select — Base Component
+   ========================================================================== */
+
+.ui-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  font-family: var(--font-family-sans);
+}
+
+/* ---------- Native select ---------- */
+
+.ui-select__native {
+  appearance: none;
+  width: 100%;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default);
+}
+
+/* ---------- Sizes ---------- */
+
+.ui-select--sm .ui-select__native {
+  padding: var(--spacing-1) var(--spacing-8) var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-select--md .ui-select__native {
+  padding: var(--spacing-1-5) var(--spacing-8) var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-base);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-select--lg .ui-select__native {
+  padding: var(--spacing-2) var(--spacing-10) var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-normal);
+}
+
+/* ---------- Arrow icon ---------- */
+
+.ui-select__arrow {
+  position: absolute;
+  right: var(--spacing-2-5);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- States ---------- */
+
+/* Hover */
+.ui-select__native:hover {
+  border-color: var(--color-text-tertiary);
+}
+
+/* Focus */
+.ui-select__native:focus {
+  border-color: var(--color-action-primary);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+/* Error */
+.ui-select--error .ui-select__native {
+  border-color: var(--color-status-error-icon);
+}
+
+.ui-select--error .ui-select__native:focus {
+  border-color: var(--color-status-error-icon);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+/* Disabled */
+.ui-select--disabled .ui-select__native {
+  background: var(--color-background-surface-raised);
+  border-color: var(--color-border-default);
+  cursor: not-allowed;
+  opacity: 0.5;
+  color: var(--color-text-disabled);
+}
+
+/* Placeholder color for the disabled first option */
+.ui-select__native option:disabled {
+  color: var(--color-text-tertiary);
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-select--sm .ui-select__native {
+  padding: var(--spacing-0-5) var(--spacing-6) var(--spacing-0-5) var(--spacing-1-5);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-select--md .ui-select__native {
+  padding: var(--spacing-1) var(--spacing-7) var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+}
+
+[data-density="compact"] .ui-select--lg .ui-select__native {
+  padding: var(--spacing-1-5) var(--spacing-8) var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-base);
+}

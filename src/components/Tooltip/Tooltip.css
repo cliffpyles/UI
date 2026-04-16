@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Tooltip — Base Component
+   ========================================================================== */
+
+.ui-tooltip-trigger {
+  display: inline-flex;
+}
+
+.ui-tooltip {
+  position: fixed;
+  z-index: var(--z-dropdown);
+  padding: var(--spacing-1-5) var(--spacing-2-5);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  line-height: var(--font-line-height-normal);
+  color: var(--color-white);
+  background: var(--color-gray-800);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  animation: ui-tooltip-enter var(--duration-normal) var(--easing-enter);
+  word-wrap: break-word;
+}
+
+/* Dark theme: invert tooltip colors */
+[data-theme="dark"] .ui-tooltip {
+  background: var(--color-gray-200);
+  color: var(--color-gray-900);
+}
+
+@keyframes ui-tooltip-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-tooltip {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-2xs);
+}
