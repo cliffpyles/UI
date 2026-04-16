@@ -266,3 +266,20 @@ export type { CommentThreadProps, Comment } from "./CommentThread";
 
 export { VersionHistory } from "./VersionHistory";
 export type { VersionHistoryProps, Version } from "./VersionHistory";
+
+// Group 13: Workflow & Task
+export { DueDateIndicator } from "./DueDateIndicator";
+export type { DueDateIndicatorProps, DueDateStatus } from "./DueDateIndicator";
+
+export { DependencyLink } from "./DependencyLink";
+export type { DependencyLinkProps, DependencyType } from "./DependencyLink";
+
+export { WorkflowStepIndicator } from "./WorkflowStepIndicator";
+export type {
+  WorkflowStepIndicatorProps,
+  StepDef,
+  StepState,
+} from "./WorkflowStepIndicator";
+
+export { TaskCard } from "./TaskCard";
+export type { TaskCardProps, TaskData } from "./TaskCard";

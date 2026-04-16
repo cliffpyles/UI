@@ -1,0 +1,64 @@
+.ui-workflow-step-indicator {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: var(--spacing-4);
+  font-size: var(--font-size-sm);
+}
+
+.ui-workflow-step-indicator--vertical {
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.ui-workflow-step-indicator__step {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-text-tertiary);
+  flex: 1;
+  position: relative;
+}
+
+.ui-workflow-step-indicator__marker {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-background-surface-sunken);
+  border: 1px solid var(--color-border-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  flex-shrink: 0;
+}
+
+.ui-workflow-step-indicator__step--completed {
+  color: var(--color-status-success-text);
+}
+.ui-workflow-step-indicator__step--completed .ui-workflow-step-indicator__marker {
+  background: var(--color-status-success-bg);
+  border-color: var(--color-status-success-icon);
+  color: var(--color-status-success-icon);
+}
+
+.ui-workflow-step-indicator__step--current {
+  color: var(--color-text-primary);
+}
+.ui-workflow-step-indicator__step--current .ui-workflow-step-indicator__marker {
+  background: var(--color-action-primary);
+  border-color: var(--color-action-primary);
+  color: var(--color-white);
+}
+
+.ui-workflow-step-indicator__label {
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-workflow-step-indicator__description {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-left: var(--spacing-1);
+}

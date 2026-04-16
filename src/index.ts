@@ -213,6 +213,10 @@ export {
   ActivityFeed,
   CommentThread,
   VersionHistory,
+  DueDateIndicator,
+  DependencyLink,
+  WorkflowStepIndicator,
+  TaskCard,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -364,6 +368,15 @@ export type {
   Comment,
   VersionHistoryProps,
   Version,
+  DueDateIndicatorProps,
+  DueDateStatus,
+  DependencyLinkProps,
+  DependencyType,
+  WorkflowStepIndicatorProps,
+  StepDef,
+  StepState,
+  TaskCardProps,
+  TaskData,
 } from "./domain";
 
 // Utilities — Level 3-4

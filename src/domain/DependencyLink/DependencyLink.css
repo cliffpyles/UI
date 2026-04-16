@@ -1,0 +1,22 @@
+.ui-dependency-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.ui-dependency-link__from,
+.ui-dependency-link__to {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-dependency-link__type {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.ui-dependency-link--blocks .ui-dependency-link__type {
+  color: var(--color-status-error-text);
+}

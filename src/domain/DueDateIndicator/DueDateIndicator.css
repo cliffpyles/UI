@@ -1,0 +1,22 @@
+.ui-due-date-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+.ui-due-date-indicator--approaching {
+  color: var(--color-status-warning-text);
+}
+
+.ui-due-date-indicator--overdue {
+  color: var(--color-status-error-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ui-due-date-indicator--completed {
+  color: var(--color-status-success-text);
+  text-decoration: line-through;
+}
