@@ -1,0 +1,24 @@
+.ui-data-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ui-data-table__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+.ui-data-table__checkbox-head {
+  width: 40px;
+}
+
+.ui-data-table__empty-cell {
+  padding: var(--spacing-6);
+  text-align: center;
+}
+
+.ui-data-table__row--selected {
+  background: var(--color-action-primary-bg);
+}

@@ -1,0 +1,35 @@
+.ui-expandable-row__toggle-cell {
+  width: 32px;
+  padding: 0 var(--spacing-1);
+}
+
+.ui-expandable-row__toggle {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-1);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-expandable-row__toggle:hover {
+  color: var(--color-text-primary);
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-expandable-row__toggle:focus-visible {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: 1px;
+}
+
+.ui-expandable-row__detail {
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-expandable-row__content {
+  padding: var(--spacing-3) var(--spacing-4);
+}

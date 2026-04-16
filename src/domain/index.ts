@@ -135,6 +135,40 @@ export type {
 export { SavedViewPicker } from "./SavedViewPicker";
 export type { SavedViewPickerProps, SavedView } from "./SavedViewPicker";
 
+// Group 4: Data Table & Grid
+export { CellRenderer } from "./CellRenderer";
+export type { CellRendererProps, CellType } from "./CellRenderer";
+
+export { ExpandableRow } from "./ExpandableRow";
+export type { ExpandableRowProps } from "./ExpandableRow";
+
+export { GroupedRowHeader } from "./GroupedRowHeader";
+export type { GroupedRowHeaderProps } from "./GroupedRowHeader";
+
+export { RowActionsMenu } from "./RowActionsMenu";
+export type { RowActionsMenuProps, ActionDef } from "./RowActionsMenu";
+
+export { ColumnPicker } from "./ColumnPicker";
+export type { ColumnPickerProps, ColumnDef } from "./ColumnPicker";
+
+export { BulkActionBar } from "./BulkActionBar";
+export type { BulkActionBarProps, BulkAction } from "./BulkActionBar";
+
+export { DataTableToolbar } from "./DataTableToolbar";
+export type { DataTableToolbarProps } from "./DataTableToolbar";
+
+export { DataTable, useDataTableState } from "./DataTable";
+export type {
+  DataTableProps,
+  DataTableColumn,
+  SortState,
+  SortDirection,
+  PaginationState,
+  DataTableStateOptions,
+  DataTableStateProps,
+  DataTableStateResult,
+} from "./DataTable";
+
 export { QueryExpressionNode } from "./QueryExpressionNode";
 export type {
   QueryExpressionNodeProps,

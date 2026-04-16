@@ -1,0 +1,12 @@
+.ui-cell {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ui-cell--number,
+.ui-cell--currency,
+.ui-cell--percent,
+.ui-cell--bytes,
+.ui-cell--duration {
+  font-variant-numeric: tabular-nums;
+}
