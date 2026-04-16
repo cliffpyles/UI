@@ -1,0 +1,37 @@
+.ui-dot {
+  display: inline-block;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* Sizes */
+.ui-dot--sm {
+  width: var(--spacing-1-5);
+  height: var(--spacing-1-5);
+}
+
+.ui-dot--md {
+  width: var(--spacing-2);
+  height: var(--spacing-2);
+}
+
+/* Colors */
+.ui-dot--success {
+  background-color: var(--color-status-success-icon);
+}
+
+.ui-dot--warning {
+  background-color: var(--color-status-warning-icon);
+}
+
+.ui-dot--error {
+  background-color: var(--color-status-error-icon);
+}
+
+.ui-dot--info {
+  background-color: var(--color-status-info-icon);
+}
+
+.ui-dot--neutral {
+  background-color: var(--color-text-tertiary);
+}

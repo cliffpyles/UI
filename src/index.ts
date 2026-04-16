@@ -33,3 +33,26 @@ export { ThemeProvider, useTheme } from "./providers";
 export type { ThemeProviderProps } from "./providers";
 export { DensityProvider, useDensity } from "./providers";
 export type { DensityProviderProps } from "./providers";
+
+// Primitives — Level 2
+export {
+  VisuallyHidden,
+  Text,
+  Box,
+  Icon,
+  Divider,
+  Dot,
+  Badge,
+  Spinner,
+} from "./primitives";
+export type {
+  VisuallyHiddenProps,
+  TextProps,
+  BoxProps,
+  IconProps,
+  IconName,
+  DividerProps,
+  DotProps,
+  BadgeProps,
+  SpinnerProps,
+} from "./primitives";

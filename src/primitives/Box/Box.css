@@ -1,0 +1,19 @@
+/* Box — Generic layout primitive */
+
+.ui-box {
+  box-sizing: border-box;
+}
+
+/* ---------- Border Radius ---------- */
+.ui-box--radius-none { border-radius: var(--radius-none); }
+.ui-box--radius-sm   { border-radius: var(--radius-sm); }
+.ui-box--radius-md   { border-radius: var(--radius-md); }
+.ui-box--radius-lg   { border-radius: var(--radius-lg); }
+.ui-box--radius-xl   { border-radius: var(--radius-xl); }
+.ui-box--radius-full { border-radius: var(--radius-full); }
+
+/* ---------- Box Shadow ---------- */
+.ui-box--shadow-none { box-shadow: var(--shadow-none); }
+.ui-box--shadow-sm   { box-shadow: var(--shadow-sm); }
+.ui-box--shadow-md   { box-shadow: var(--shadow-md); }
+.ui-box--shadow-lg   { box-shadow: var(--shadow-lg); }

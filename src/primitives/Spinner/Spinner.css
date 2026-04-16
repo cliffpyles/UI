@@ -1,0 +1,70 @@
+.ui-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Size variants */
+.ui-spinner--sm {
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+}
+
+.ui-spinner--md {
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+}
+
+.ui-spinner--lg {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+}
+
+/* Visually hidden label */
+.ui-spinner__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* SVG spinner */
+.ui-spinner__circle {
+  width: 100%;
+  height: 100%;
+  color: var(--color-action-primary);
+  animation: ui-spinner-rotate 0.75s linear infinite;
+}
+
+.ui-spinner__circle circle {
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+}
+
+@keyframes ui-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ui-spinner-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-spinner__circle {
+    animation: ui-spinner-pulse 2s ease-in-out infinite;
+  }
+}

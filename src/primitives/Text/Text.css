@@ -1,0 +1,54 @@
+/* Text — Polymorphic typography primitive */
+
+.ui-text {
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Size ---------- */
+.ui-text--2xs { font-size: var(--font-size-2xs); line-height: var(--font-line-height-tight); }
+.ui-text--xs  { font-size: var(--font-size-xs);  line-height: var(--font-line-height-tight); }
+.ui-text--sm  { font-size: var(--font-size-sm);  line-height: var(--font-line-height-tight); }
+.ui-text--base { font-size: var(--font-size-base); line-height: var(--font-line-height-normal); }
+.ui-text--lg  { font-size: var(--font-size-lg);  line-height: var(--font-line-height-normal); }
+.ui-text--xl  { font-size: var(--font-size-xl);  line-height: var(--font-line-height-normal); }
+.ui-text--2xl { font-size: var(--font-size-2xl); line-height: var(--font-line-height-tight); }
+.ui-text--3xl { font-size: var(--font-size-3xl); line-height: var(--font-line-height-tight); }
+.ui-text--4xl { font-size: var(--font-size-4xl); line-height: var(--font-line-height-tight); }
+
+/* ---------- Weight ---------- */
+.ui-text--normal   { font-weight: var(--font-weight-normal); }
+.ui-text--medium   { font-weight: var(--font-weight-medium); }
+.ui-text--semibold { font-weight: var(--font-weight-semibold); }
+.ui-text--bold     { font-weight: var(--font-weight-bold); }
+
+/* ---------- Color ---------- */
+.ui-text--primary   { color: var(--color-text-primary); }
+.ui-text--secondary { color: var(--color-text-secondary); }
+.ui-text--tertiary  { color: var(--color-text-tertiary); }
+.ui-text--disabled  { color: var(--color-text-disabled); }
+.ui-text--success   { color: var(--color-status-success-text); }
+.ui-text--warning   { color: var(--color-status-warning-text); }
+.ui-text--error     { color: var(--color-status-error-text); }
+.ui-text--inherit   { color: inherit; }
+
+/* ---------- Family ---------- */
+.ui-text--sans { font-family: var(--font-family-sans); }
+.ui-text--mono { font-family: var(--font-family-mono); }
+
+/* ---------- Alignment ---------- */
+.ui-text--start  { text-align: start; }
+.ui-text--center { text-align: center; }
+.ui-text--end    { text-align: end; }
+
+/* ---------- Truncation ---------- */
+.ui-text--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Tabular Numerals ---------- */
+.ui-text--tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

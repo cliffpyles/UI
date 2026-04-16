@@ -1,0 +1,14 @@
+.ui-divider {
+  border: 0;
+  flex-shrink: 0;
+}
+
+.ui-divider--horizontal {
+  border-top: 1px solid var(--color-border-default);
+  width: 100%;
+}
+
+.ui-divider--vertical {
+  border-left: 1px solid var(--color-border-default);
+  align-self: stretch;
+}
