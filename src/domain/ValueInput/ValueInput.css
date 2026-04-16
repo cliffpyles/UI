@@ -1,0 +1,8 @@
+.ui-value-input {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ui-value-input > * {
+  flex: 1;
+}

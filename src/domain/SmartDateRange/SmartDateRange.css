@@ -1,0 +1,21 @@
+.ui-smart-date-range {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.ui-smart-date-range__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.ui-smart-date-range__inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.ui-smart-date-range__separator {
+  color: var(--color-text-tertiary);
+}

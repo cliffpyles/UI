@@ -107,3 +107,39 @@ export type { UserPickerProps } from "./UserPicker";
 
 export { OrgSwitcher } from "./OrgSwitcher";
 export type { OrgSwitcherProps, OrgData } from "./OrgSwitcher";
+
+// Group 5: Filtering & Query
+export { FilterChip } from "./FilterChip";
+export type { FilterChipProps } from "./FilterChip";
+
+export { OperatorSelect, filterOperatorLabels, operatorsByType } from "./OperatorSelect";
+export type {
+  OperatorSelectProps,
+  FilterFieldType,
+  FilterOperator,
+} from "./OperatorSelect";
+
+export { ValueInput } from "./ValueInput";
+export type { ValueInputProps, ValueInputOption } from "./ValueInput";
+
+export { FilterPicker } from "./FilterPicker";
+export type { FilterPickerProps, FieldDef } from "./FilterPicker";
+
+export { SmartDateRange, defaultPresets } from "./SmartDateRange";
+export type {
+  SmartDateRangeProps,
+  DateRangeValue,
+  DateRangePreset,
+} from "./SmartDateRange";
+
+export { SavedViewPicker } from "./SavedViewPicker";
+export type { SavedViewPickerProps, SavedView } from "./SavedViewPicker";
+
+export { QueryExpressionNode } from "./QueryExpressionNode";
+export type {
+  QueryExpressionNodeProps,
+  QueryNode,
+  QueryLeaf,
+  QueryGroup,
+  LogicalOp,
+} from "./QueryExpressionNode";

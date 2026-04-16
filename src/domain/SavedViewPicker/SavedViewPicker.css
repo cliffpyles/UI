@@ -1,0 +1,104 @@
+.ui-saved-view-picker {
+  position: relative;
+  display: inline-block;
+}
+
+.ui-saved-view-picker__panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--spacing-1);
+  min-width: 220px;
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  padding: var(--spacing-1);
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-saved-view-picker__option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  border-radius: var(--radius-sm);
+}
+
+.ui-saved-view-picker__option:hover {
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-saved-view-picker__option--active {
+  background: var(--color-action-primary-bg);
+}
+
+.ui-saved-view-picker__select {
+  flex: 1;
+  appearance: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: var(--spacing-2);
+  font: inherit;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.ui-saved-view-picker__badge {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ui-saved-view-picker__delete {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-tertiary);
+  padding: var(--spacing-1);
+  margin-right: var(--spacing-1);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.ui-saved-view-picker__delete:hover {
+  color: var(--color-status-error-text);
+  background: var(--color-status-error-bg);
+}
+
+.ui-saved-view-picker__save {
+  border-top: 1px solid var(--color-border-default);
+  margin-top: var(--spacing-1);
+  padding-top: var(--spacing-1);
+}
+
+.ui-saved-view-picker__add {
+  width: 100%;
+  appearance: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: var(--spacing-2);
+  font: inherit;
+  color: var(--color-action-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.ui-saved-view-picker__input {
+  width: 100%;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-1-5) var(--spacing-2);
+  font: inherit;
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+}
