@@ -1,0 +1,22 @@
+.ui-user-avatar {
+  position: relative;
+  display: inline-flex;
+}
+
+.ui-user-avatar__presence {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+  height: 25%;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-background-surface);
+  box-sizing: content-box;
+}
+
+.ui-user-avatar__presence--online { background: var(--color-status-success-icon); }
+.ui-user-avatar__presence--away { background: var(--color-status-warning-icon); }
+.ui-user-avatar__presence--busy { background: var(--color-status-error-icon); }
+.ui-user-avatar__presence--offline { background: var(--color-text-tertiary); }

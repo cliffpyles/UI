@@ -1,0 +1,8 @@
+.ui-org-switcher {
+  display: inline-flex;
+  min-width: 160px;
+}
+
+.ui-org-switcher > * {
+  flex: 1;
+}

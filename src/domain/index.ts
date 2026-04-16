@@ -85,3 +85,25 @@ export type {
   ToastOptions,
   ToastContextValue,
 } from "./Toast";
+
+// Group 2: Identity & Entity
+export { UserAvatar } from "./UserAvatar";
+export type { UserAvatarProps, UserAvatarSize, UserData, UserPresence } from "./UserAvatar";
+
+export { UserChip } from "./UserChip";
+export type { UserChipProps, UserChipSize } from "./UserChip";
+
+export { TeamBadge } from "./TeamBadge";
+export type { TeamBadgeProps, TeamBadgeSize, TeamData } from "./TeamBadge";
+
+export { EntityLink } from "./EntityLink";
+export type { EntityLinkProps, EntityData } from "./EntityLink";
+
+export { MentionToken } from "./MentionToken";
+export type { MentionTokenProps, MentionVariant } from "./MentionToken";
+
+export { UserPicker } from "./UserPicker";
+export type { UserPickerProps } from "./UserPicker";
+
+export { OrgSwitcher } from "./OrgSwitcher";
+export type { OrgSwitcherProps, OrgData } from "./OrgSwitcher";

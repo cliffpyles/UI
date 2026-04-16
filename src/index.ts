@@ -157,6 +157,13 @@ export {
   Toast,
   ToastProvider,
   useToast,
+  UserAvatar,
+  UserChip,
+  TeamBadge,
+  EntityLink,
+  MentionToken,
+  UserPicker,
+  OrgSwitcher,
 } from "./domain";
 export type {
   CurrencyProps,
@@ -208,6 +215,22 @@ export type {
   ToastPosition,
   ToastOptions,
   ToastContextValue,
+  UserAvatarProps,
+  UserAvatarSize,
+  UserData,
+  UserPresence,
+  UserChipProps,
+  UserChipSize,
+  TeamBadgeProps,
+  TeamBadgeSize,
+  TeamData,
+  EntityLinkProps,
+  EntityData,
+  MentionTokenProps,
+  MentionVariant,
+  UserPickerProps,
+  OrgSwitcherProps,
+  OrgData,
 } from "./domain";
 
 // Utilities — Level 3-4
