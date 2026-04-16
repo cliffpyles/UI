@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "./components";
 import { ThemeProvider, useTheme } from "./providers";
 import { DensityProvider, useDensity } from "./providers";
 import "./App.css";
@@ -58,23 +57,6 @@ function PlaygroundContent({
           </select>
         </label>
       </div>
-
-      <section>
-        <h2>Button</h2>
-        <div className="component-row">
-          <Button variant="primary">Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-        </div>
-        <div className="component-row">
-          <Button size="sm">Small</Button>
-          <Button size="md">Medium</Button>
-          <Button size="lg">Large</Button>
-        </div>
-        <div className="component-row">
-          <Button disabled>Disabled</Button>
-        </div>
-      </section>
 
       <section>
         <h2>Semantic Colors</h2>

@@ -1,7 +1,3 @@
-// Components
-export { Button } from "./components";
-export type { ButtonProps } from "./components";
-
 // Tokens — Tier 1: Primitives
 export {
   colors,
