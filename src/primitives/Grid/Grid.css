@@ -1,0 +1,6 @@
+/* Grid — Generic grid layout primitive */
+
+.ui-grid {
+  box-sizing: border-box;
+  display: grid;
+}
