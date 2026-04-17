@@ -65,6 +65,15 @@ describe("Grid", () => {
     expect(screen.getByTestId("grid").style.gap).toBe("var(--spacing-0-5)");
   });
 
+  it.each([
+    ["content", "var(--spacing-content-gap)"],
+    ["section", "var(--spacing-section-gap)"],
+    ["inline", "var(--spacing-inline-gap)"],
+  ] as const)("resolves semantic gap %s to its density-aware token", (token, css) => {
+    render(<Grid gap={token} data-testid="grid" />);
+    expect(screen.getByTestId("grid").style.gap).toBe(css);
+  });
+
   it("applies autoFlow", () => {
     render(<Grid autoFlow="column" data-testid="grid" />);
     expect(screen.getByTestId("grid")).toHaveStyle({ "grid-auto-flow": "column" });

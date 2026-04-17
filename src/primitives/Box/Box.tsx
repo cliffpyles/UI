@@ -32,7 +32,12 @@ type SpacingToken =
   | "16"
   | "20"
   | "24"
-  | "32";
+  | "32"
+  /* Semantic tokens — track the active density container */
+  | "content"
+  | "section"
+  | "inline"
+  | "page";
 
 type BoxDisplay = "flex" | "grid" | "block" | "inline-flex";
 type BoxDirection = "row" | "column";
@@ -45,13 +50,13 @@ type BoxShadow = "none" | "sm" | "md" | "lg";
 export interface BoxProps extends HTMLAttributes<HTMLElement> {
   /** HTML element to render */
   as?: BoxElement;
-  /** All-sides padding */
+  /** All-sides padding. Primitive tokens (`"0"`–`"32"`) are fixed; semantic tokens (`"page"`, `"content"`, `"section"`, `"inline"`) track the active density container. */
   padding?: SpacingToken;
   /** Horizontal padding */
   paddingX?: SpacingToken;
   /** Vertical padding */
   paddingY?: SpacingToken;
-  /** Flex/grid gap */
+  /** Flex/grid gap. Accepts the same primitive + semantic spacing tokens as `padding`. */
   gap?: SpacingToken;
   /** Display mode */
   display?: BoxDisplay;
@@ -77,8 +82,17 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   shadow?: BoxShadow;
 }
 
+const semanticSpacingMap: Record<"content" | "section" | "inline" | "page", string> = {
+  content: "var(--spacing-content-gap)",
+  section: "var(--spacing-section-gap)",
+  inline: "var(--spacing-inline-gap)",
+  page: "var(--spacing-page-padding)",
+};
+
 const spacingVar = (token: SpacingToken): string =>
-  `var(--spacing-${token.replace(".", "-")})`;
+  token in semanticSpacingMap
+    ? semanticSpacingMap[token as keyof typeof semanticSpacingMap]
+    : `var(--spacing-${token.replace(".", "-")})`;
 
 const backgroundMap: Record<BoxBackground, string> = {
   surface: "var(--color-background-surface)",

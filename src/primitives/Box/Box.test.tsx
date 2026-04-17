@@ -57,6 +57,20 @@ describe("Box", () => {
     expect(screen.getByTestId("box").style.padding).toBe("var(--spacing-0-5)");
   });
 
+  it.each([
+    ["content", "var(--spacing-content-gap)"],
+    ["section", "var(--spacing-section-gap)"],
+    ["inline", "var(--spacing-inline-gap)"],
+  ] as const)("resolves semantic gap %s to its density-aware token", (token, css) => {
+    render(<Box gap={token} data-testid="box" />);
+    expect(screen.getByTestId("box").style.gap).toBe(css);
+  });
+
+  it("resolves semantic padding `page` to --spacing-page-padding", () => {
+    render(<Box padding="page" data-testid="box" />);
+    expect(screen.getByTestId("box").style.padding).toBe("var(--spacing-page-padding)");
+  });
+
   // Display
   it("applies display mode", () => {
     render(<Box display="flex" data-testid="box" />);

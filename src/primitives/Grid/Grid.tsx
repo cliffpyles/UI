@@ -35,7 +35,12 @@ type SpacingToken =
   | "16"
   | "20"
   | "24"
-  | "32";
+  | "32"
+  /* Semantic tokens — track the active density container */
+  | "content"
+  | "section"
+  | "inline"
+  | "page";
 
 type GridAutoFlow = "row" | "column" | "row dense" | "column dense";
 
@@ -58,8 +63,17 @@ export interface GridProps extends HTMLAttributes<HTMLElement> {
   templateAreas?: string | string[];
 }
 
+const semanticSpacingMap: Record<"content" | "section" | "inline" | "page", string> = {
+  content: "var(--spacing-content-gap)",
+  section: "var(--spacing-section-gap)",
+  inline: "var(--spacing-inline-gap)",
+  page: "var(--spacing-page-padding)",
+};
+
 const spacingVar = (token: SpacingToken): string =>
-  `var(--spacing-${token.replace(".", "-")})`;
+  token in semanticSpacingMap
+    ? semanticSpacingMap[token as keyof typeof semanticSpacingMap]
+    : `var(--spacing-${token.replace(".", "-")})`;
 
 const tracks = (value: string | number): string =>
   typeof value === "number" ? `repeat(${value}, minmax(0, 1fr))` : value;
