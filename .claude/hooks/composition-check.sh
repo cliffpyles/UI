@@ -28,17 +28,18 @@ esac
 
 [ -f "$FILE_PATH" ] || exit 0
 
-# Match opening tags: <h1..h6, <p, <label, <legend with a space or >
-# Exclude self-closing void patterns and JSX fragments.
-MATCHES=$(grep -nE '<(h[1-6]|p|label|legend)[[:space:]>]' "$FILE_PATH" \
-  | grep -vE '//.*<(h[1-6]|p|label|legend)' || true)
+# Match opening tags: <h1..h6, <p, <legend with a space or >.
+# <label> is exempt — it's almost always a structural wrapper for a form
+# control, not a typographic element.
+MATCHES=$(grep -nE '<(h[1-6]|p|legend)[[:space:]>]' "$FILE_PATH" \
+  | grep -vE '//.*<(h[1-6]|p|legend)' || true)
 
 if [ -n "$MATCHES" ]; then
   {
     echo "Composition rule violation in $FILE_PATH:"
     echo "$MATCHES"
     echo ""
-    echo "Typographic tags (h1-h6, p, label, legend) must render through the Text primitive."
+    echo "Typographic tags (h1-h6, p, legend) must render through the Text primitive."
     echo "Replace with: <Text as=\"h3\" size=\"...\" weight=\"...\">…</Text>"
     echo "See design/architecture.md → Composition-first rule."
   } >&2

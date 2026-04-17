@@ -11,6 +11,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./Accordion.css";
 
 // --- Context ---
@@ -218,7 +219,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
 
     return (
       <div ref={containerRef}>
-        <h3 className="ui-accordion__heading">
+        <Text as="h3" color="inherit" className="ui-accordion__heading">
           <button
             ref={ref}
             type="button"
@@ -246,7 +247,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
               </svg>
             </span>
           </button>
-        </h3>
+        </Text>
       </div>
     );
   },

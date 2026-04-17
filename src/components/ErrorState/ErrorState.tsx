@@ -1,5 +1,6 @@
 import { forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import { Button } from "../Button";
 import "./ErrorState.css";
 
@@ -37,9 +38,13 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
         <div className="ui-error-state__icon">
           <Icon name="alert-circle" size="xl" color="error" />
         </div>
-        <h3 className="ui-error-state__title">{title}</h3>
+        <Text as="h3" size="lg" weight="semibold" color="primary" className="ui-error-state__title">
+          {title}
+        </Text>
         {description && (
-          <p className="ui-error-state__description">{description}</p>
+          <Text as="p" size="sm" color="secondary" className="ui-error-state__description">
+            {description}
+          </Text>
         )}
         {onRetry && (
           <div className="ui-error-state__action">
