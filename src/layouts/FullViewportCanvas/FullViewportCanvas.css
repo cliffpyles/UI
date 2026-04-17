@@ -1,0 +1,49 @@
+.ui-full-viewport-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-full-viewport-canvas__canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.ui-full-viewport-canvas__slot {
+  position: absolute;
+  padding: var(--spacing-3);
+  pointer-events: none;
+}
+
+.ui-full-viewport-canvas__slot > * {
+  pointer-events: auto;
+}
+
+.ui-full-viewport-canvas__slot--tl {
+  top: 0;
+  left: 0;
+}
+.ui-full-viewport-canvas__slot--tr {
+  top: 0;
+  right: 0;
+}
+.ui-full-viewport-canvas__slot--bl {
+  bottom: 0;
+  left: 0;
+}
+.ui-full-viewport-canvas__slot--br {
+  bottom: 0;
+  right: 0;
+}
+
+.ui-full-viewport-canvas__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-background-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

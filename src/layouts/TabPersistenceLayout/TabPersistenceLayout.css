@@ -1,0 +1,113 @@
+.ui-tab-persist {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background-surface);
+}
+
+.ui-tab-persist__bar {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-background-surface-sunken);
+  overflow-x: auto;
+}
+
+.ui-tab-persist__tabs {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ui-tab-persist__tab-wrap {
+  display: inline-flex;
+  align-items: center;
+  border-right: 1px solid var(--color-border-default);
+  background: transparent;
+  max-width: 200px;
+  min-width: 0;
+}
+
+.ui-tab-persist__tab-wrap--active {
+  background: var(--color-background-surface);
+}
+
+.ui-tab-persist__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  max-width: 160px;
+}
+
+.ui-tab-persist__tab-wrap--active .ui-tab-persist__tab {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-tab-persist__tab:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
+
+.ui-tab-persist__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-tab-persist__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  flex-shrink: 0;
+}
+
+.ui-tab-persist__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-text-tertiary);
+  padding: var(--spacing-1);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-1);
+}
+
+.ui-tab-persist__close:hover {
+  background: var(--color-background-surface-raised);
+  color: var(--color-text-primary);
+}
+
+.ui-tab-persist__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  padding: 0 var(--spacing-3);
+  cursor: pointer;
+}
+
+.ui-tab-persist__add:hover {
+  background: var(--color-background-surface-raised);
+}
+
+.ui-tab-persist__panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}

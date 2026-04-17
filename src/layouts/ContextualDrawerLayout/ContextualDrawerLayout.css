@@ -1,0 +1,94 @@
+.ui-drawer-layout {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ui-drawer-layout__main {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: auto;
+  transition: margin var(--duration-normal) var(--easing-standard);
+}
+
+.ui-drawer-layout__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--color-background-overlay);
+  z-index: var(--z-sticky-header);
+}
+
+.ui-drawer-layout__drawer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(100%);
+  transition: transform var(--duration-normal) var(--easing-standard);
+  z-index: var(--z-dropdown);
+  display: flex;
+  flex-direction: column;
+  right: 0;
+}
+
+.ui-drawer-layout--left .ui-drawer-layout__drawer {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.ui-drawer-layout--open .ui-drawer-layout__drawer {
+  transform: translateX(0);
+}
+
+.ui-drawer-layout--push.ui-drawer-layout--open .ui-drawer-layout__main {
+  margin-right: var(--ui-drawer-width, 400px);
+}
+
+.ui-drawer-layout--push.ui-drawer-layout--left.ui-drawer-layout--open .ui-drawer-layout__main {
+  margin-right: 0;
+  margin-left: var(--ui-drawer-width, 400px);
+}
+
+.ui-drawer-layout__drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ui-drawer-layout__drawer-title {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.ui-drawer-layout__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-1);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.ui-drawer-layout__close:hover {
+  background: var(--color-background-surface-raised);
+  color: var(--color-text-primary);
+}
+
+.ui-drawer-layout__drawer-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--spacing-4);
+}

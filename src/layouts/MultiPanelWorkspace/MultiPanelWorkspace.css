@@ -1,0 +1,32 @@
+.ui-multi-panel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background-surface);
+}
+
+.ui-multi-panel--horizontal {
+  flex-direction: row;
+}
+
+.ui-multi-panel--vertical {
+  flex-direction: column;
+}
+
+.ui-multi-panel__panel {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  background: var(--color-background-surface);
+}
+
+.ui-multi-panel__panel--fluid {
+  flex: 1 1 auto;
+  border-left: 1px solid var(--color-border-default);
+}
+
+.ui-multi-panel--vertical .ui-multi-panel__panel--fluid {
+  border-left: 0;
+  border-top: 1px solid var(--color-border-default);
+}

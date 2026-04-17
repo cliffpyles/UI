@@ -1,0 +1,97 @@
+.ui-wizard-frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background-surface);
+}
+
+.ui-wizard-frame__steps {
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-4) var(--spacing-6);
+  display: flex;
+  gap: var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-background-surface-raised);
+  overflow-x: auto;
+}
+
+.ui-wizard-frame__step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.ui-wizard-frame__step--active {
+  color: var(--color-action-primary);
+}
+
+.ui-wizard-frame__step--done {
+  color: var(--color-status-success-text);
+}
+
+.ui-wizard-frame__step-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  flex-shrink: 0;
+}
+
+.ui-wizard-frame__step--active .ui-wizard-frame__step-marker {
+  background: var(--color-action-primary);
+  border-color: var(--color-action-primary);
+  color: var(--color-white, #fff);
+}
+
+.ui-wizard-frame__step--done .ui-wizard-frame__step-marker {
+  background: var(--color-status-success-icon);
+  border-color: var(--color-status-success-icon);
+  color: var(--color-white, #fff);
+}
+
+.ui-wizard-frame__step-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-wizard-frame__step-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.ui-wizard-frame__step--active .ui-wizard-frame__step-label {
+  color: var(--color-action-primary);
+}
+
+.ui-wizard-frame__step-desc,
+.ui-wizard-frame__step-optional {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.ui-wizard-frame__content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--spacing-page-padding);
+}
+
+.ui-wizard-frame__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-page-padding);
+  border-top: 1px solid var(--color-border-default);
+  background: var(--color-background-surface);
+}

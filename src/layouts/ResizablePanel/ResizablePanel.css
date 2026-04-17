@@ -1,0 +1,59 @@
+.ui-resizable-panel {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  background: var(--color-background-surface);
+}
+
+.ui-resizable-panel--horizontal {
+  flex-direction: row;
+  height: 100%;
+}
+
+.ui-resizable-panel--vertical {
+  flex-direction: column;
+  width: 100%;
+}
+
+.ui-resizable-panel__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.ui-resizable-panel__handle {
+  flex: 0 0 auto;
+  position: relative;
+  background: transparent;
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+
+.ui-resizable-panel--horizontal .ui-resizable-panel__handle {
+  width: var(--spacing-1);
+  cursor: col-resize;
+  align-self: stretch;
+}
+
+.ui-resizable-panel--vertical .ui-resizable-panel__handle {
+  height: var(--spacing-1);
+  cursor: row-resize;
+  justify-self: stretch;
+}
+
+.ui-resizable-panel__handle:hover,
+.ui-resizable-panel--dragging .ui-resizable-panel__handle {
+  background: var(--color-action-primary);
+}
+
+.ui-resizable-panel__handle:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 0;
+  background: var(--color-action-primary);
+}
+
+.ui-resizable-panel__handle[aria-disabled="true"] {
+  cursor: not-allowed;
+  pointer-events: none;
+  background: transparent;
+}

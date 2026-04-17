@@ -1,0 +1,31 @@
+.ui-master-detail {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background-surface);
+}
+
+.ui-master-detail__master {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-right: 1px solid var(--color-border-default);
+}
+
+.ui-master-detail__detail {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: auto;
+  padding: var(--spacing-page-padding);
+}
+
+@media (max-width: 767px) {
+  .ui-master-detail {
+    flex-direction: column;
+  }
+  .ui-master-detail__master {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-default);
+  }
+}

@@ -1,0 +1,176 @@
+.ui-activity-center {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+.ui-activity-center__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ui-activity-center__heading {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.ui-activity-center__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 0 var(--spacing-2);
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  color: var(--color-white, #fff);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-activity-center__mark-all {
+  background: transparent;
+  border: 0;
+  color: var(--color-action-primary);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.ui-activity-center__mark-all:hover {
+  background: var(--color-action-primary-bg);
+}
+
+.ui-activity-center__tabs {
+  display: flex;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-bottom: 1px solid var(--color-border-default);
+  overflow-x: auto;
+}
+
+.ui-activity-center__tab {
+  padding: var(--spacing-1) var(--spacing-3);
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.ui-activity-center__tab:hover {
+  background: var(--color-background-surface-raised);
+  color: var(--color-text-primary);
+}
+
+.ui-activity-center__tab--active {
+  background: var(--color-action-primary-bg);
+  color: var(--color-action-primary);
+}
+
+.ui-activity-center__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.ui-activity-center__empty {
+  padding: var(--spacing-6);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.ui-activity-center__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ui-activity-center__item:last-child {
+  border-bottom: 0;
+}
+
+.ui-activity-center__item--unread {
+  background: var(--color-action-primary-bg);
+}
+
+.ui-activity-center__item-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.ui-activity-center__item-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-activity-center__item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  flex-shrink: 0;
+}
+
+.ui-activity-center__item-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.ui-activity-center__item-time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.ui-activity-center__item-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.ui-activity-center__read-toggle {
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.ui-activity-center__read-toggle:hover {
+  background: var(--color-background-surface-raised);
+  color: var(--color-text-primary);
+}

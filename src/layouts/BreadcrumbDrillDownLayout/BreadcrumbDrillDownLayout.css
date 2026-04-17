@@ -1,0 +1,22 @@
+.ui-drilldown {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background-surface);
+}
+
+.ui-drilldown__header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky-header);
+  padding: var(--spacing-3) var(--spacing-page-padding);
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-background-surface);
+}
+
+.ui-drilldown__content {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: var(--spacing-page-padding);
+}
