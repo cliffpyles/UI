@@ -11,17 +11,8 @@
   align-items: center;
 }
 
-.ui-sync-status__label {
-  color: var(--color-text-primary);
-}
-
 .ui-sync-status--error .ui-sync-status__label {
   color: var(--color-status-error-text);
-}
-
-.ui-sync-status__meta {
-  color: var(--color-text-tertiary);
-  font-size: var(--font-size-xs);
 }
 
 .ui-sync-status__retry {

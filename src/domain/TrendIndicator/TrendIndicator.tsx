@@ -1,4 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Text } from "../../primitives/Text";
+import { VisuallyHidden } from "../../primitives/VisuallyHidden";
 import { formatPercent } from "../../utils";
 import "./TrendIndicator.css";
 
@@ -52,10 +54,10 @@ export const TrendIndicator = forwardRef<HTMLSpanElement, TrendIndicatorProps>(
 
     return (
       <span ref={ref} className={classes} {...rest}>
-        <span aria-hidden="true" className="ui-trend-indicator__arrow">{ARROWS[dir]}</span>
-        <span className="ui-trend-indicator__sr">{A11Y[dir]}</span>
+        <Text as="span" size="sm" weight="bold" color="inherit" aria-hidden="true">{ARROWS[dir]}</Text>
+        <VisuallyHidden>{A11Y[dir]}</VisuallyHidden>
         {displayValue && <span className="ui-trend-indicator__value">{displayValue}</span>}
-        {label && <span className="ui-trend-indicator__label">{label}</span>}
+        {label && <Text as="span" size="sm" color="secondary">{label}</Text>}
       </span>
     );
   },

@@ -1,8 +1,8 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Text } from "../../primitives/Text";
 import { formatPercent } from "../../utils";
-import "./Percentage.css";
 
-export interface PercentageProps extends HTMLAttributes<HTMLSpanElement> {
+export interface PercentageProps extends Omit<HTMLAttributes<HTMLSpanElement>, "color"> {
   value: number | null | undefined;
   precision?: number;
   showSign?: boolean;
@@ -11,12 +11,11 @@ export interface PercentageProps extends HTMLAttributes<HTMLSpanElement> {
 
 export const Percentage = forwardRef<HTMLSpanElement, PercentageProps>(
   function Percentage({ value, precision, showSign, locale, className, ...rest }, ref) {
-    const classes = ["ui-percentage", className].filter(Boolean).join(" ");
     const display = formatPercent(value, { decimals: precision, sign: showSign, locale });
     return (
-      <span ref={ref} className={classes} {...rest}>
+      <Text as="span" tabularNums color="inherit" ref={ref} className={["ui-percentage", className].filter(Boolean).join(" ")} {...rest}>
         {display}
-      </span>
+      </Text>
     );
   },
 );

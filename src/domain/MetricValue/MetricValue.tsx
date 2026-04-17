@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Text } from "../../primitives/Text";
 import { formatNumber, formatCompact, formatCurrency, formatPercent } from "../../utils";
 import "./MetricValue.css";
 
@@ -34,9 +35,9 @@ export const MetricValue = forwardRef<HTMLSpanElement, MetricValueProps>(
 
     return (
       <span ref={ref} className={classes} {...rest}>
-        <span className="ui-metric-value__number">{display}</span>
+        <Text as="span" weight="semibold" color="inherit">{display}</Text>
         {unit && value != null && !Number.isNaN(value) && (
-          <span className="ui-metric-value__unit">{unit}</span>
+          <Text as="span" size="sm" color="secondary">{unit}</Text>
         )}
       </span>
     );

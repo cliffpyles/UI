@@ -9,23 +9,6 @@
   min-width: 0;
 }
 
-.ui-activity-item__summary {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-}
-
-.ui-activity-item__actor {
-  font-weight: var(--font-weight-semibold);
-}
-
-.ui-activity-item__action {
-  color: var(--color-text-secondary);
-}
-
-.ui-activity-item__target {
-  font-weight: var(--font-weight-medium);
-}
-
 .ui-activity-item__time {
   display: block;
   font-size: var(--font-size-xs);

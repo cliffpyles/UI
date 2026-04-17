@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { Icon } from "../../primitives/Icon";
 import { Spinner } from "../../primitives/Spinner";
+import { Text } from "../../primitives/Text";
 import { formatDate } from "../../utils";
 import "./SyncStatus.css";
 
@@ -54,9 +55,9 @@ export const SyncStatus = forwardRef<HTMLSpanElement, SyncStatusProps>(
             <Icon name="refresh" size="xs" color="success" />
           )}
         </span>
-        <span className="ui-sync-status__label">{text}</span>
+        <Text as="span" size="sm" color="primary" className="ui-sync-status__label">{text}</Text>
         {relative && status !== "syncing" && (
-          <span className="ui-sync-status__meta">· {relative}</span>
+          <Text as="span" size="xs" color="tertiary">· {relative}</Text>
         )}
         {onRetry && status === "error" && (
           <button type="button" className="ui-sync-status__retry" onClick={onRetry}>

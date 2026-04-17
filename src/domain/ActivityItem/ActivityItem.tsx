@@ -7,6 +7,7 @@ import {
 import { UserAvatar } from "../UserAvatar";
 import { Timestamp } from "../Timestamp";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import type { UserData } from "../UserAvatar";
 import "./ActivityItem.css";
 
@@ -31,12 +32,12 @@ export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
         <UserAvatar user={actor} size="sm" />
         <div className="ui-activity-item__body">
           <div className="ui-activity-item__summary">
-            <span className="ui-activity-item__actor">{actor.name}</span>{" "}
-            <span className="ui-activity-item__action">{action}</span>
+            <Text as="span" size="sm" weight="semibold">{actor.name}</Text>{" "}
+            <Text as="span" size="sm" color="secondary">{action}</Text>
             {target && (
               <>
                 {" "}
-                <span className="ui-activity-item__target">{target}</span>
+                <Text as="span" size="sm" weight="medium">{target}</Text>
               </>
             )}
           </div>

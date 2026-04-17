@@ -18,12 +18,6 @@
   line-height: var(--font-line-height-normal);
 }
 
-.ui-form-field__required {
-  font-size: var(--font-size-caption);
-  font-weight: var(--font-weight-normal);
-  color: var(--color-text-secondary);
-}
-
 /* ---------- Control ---------- */
 
 .ui-form-field__control {

@@ -7,6 +7,7 @@ import {
   type ReactNode,
   type HTMLAttributes,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./FormField.css";
 
 interface FormFieldOwnProps {
@@ -73,7 +74,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         <label className="ui-form-field__label" htmlFor={fieldId}>
           {label}
           {required && (
-            <span className="ui-form-field__required"> (required)</span>
+            <Text as="span" size="xs" weight="normal" color="secondary"> (required)</Text>
           )}
         </label>
         <div className="ui-form-field__control">{enhancedChild}</div>

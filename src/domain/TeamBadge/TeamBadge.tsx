@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { Icon, type IconName } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import "./TeamBadge.css";
 
 export type TeamBadgeSize = "sm" | "md" | "lg";
@@ -43,7 +44,11 @@ export const TeamBadge = forwardRef<HTMLSpanElement, TeamBadgeProps>(
         >
           {team.icon ? <Icon name={team.icon} size="xs" /> : getInitials(team.name)}
         </span>
-        {showLabel && <span className="ui-team-badge__name">{team.name}</span>}
+        {showLabel && (
+          <Text as="span" size="sm" color="inherit" className="ui-team-badge__name">
+            {team.name}
+          </Text>
+        )}
       </span>
     );
   },

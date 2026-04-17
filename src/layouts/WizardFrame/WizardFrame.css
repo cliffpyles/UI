@@ -64,20 +64,8 @@
   flex-direction: column;
 }
 
-.ui-wizard-frame__step-label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-}
-
 .ui-wizard-frame__step--active .ui-wizard-frame__step-label {
   color: var(--color-action-primary);
-}
-
-.ui-wizard-frame__step-desc,
-.ui-wizard-frame__step-optional {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
 }
 
 .ui-wizard-frame__content {

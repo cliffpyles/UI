@@ -6,12 +6,3 @@
   color: var(--color-text-primary);
 }
 
-.ui-metric-value__number {
-  font-weight: var(--font-weight-semibold);
-}
-
-.ui-metric-value__unit {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-regular);
-}

@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import "./WizardFrame.css";
 
 export interface WizardStep {
@@ -81,16 +82,16 @@ const WizardStepIndicator = forwardRef<HTMLOListElement, HTMLAttributes<HTMLOLis
                 {done ? <Icon name="check" size="xs" /> : idx + 1}
               </span>
               <span className="ui-wizard-frame__step-text">
-                <span className="ui-wizard-frame__step-label">{step.label}</span>
+                <Text as="span" size="sm" weight="medium" color="primary" className="ui-wizard-frame__step-label">{step.label}</Text>
                 {step.description && (
-                  <span className="ui-wizard-frame__step-desc">
+                  <Text as="span" size="xs" color="tertiary">
                     {step.description}
-                  </span>
+                  </Text>
                 )}
                 {step.optional && (
-                  <span className="ui-wizard-frame__step-optional">
+                  <Text as="span" size="xs" color="tertiary">
                     Optional
-                  </span>
+                  </Text>
                 )}
               </span>
             </li>
