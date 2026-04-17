@@ -1,19 +1,20 @@
+import { Demo } from "../components/Demo";
+
 export default function Overview() {
   return (
-    <>
-      <section>
-        <h2>Semantic Colors</h2>
-        <h3>Status</h3>
+    <section>
+      <h2>Overview</h2>
+
+      <Demo title="Status colors" description="Semantic colors for success, warning, error, info.">
         <div className="status-row">
           <span className="status-badge status-badge--success">Success</span>
           <span className="status-badge status-badge--warning">Warning</span>
           <span className="status-badge status-badge--error">Error</span>
           <span className="status-badge status-badge--info">Info</span>
         </div>
-      </section>
+      </Demo>
 
-      <section>
-        <h2>Surfaces</h2>
+      <Demo title="Surfaces" description="Raised and sunken background tokens.">
         <div style={{ display: "flex", gap: "var(--spacing-content-gap)", flexWrap: "wrap" }}>
           <div className="token-demo">
             <strong>Raised</strong>
@@ -24,10 +25,9 @@ export default function Overview() {
             <p style={{ color: "var(--color-text-secondary)" }}>Inset areas and wells</p>
           </div>
         </div>
-      </section>
+      </Demo>
 
-      <section>
-        <h2>Typography</h2>
+      <Demo title="Typography scale" description="Font-size tokens from 2xs through 2xl.">
         <p style={{ fontSize: "var(--font-size-2xs)" }}>2xs (10px)</p>
         <p style={{ fontSize: "var(--font-size-xs)" }}>xs (12px)</p>
         <p style={{ fontSize: "var(--font-size-sm)" }}>sm (14px)</p>
@@ -35,10 +35,9 @@ export default function Overview() {
         <p style={{ fontSize: "var(--font-size-lg)" }}>lg (18px)</p>
         <p style={{ fontSize: "var(--font-size-xl)" }}>xl (20px)</p>
         <p style={{ fontSize: "var(--font-size-2xl)" }}>2xl (24px)</p>
-      </section>
+      </Demo>
 
-      <section>
-        <h2>Categorical Colors</h2>
+      <Demo title="Categorical colors" description="8-color categorical palette for charts.">
         <div style={{ display: "flex", gap: "var(--spacing-2)" }}>
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div
@@ -52,7 +51,7 @@ export default function Overview() {
             />
           ))}
         </div>
-      </section>
-    </>
+      </Demo>
+    </section>
   );
 }
