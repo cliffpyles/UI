@@ -23,13 +23,8 @@
   padding: var(--spacing-4) var(--spacing-5);
 }
 
-.ui-card__title {
-  margin: 0;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  line-height: var(--font-line-height-tight);
-}
+/* Typography for .ui-card__title comes from the Text primitive.
+   Only density-specific size overrides live here. */
 
 .ui-card__actions {
   display: flex;

@@ -19,21 +19,10 @@
   color: var(--color-text-secondary);
 }
 
-.ui-empty-state__title {
-  margin: 0;
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--font-line-height-tight);
-  color: var(--color-text-primary);
-}
+/* Typography for .ui-empty-state__title and __description comes from the
+   Text primitive. Only layout/density overrides live here. */
 
 .ui-empty-state__description {
-  margin: 0;
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-sm);
-  line-height: var(--font-line-height-normal);
-  color: var(--color-text-secondary);
   max-width: 36ch;
 }
 

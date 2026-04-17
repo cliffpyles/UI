@@ -74,6 +74,10 @@ Then add the export to the parent directory's `index.ts` and to `src/index.ts`.
 - **Spread remaining props**: After extracting component props, spread the rest onto the root DOM element.
 - **Named exports only**: No default exports for components.
 
+### Composition Rules (from design/architecture.md)
+
+- **Compose from primitives, don't reimplement**. Typographic content (`h1`-`h6`, `p`, `label`, `legend`, styled `span`) must render through the `Text` primitive. Layout containers should use `Box` when semantics allow. Raw HTML is acceptable only for semantic tags not covered by a primitive (`table`, `nav`, `form`, `dialog`, lists), unstyled structural wrappers, or when a primitive is genuinely missing — in which case add the primitive.
+
 ### CSS Rules (from design/foundations/tokens.md)
 
 - **All values from tokens**: Colors, spacing, font sizes, radii, shadows, durations, z-indexes — all via `var(--...)` CSS custom properties. Zero hardcoded values.
@@ -115,6 +119,7 @@ All hooks live in `.claude/hooks/` and are configured in `.claude/settings.json`
 | `typecheck.sh` | PostToolUse (Write/Edit) | Runs `tsc -b` on .ts/.tsx edits. Type errors are fed back to Claude. |
 | `lint.sh` | PostToolUse (Write/Edit) | Runs ESLint on the changed .ts/.tsx file. Lint errors are fed back to Claude. |
 | `test-changed.sh` | PostToolUse (Write/Edit) | Runs Vitest on the changed file when it's a `.test.tsx` file. Failures are fed back to Claude. |
+| `composition-check.sh` | PostToolUse (Write/Edit) | Flags raw typographic tags (`h1-h6`, `p`, `label`, `legend`) in `components/`, `domain/`, `layouts/`, `features/`. Violations are fed back to Claude so it switches to the `Text` primitive. |
 
 Git pre-commit hook (`.githooks/pre-commit`) runs typecheck + lint + test as a final gate.
 

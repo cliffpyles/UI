@@ -78,13 +78,8 @@
   padding: var(--spacing-5) var(--spacing-6) var(--spacing-0);
 }
 
-.ui-modal__title {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  line-height: var(--font-line-height-tight);
-}
+/* Typography for .ui-modal__title comes from the Text primitive.
+   Only density-specific size overrides live here. */
 
 /* ---------- Close button ---------- */
 
@@ -118,11 +113,7 @@
 /* ---------- Description ---------- */
 
 .ui-modal__description {
-  margin: 0;
   padding: var(--spacing-2) var(--spacing-6) var(--spacing-0);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--font-line-height-normal);
 }
 
 /* ---------- Body ---------- */

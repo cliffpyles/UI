@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
+import { Text } from "../../primitives/Text";
 import "./Card.css";
 
 // --- Card Root ---
@@ -38,15 +39,23 @@ const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
 
 // --- Card Title ---
 
-export type CardTitleProps = HTMLAttributes<HTMLHeadingElement>;
+export type CardTitleProps = Omit<HTMLAttributes<HTMLHeadingElement>, "color">;
 
 const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   function CardTitle({ children, className, ...props }, ref) {
     const classes = ["ui-card__title", className].filter(Boolean).join(" ");
     return (
-      <h3 ref={ref} className={classes} {...props}>
+      <Text
+        ref={ref as React.Ref<HTMLElement>}
+        as="h3"
+        size="base"
+        weight="semibold"
+        color="primary"
+        className={classes}
+        {...props}
+      >
         {children}
-      </h3>
+      </Text>
     );
   },
 );

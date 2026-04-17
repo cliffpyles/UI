@@ -81,6 +81,16 @@ This ensures consumers can add event handlers, data attributes, and ARIA propert
 
 ## Composition Patterns
 
+### Compose from lower-level primitives
+
+Components must build on the primitives and base components beneath them rather than reimplementing those concerns with raw HTML + CSS.
+
+- Render typographic content (`h1`-`h6`, `p`, `label`, `legend`, styled `span`) through [`Text`](../../src/primitives/Text/Text.tsx) — use `as="h3"`, `size`, `weight`, `color` instead of custom typography classes.
+- Render flex/stack containers through [`Box`](../../src/primitives/Box/Box.tsx) when semantics allow.
+- If a primitive is missing for a recurring need, add one — do not inline the raw implementation.
+
+See [Architecture → Composition-first rule](../architecture.md) for the full policy.
+
 ### Slots Over Configuration Props
 
 When a component accepts variable content, use a slot pattern:

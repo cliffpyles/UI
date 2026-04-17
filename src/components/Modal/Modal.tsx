@@ -8,6 +8,7 @@ import {
   type HTMLAttributes,
 } from "react";
 import { createPortal } from "react-dom";
+import { Text } from "../../primitives/Text";
 import "./Modal.css";
 
 type ModalSize = "sm" | "md" | "lg";
@@ -175,9 +176,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         >
           {title && (
             <div className="ui-modal__header">
-              <h2 id={titleId} className="ui-modal__title">
+              <Text
+                as="h2"
+                id={titleId}
+                size="lg"
+                weight="semibold"
+                color="primary"
+                className="ui-modal__title"
+              >
                 {title}
-              </h2>
+              </Text>
               <button
                 type="button"
                 className="ui-modal__close"
@@ -202,9 +210,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             </div>
           )}
           {description && (
-            <p id={descriptionId} className="ui-modal__description">
+            <Text
+              as="p"
+              id={descriptionId}
+              size="sm"
+              color="secondary"
+              className="ui-modal__description"
+            >
               {description}
-            </p>
+            </Text>
           )}
           <div className="ui-modal__body">{children}</div>
           {footer && <div className="ui-modal__footer">{footer}</div>}

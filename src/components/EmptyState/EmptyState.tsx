@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Icon } from "../../primitives/Icon";
 import type { IconName } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import "./EmptyState.css";
 
 type EmptyStateVariant =
@@ -51,9 +52,13 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
         <div className="ui-empty-state__icon">
           {icon ?? <Icon name={variantIconMap[variant]} size="xl" color="secondary" />}
         </div>
-        <h3 className="ui-empty-state__title">{title}</h3>
+        <Text as="h3" size="lg" weight="semibold" color="primary" className="ui-empty-state__title">
+          {title}
+        </Text>
         {description && (
-          <p className="ui-empty-state__description">{description}</p>
+          <Text as="p" size="sm" color="secondary" className="ui-empty-state__description">
+            {description}
+          </Text>
         )}
         {action && <div className="ui-empty-state__action">{action}</div>}
       </div>
