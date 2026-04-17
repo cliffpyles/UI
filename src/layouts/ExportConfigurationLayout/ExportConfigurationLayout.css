@@ -1,0 +1,32 @@
+.ui-export-config {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-content-gap);
+  padding: var(--spacing-page-padding);
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-export-config__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-content-gap);
+  padding-bottom: var(--spacing-content-gap);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ui-export-config__section:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ui-export-config__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-content-gap);
+  padding-top: var(--spacing-content-gap);
+  border-top: 1px solid var(--color-border-default);
+}

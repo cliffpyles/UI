@@ -1,0 +1,89 @@
+.ui-permission-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-content-gap);
+  width: 100%;
+  background: var(--color-background-surface);
+  padding: var(--spacing-page-padding);
+}
+
+.ui-permission-matrix__toolbar {
+  display: flex;
+  gap: var(--spacing-inline-gap);
+  align-items: center;
+}
+
+.ui-permission-matrix__scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+.ui-permission-matrix__table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.ui-permission-matrix__corner,
+.ui-permission-matrix__role-header,
+.ui-permission-matrix__resource-header,
+.ui-permission-matrix__cell {
+  padding: var(--spacing-component-padding-y) var(--spacing-component-padding-x);
+  border-bottom: 1px solid var(--color-border-default);
+  font-size: var(--font-size-label);
+  color: var(--color-text-primary);
+  text-align: left;
+  vertical-align: middle;
+  background: var(--color-background-surface);
+}
+
+.ui-permission-matrix__corner,
+.ui-permission-matrix__role-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--color-background-surface-raised);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.ui-permission-matrix__corner,
+.ui-permission-matrix__resource-header {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--color-background-surface-raised);
+  font-weight: var(--font-weight-medium);
+  border-right: 1px solid var(--color-border-default);
+}
+
+.ui-permission-matrix__corner {
+  z-index: 3;
+}
+
+.ui-permission-matrix__resource-label {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.ui-permission-matrix__action-label {
+  display: block;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+.ui-permission-matrix__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

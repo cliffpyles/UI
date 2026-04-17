@@ -1,0 +1,93 @@
+.ui-multi-step-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-section-gap);
+  width: 100%;
+  min-height: 0;
+  padding: var(--spacing-page-padding);
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+}
+
+.ui-multi-step-form__progress {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-content-gap);
+}
+
+.ui-multi-step-form__step {
+  flex: 1 1 0;
+}
+
+.ui-multi-step-form__step-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-content-gap);
+  width: 100%;
+  padding: var(--spacing-content-gap);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ui-multi-step-form__step-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ui-multi-step-form__step--active .ui-multi-step-form__step-button {
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-multi-step-form__step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-section-gap);
+  height: var(--spacing-section-gap);
+  border-radius: var(--radius-md);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+}
+
+.ui-multi-step-form__content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--spacing-content-gap);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+.ui-multi-step-form__footer {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-index-sticky);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-content-gap);
+  padding: var(--spacing-content-gap);
+  background: var(--color-background-surface-raised);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.ui-multi-step-form__nav {
+  padding: var(--spacing-content-gap);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ui-multi-step-form__nav:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

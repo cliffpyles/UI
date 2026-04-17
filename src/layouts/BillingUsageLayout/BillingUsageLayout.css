@@ -1,0 +1,96 @@
+.ui-billing-usage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-section-gap);
+  width: 100%;
+  background: var(--color-background-surface);
+  padding: var(--spacing-page-padding);
+}
+
+.ui-billing-usage__plan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-content-gap);
+  padding: var(--spacing-component-padding-x);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-background-surface-raised);
+}
+
+.ui-billing-usage__plan-body {
+  flex: 1 1 auto;
+}
+
+.ui-billing-usage__upgrade {
+  flex: 0 0 auto;
+}
+
+.ui-billing-usage__heading {
+  margin: 0 0 var(--spacing-3) 0;
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.ui-billing-usage__usage {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-billing-usage__meters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.ui-billing-usage__meter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.ui-billing-usage__meter-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-inline-gap);
+  font-size: var(--font-size-label);
+}
+
+.ui-billing-usage__meter-label {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-billing-usage__meter-value {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.ui-billing-usage__bar {
+  width: 100%;
+  height: var(--spacing-2);
+  background: var(--color-background-surface-sunken);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.ui-billing-usage__bar-fill {
+  height: 100%;
+  background: var(--color-action-primary);
+  border-radius: var(--radius-full);
+  transition: width 120ms ease-out;
+}
+
+.ui-billing-usage__bar--over .ui-billing-usage__bar-fill {
+  background: var(--color-status-error-icon);
+}
+
+.ui-billing-usage__invoices {
+  display: flex;
+  flex-direction: column;
+}

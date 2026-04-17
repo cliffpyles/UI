@@ -1,0 +1,39 @@
+.ui-graph-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+  overflow: hidden;
+}
+
+.ui-graph-layout__canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.ui-graph-layout__controls {
+  position: absolute;
+  top: var(--spacing-page-padding);
+  right: var(--spacing-page-padding);
+  display: flex;
+  gap: var(--spacing-inline-gap);
+  padding: var(--spacing-component-padding-y) var(--spacing-component-padding-x);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-graph-layout__legend {
+  position: absolute;
+  bottom: var(--spacing-page-padding);
+  left: var(--spacing-page-padding);
+  padding: var(--spacing-component-padding-y) var(--spacing-component-padding-x);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-secondary);
+}

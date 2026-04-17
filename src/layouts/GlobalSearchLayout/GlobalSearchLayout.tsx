@@ -1,0 +1,75 @@
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import "./GlobalSearchLayout.css";
+
+export interface GlobalSearchCategory {
+  id: string;
+  label: string;
+  items: ReactNode[];
+}
+
+export interface GlobalSearchLayoutProps extends HTMLAttributes<HTMLDivElement> {
+  searchInput: ReactNode;
+  categories: GlobalSearchCategory[];
+  recents?: ReactNode;
+  empty?: ReactNode;
+  ariaLabel?: string;
+}
+
+export const GlobalSearchLayout = forwardRef<HTMLDivElement, GlobalSearchLayoutProps>(
+  function GlobalSearchLayout(
+    {
+      searchInput,
+      categories,
+      recents,
+      empty,
+      ariaLabel = "Global search",
+      className,
+      ...rest
+    },
+    ref,
+  ) {
+    const classes = ["ui-global-search", className].filter(Boolean).join(" ");
+    const hasResults = categories.some((c) => c.items.length > 0);
+    return (
+      <div
+        ref={ref}
+        role="search"
+        aria-label={ariaLabel}
+        className={classes}
+        {...rest}
+      >
+        <div className="ui-global-search__input">{searchInput}</div>
+        <div className="ui-global-search__body">
+          {!hasResults && recents && (
+            <div className="ui-global-search__recents">{recents}</div>
+          )}
+          {!hasResults && !recents && empty && (
+            <div className="ui-global-search__empty">{empty}</div>
+          )}
+          {hasResults &&
+            categories.map((category) => (
+              <section
+                key={category.id}
+                className="ui-global-search__category"
+                aria-label={category.label}
+              >
+                <h3 className="ui-global-search__category-label">
+                  {category.label}
+                </h3>
+                <ul className="ui-global-search__items">
+                  {category.items.map((item, index) => (
+                    <li
+                      key={index}
+                      className="ui-global-search__item"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+        </div>
+      </div>
+    );
+  },
+);

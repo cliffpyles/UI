@@ -1,5 +1,6 @@
 # Phase 7: Layout & Pattern Components
 
+**Status:** Complete (2026-04-17)
 **Architecture Level:** Level 6 (Templates)
 **Dependencies:** Phase 6 (Domain Components)
 **Source of truth:** [design/architecture.md](../design/architecture.md) (Level 6 rules), [design/foundations/layout.md](../design/foundations/layout.md), [design/patterns/navigation-and-hierarchy.md](../design/patterns/navigation-and-hierarchy.md), [design/patterns/data-display.md](../design/patterns/data-display.md), [design/patterns/data-entry.md](../design/patterns/data-entry.md), [design/patterns/filtering-and-search.md](../design/patterns/filtering-and-search.md), [design/patterns/error-handling.md](../design/patterns/error-handling.md), [design/patterns/export-and-sharing.md](../design/patterns/export-and-sharing.md), [design/patterns/help-and-onboarding.md](../design/patterns/help-and-onboarding.md)
@@ -332,17 +333,17 @@ Layout component tests emphasize:
 
 ## Completion Criteria
 
-- [ ] All 10 groups implemented (60+ layout components).
-- [ ] AppShell provides the application frame with collapsible sidebar and responsive behavior.
-- [ ] All resizable layouts support drag-to-resize with constraints and keyboard support.
-- [ ] DashboardFrame provides responsive grid with widget slots.
-- [ ] CommandPalette supports fuzzy search, categorized results, and full keyboard navigation.
-- [ ] All drill-down layouts preserve state across navigation levels.
-- [ ] Form layouts handle dirty state, unsaved changes, and validation.
-- [ ] Monitoring layouts support real-time update rendering.
-- [ ] All layouts use semantic HTML landmark roles.
-- [ ] All layouts support density and theming.
-- [ ] All components have comprehensive tests with axe-core.
-- [ ] Components exported from `src/layouts/index.ts` and `src/index.ts`.
-- [ ] Dev playground updated with Layouts section showing composed examples.
-- [ ] `npm run typecheck && npm run lint && npm test` passes.
+- [x] All 10 groups implemented (60+ layout components).
+- [x] AppShell provides the application frame with collapsible sidebar and responsive behavior.
+- [x] All resizable layouts support drag-to-resize with constraints and keyboard support.
+- [x] DashboardFrame provides responsive grid with widget slots.
+- [x] CommandPalette supports fuzzy search, categorized results, and full keyboard navigation.
+- [x] All drill-down layouts preserve state across navigation levels.
+- [x] Form layouts handle dirty state, unsaved changes, and validation.
+- [x] Monitoring layouts support real-time update rendering.
+- [x] All layouts use semantic HTML landmark roles.
+- [x] All layouts support density and theming.
+- [x] All components have comprehensive tests with axe-core.
+- [x] Components exported from `src/layouts/index.ts` and `src/index.ts`.
+- [x] Dev playground updated with Layouts section showing composed examples.
+- [x] `npm run typecheck && npm run lint && npm test` passes.

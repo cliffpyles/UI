@@ -1,0 +1,31 @@
+.ui-import-mapping {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-section-gap);
+  padding: var(--spacing-page-padding);
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+}
+
+.ui-import-mapping__upload,
+.ui-import-mapping__mapping,
+.ui-import-mapping__preview,
+.ui-import-mapping__errors {
+  padding: var(--spacing-content-gap);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+.ui-import-mapping__footer {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-index-sticky);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-content-gap);
+  padding: var(--spacing-content-gap);
+  background: var(--color-background-surface-raised);
+  border-top: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-sm);
+}

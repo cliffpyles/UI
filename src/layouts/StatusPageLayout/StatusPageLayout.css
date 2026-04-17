@@ -1,0 +1,113 @@
+.ui-status-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  padding: var(--spacing-page-padding);
+  background: var(--color-background-surface);
+  min-height: 0;
+}
+
+.ui-status-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ui-status-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--spacing-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-status-page__system {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-background-surface-raised);
+}
+
+.ui-status-page__system-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.ui-status-page__indicator {
+  width: var(--spacing-2-5);
+  height: var(--spacing-2-5);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.ui-status-page__indicator--operational {
+  background: var(--color-status-success-icon);
+}
+
+.ui-status-page__indicator--degraded {
+  background: var(--color-status-warning-icon);
+}
+
+.ui-status-page__indicator--outage {
+  background: var(--color-status-error-icon);
+}
+
+.ui-status-page__indicator--maintenance {
+  background: var(--color-status-info-icon);
+}
+
+.ui-status-page__system-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.ui-status-page__status {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ui-status-page__status--operational {
+  color: var(--color-status-success-text);
+}
+
+.ui-status-page__status--degraded {
+  color: var(--color-status-warning-text);
+}
+
+.ui-status-page__status--outage {
+  color: var(--color-status-error-text);
+}
+
+.ui-status-page__status--maintenance {
+  color: var(--color-status-info-text);
+}
+
+.ui-status-page__system-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.ui-status-page__system-uptime {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.ui-status-page__incidents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-background-surface-raised);
+}

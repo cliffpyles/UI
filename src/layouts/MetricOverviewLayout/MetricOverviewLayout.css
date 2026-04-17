@@ -1,0 +1,46 @@
+.ui-metric-overview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-section-gap);
+  padding: var(--spacing-page-padding);
+  background: var(--color-background-surface);
+}
+
+.ui-metric-overview__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--spacing-content-gap);
+}
+
+.ui-metric-overview__metric {
+  min-width: 0;
+  padding: var(--spacing-component-padding-x);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-metric-overview__charts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-content-gap);
+}
+
+@media (max-width: 1199px) {
+  .ui-metric-overview__metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899px) {
+  .ui-metric-overview__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .ui-metric-overview__metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

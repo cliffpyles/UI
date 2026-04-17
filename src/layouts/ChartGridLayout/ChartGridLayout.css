@@ -1,0 +1,31 @@
+.ui-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ui-chart-grid-columns, 12), minmax(0, 1fr));
+  gap: var(--spacing-content-gap);
+  padding: var(--spacing-page-padding);
+  background: var(--color-background-surface);
+}
+
+.ui-chart-grid__item {
+  min-width: 0;
+  padding: var(--spacing-component-padding-x);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 899px) {
+  .ui-chart-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .ui-chart-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ui-chart-grid__item {
+    grid-column: 1 / -1 !important;
+  }
+}
