@@ -1,6 +1,4 @@
 .ui-activity-item {
-  display: flex;
-  gap: var(--spacing-3);
   padding: var(--spacing-2) 0;
 }
 

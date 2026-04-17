@@ -5,6 +5,7 @@ import { Skeleton } from "../../components/Skeleton";
 import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { Pagination } from "../../components/Pagination";
+import { Box } from "../../primitives/Box";
 import type {
   DataTableStateProps,
   SortState,
@@ -102,7 +103,14 @@ function DataTableInner<T>(
   };
 
   return (
-    <div ref={ref} className={classes} {...rest}>
+    <Box
+      ref={ref as React.Ref<HTMLElement>}
+      className={classes}
+      display="flex"
+      direction="column"
+      gap="2"
+      {...rest}
+    >
       {toolbar}
       {error ? (
         <ErrorState
@@ -204,7 +212,7 @@ function DataTableInner<T>(
           onPageChange={onPageChange}
         />
       )}
-    </div>
+    </Box>
   );
 }
 

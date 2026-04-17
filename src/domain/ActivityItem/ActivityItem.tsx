@@ -6,6 +6,7 @@ import {
 } from "react";
 import { UserAvatar } from "../UserAvatar";
 import { Timestamp } from "../Timestamp";
+import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
 import type { UserData } from "../UserAvatar";
@@ -28,7 +29,13 @@ export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
     const classes = ["ui-activity-item", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        gap="3"
+        {...rest}
+      >
         <UserAvatar user={actor} size="sm" />
         <div className="ui-activity-item__body">
           <div className="ui-activity-item__summary">
@@ -65,7 +72,7 @@ export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
             </>
           )}
         </div>
-      </div>
+      </Box>
     );
   },
 );

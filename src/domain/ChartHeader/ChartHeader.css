@@ -1,8 +1,4 @@
 .ui-chart-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--spacing-3);
   padding-bottom: var(--spacing-2);
 }
 
@@ -18,9 +14,4 @@
   margin-top: var(--spacing-0-5);
 }
 
-.ui-chart-header__right {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  flex-shrink: 0;
-}
+/* Layout for .ui-chart-header__right comes from the Box primitive. */

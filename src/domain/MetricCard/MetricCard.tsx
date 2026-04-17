@@ -2,6 +2,7 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Skeleton } from "../../components/Skeleton";
 import { ErrorState } from "../../components/ErrorState";
 import { Tooltip } from "../../components/Tooltip";
+import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
 import { MetricValue, type MetricFormat } from "../MetricValue";
 import { TrendIndicator, type TrendDirection } from "../TrendIndicator";
@@ -53,8 +54,21 @@ export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
     const classes = ["ui-metric-card", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
-        <div className="ui-metric-card__header">
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        direction="column"
+        gap="2"
+        {...rest}
+      >
+        <Box
+          className="ui-metric-card__header"
+          display="flex"
+          align="center"
+          justify="between"
+          gap="2"
+        >
           <span className="ui-metric-card__label">{label}</span>
           {info && (
             <Tooltip content={info}>
@@ -63,13 +77,18 @@ export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
               </span>
             </Tooltip>
           )}
-        </div>
+        </Box>
 
         {loading ? (
-          <div className="ui-metric-card__body">
+          <Box
+            className="ui-metric-card__body"
+            display="flex"
+            direction="column"
+            gap="1"
+          >
             <Skeleton width="60%" height="2rem" />
             <Skeleton width="40%" height="1rem" />
-          </div>
+          </Box>
         ) : error ? (
           <ErrorState
             title="Failed to load"
@@ -77,7 +96,12 @@ export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
             onRetry={onRetry}
           />
         ) : (
-          <div className="ui-metric-card__body">
+          <Box
+            className="ui-metric-card__body"
+            display="flex"
+            direction="column"
+            gap="1"
+          >
             <MetricValue
               className="ui-metric-card__value"
               value={value}
@@ -88,7 +112,13 @@ export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
               currency={currency}
               locale={locale}
             />
-            <div className="ui-metric-card__meta">
+            <Box
+              className="ui-metric-card__meta"
+              display="flex"
+              align="center"
+              justify="between"
+              gap="2"
+            >
               {trend && (
                 <TrendIndicator
                   value={trend.value}
@@ -101,14 +131,14 @@ export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
               {sparkline && sparkline.length > 1 && (
                 <Sparkline data={sparkline} label={`${label} trend`} />
               )}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
         {footer && !loading && !error && (
           <div className="ui-metric-card__footer">{footer}</div>
         )}
-      </div>
+      </Box>
     );
   },
 );

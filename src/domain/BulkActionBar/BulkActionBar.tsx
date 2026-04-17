@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { Button } from "../../components/Button";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./BulkActionBar.css";
 
@@ -28,9 +29,12 @@ export const BulkActionBar = forwardRef<HTMLDivElement, BulkActionBarProps>(
     if (selectedCount <= 0) return null;
 
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
         className={classes}
+        display="flex"
+        align="center"
+        gap="3"
         role="region"
         aria-label="Bulk actions"
         {...rest}
@@ -39,7 +43,7 @@ export const BulkActionBar = forwardRef<HTMLDivElement, BulkActionBarProps>(
           {selectedCount} {itemLabel}
           {selectedCount === 1 ? "" : "s"} selected
         </span>
-        <div className="ui-bulk-action-bar__actions">
+        <Box className="ui-bulk-action-bar__actions" display="flex" gap="1">
           {actions.map((a) => (
             <Button
               key={a.id}
@@ -52,11 +56,11 @@ export const BulkActionBar = forwardRef<HTMLDivElement, BulkActionBarProps>(
               {a.label}
             </Button>
           ))}
-        </div>
+        </Box>
         <Button variant="ghost" size="sm" onClick={onClear}>
           Clear
         </Button>
-      </div>
+      </Box>
     );
   },
 );

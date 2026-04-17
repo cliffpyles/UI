@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { Select } from "../../components/Select";
 import { Toggle } from "../../components/Toggle";
+import { Box } from "../../primitives/Box";
 import "./PermissionRow.css";
 
 export interface PermissionOption {
@@ -28,7 +29,14 @@ export const PermissionRow = forwardRef<HTMLDivElement, PermissionRowProps>(
     const label = resource ? `${action} ${resource}` : action;
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        align="center"
+        gap="3"
+        {...rest}
+      >
         <div className="ui-permission-row__body">
           <div className="ui-permission-row__label">{label}</div>
           {description && (
@@ -51,7 +59,7 @@ export const PermissionRow = forwardRef<HTMLDivElement, PermissionRowProps>(
             disabled={disabled}
           />
         )}
-      </div>
+      </Box>
     );
   },
 );

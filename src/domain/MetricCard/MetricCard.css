@@ -1,19 +1,11 @@
 .ui-metric-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
   padding: var(--spacing-4);
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-md);
 }
 
-.ui-metric-card__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-2);
-}
+/* Layout for .ui-metric-card__header comes from the Box primitive. */
 
 .ui-metric-card__label {
   font-size: var(--font-size-sm);
@@ -28,22 +20,13 @@
   cursor: help;
 }
 
-.ui-metric-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-}
+/* Layout for .ui-metric-card__body comes from the Box primitive. */
 
 .ui-metric-card__value {
   font-size: var(--font-size-2xl);
 }
 
-.ui-metric-card__meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-2);
-}
+/* Layout for .ui-metric-card__meta comes from the Box primitive. */
 
 .ui-metric-card__footer {
   padding-top: var(--spacing-2);

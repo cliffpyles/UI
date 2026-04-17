@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { Button } from "../../components/Button";
+import { Box } from "../../primitives/Box";
 import { Spinner } from "../../primitives/Spinner";
 import { Text } from "../../primitives/Text";
 import { ActivityItem, type ActivityItemProps } from "../ActivityItem";
@@ -64,12 +65,25 @@ export const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
     }
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        direction="column"
+        gap="4"
+        {...rest}
+      >
         {items.length === 0 && !loading ? (
           <div className="ui-activity-feed__empty">{emptyMessage}</div>
         ) : (
           Array.from(groups.entries()).map(([key, groupItems]) => (
-            <section key={key || "__all"} className="ui-activity-feed__group">
+            <Box
+              as="section"
+              key={key || "__all"}
+              className="ui-activity-feed__group"
+              display="flex"
+              direction="column"
+            >
               {key && (
                 <Text as="h3" size="xs" weight="semibold" color="tertiary" className="ui-activity-feed__group-label">
                   {key}
@@ -85,7 +99,7 @@ export const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
                   detail={item.detail}
                 />
               ))}
-            </section>
+            </Box>
           ))
         )}
         {loading && (
@@ -98,7 +112,7 @@ export const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
             Load more
           </Button>
         )}
-      </div>
+      </Box>
     );
   },
 );

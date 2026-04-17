@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import { UserAvatar } from "../UserAvatar";
 import { DueDateIndicator } from "../DueDateIndicator";
@@ -30,9 +31,12 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(
     const interactive = !!onActivate;
 
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
         className={classes}
+        display="flex"
+        direction="column"
+        gap="2"
         role={interactive ? "button" : undefined}
         tabIndex={interactive ? 0 : undefined}
         onClick={interactive ? () => onActivate(task.id) : undefined}
@@ -48,17 +52,23 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(
         }
         {...rest}
       >
-        <div className="ui-task-card__header">
+        <Box
+          className="ui-task-card__header"
+          display="flex"
+          align="start"
+          justify="between"
+          gap="2"
+        >
           <Text as="h4" size="sm" weight="semibold" color="primary" className="ui-task-card__title">
             {task.title}
           </Text>
           {task.status && <StatusBadge status={task.status} statusMap={statusMap} size="sm" />}
-        </div>
+        </Box>
         {task.description && (
           <div className="ui-task-card__description">{task.description}</div>
         )}
         {task.labels && task.labels.length > 0 && (
-          <div className="ui-task-card__labels">
+          <Box className="ui-task-card__labels" display="flex" wrap gap="1">
             {task.labels.map((l) => (
               <span
                 key={l.id}
@@ -68,14 +78,19 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(
                 {l.name}
               </span>
             ))}
-          </div>
+          </Box>
         )}
-        <div className="ui-task-card__footer">
+        <Box
+          className="ui-task-card__footer"
+          display="flex"
+          align="center"
+          gap="2"
+        >
           {task.assignee && <UserAvatar user={task.assignee} size="sm" />}
           {task.dueDate && <DueDateIndicator date={task.dueDate} />}
           {task.priority && <span className="ui-task-card__priority">{task.priority}</span>}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );

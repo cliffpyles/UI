@@ -1,8 +1,4 @@
-.ui-data-table {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
+/* Layout for .ui-data-table comes from the Box primitive. */
 
 .ui-data-table__scroll {
   overflow-x: auto;

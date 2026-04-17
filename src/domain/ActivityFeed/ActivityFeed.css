@@ -1,13 +1,4 @@
-.ui-activity-feed {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.ui-activity-feed__group {
-  display: flex;
-  flex-direction: column;
-}
+/* Layout for .ui-activity-feed and .ui-activity-feed__group comes from the Box primitive. */
 
 /* Typography for .ui-activity-feed__group-label comes from the Text primitive.
    Remaining rules here carry layout-only concerns (uppercase transform, divider). */
