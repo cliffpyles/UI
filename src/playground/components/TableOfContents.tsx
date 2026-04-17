@@ -97,7 +97,9 @@ export function TableOfContents({ containerSelector, sectionKey }: { containerSe
               href={`#${h.id}`}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById(h.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                const el = document.getElementById(h.id);
+                const target = el?.closest(".pg-demo") ?? el;
+                target?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
             >
               {h.text}
