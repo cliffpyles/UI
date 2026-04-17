@@ -61,6 +61,12 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   align?: BoxAlign;
   /** Justify content */
   justify?: BoxJustify;
+  /** Enable flex-wrap */
+  wrap?: boolean;
+  /** Flex grow factor (shorthand: true → 1) */
+  grow?: boolean | 0 | 1;
+  /** Flex shrink factor (shorthand: false → 0, true → 1) */
+  shrink?: boolean | 0 | 1;
   /** Background color token */
   background?: BoxBackground;
   /** Border radius */
@@ -104,6 +110,9 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       direction,
       align,
       justify,
+      wrap,
+      grow,
+      shrink,
       background,
       radius,
       shadow,
@@ -136,6 +145,9 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
     if (direction) inlineStyle.flexDirection = direction;
     if (align) inlineStyle.alignItems = alignMap[align];
     if (justify) inlineStyle.justifyContent = justifyMap[justify];
+    if (wrap) inlineStyle.flexWrap = "wrap";
+    if (grow !== undefined) inlineStyle.flexGrow = grow === true ? 1 : grow === false ? 0 : grow;
+    if (shrink !== undefined) inlineStyle.flexShrink = shrink === true ? 1 : shrink === false ? 0 : shrink;
     if (background) inlineStyle.backgroundColor = backgroundMap[background];
 
     return (

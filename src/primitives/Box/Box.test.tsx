@@ -81,6 +81,37 @@ describe("Box", () => {
     });
   });
 
+  // Flex extras
+  it("applies flex-wrap when wrap is true", () => {
+    render(<Box display="flex" wrap data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "flex-wrap": "wrap" });
+  });
+
+  it("does not set flex-wrap when wrap is false", () => {
+    render(<Box display="flex" data-testid="box" />);
+    expect(screen.getByTestId("box").style.flexWrap).toBe("");
+  });
+
+  it("applies flex-grow with boolean shorthand", () => {
+    render(<Box display="flex" grow data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "flex-grow": "1" });
+  });
+
+  it("applies flex-grow with explicit 0", () => {
+    render(<Box display="flex" grow={0} data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "flex-grow": "0" });
+  });
+
+  it("applies flex-shrink with boolean shorthand", () => {
+    render(<Box display="flex" shrink={false} data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "flex-shrink": "0" });
+  });
+
+  it("applies flex-shrink with explicit 1", () => {
+    render(<Box display="flex" shrink={1} data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "flex-shrink": "1" });
+  });
+
   // Background
   it("applies surface background", () => {
     render(<Box background="surface" data-testid="box" />);
