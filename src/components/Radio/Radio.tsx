@@ -7,6 +7,7 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./Radio.css";
 
 // --- RadioGroup Context ---
@@ -155,9 +156,15 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
         </span>
         {(label || description) && (
           <span className="ui-radio__content">
-            {label && <span className="ui-radio__label">{label}</span>}
+            {label && (
+              <Text as="span" size="body" color="primary" className="ui-radio__label">
+                {label}
+              </Text>
+            )}
             {description && (
-              <span className="ui-radio__description">{description}</span>
+              <Text as="span" size="caption" color="secondary" className="ui-radio__description">
+                {description}
+              </Text>
             )}
           </span>
         )}

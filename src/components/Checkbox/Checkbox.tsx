@@ -5,6 +5,7 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./Checkbox.css";
 
 interface CheckboxOwnProps {
@@ -113,9 +114,15 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         </span>
         {(label || description) && (
           <span className="ui-checkbox__content">
-            {label && <span className="ui-checkbox__label">{label}</span>}
+            {label && (
+              <Text as="span" size="body" color="primary" className="ui-checkbox__label">
+                {label}
+              </Text>
+            )}
             {description && (
-              <span className="ui-checkbox__description">{description}</span>
+              <Text as="span" size="caption" color="secondary" className="ui-checkbox__description">
+                {description}
+              </Text>
             )}
           </span>
         )}
