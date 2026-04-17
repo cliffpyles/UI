@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./IntegrationHubLayout.css";
 
 export type IntegrationStatus = "connected" | "disconnected" | "error";
@@ -145,7 +146,9 @@ export const IntegrationHubLayout = forwardRef<
                   </span>
                 </div>
                 {i.description && (
-                  <p className="ui-integration-hub__desc">{i.description}</p>
+                  <Text as="p" size="xs" color="secondary" className="ui-integration-hub__desc">
+                    {i.description}
+                  </Text>
                 )}
               </button>
             </li>

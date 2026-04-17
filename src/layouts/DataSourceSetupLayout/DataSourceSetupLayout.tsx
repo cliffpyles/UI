@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Text } from "../../primitives/Text";
 import "./DataSourceSetupLayout.css";
 
 export interface DataSourceSetupLayoutProps
@@ -35,7 +36,9 @@ export const DataSourceSetupLayout = forwardRef<
         className="ui-data-source-setup__section"
         aria-label="Credentials"
       >
-        <h3 className="ui-data-source-setup__heading">Credentials</h3>
+        <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
+          Credentials
+        </Text>
         <div className="ui-data-source-setup__body">{credentials}</div>
       </section>
       {testConnection && (
@@ -43,7 +46,9 @@ export const DataSourceSetupLayout = forwardRef<
           className="ui-data-source-setup__section"
           aria-label="Test connection"
         >
-          <h3 className="ui-data-source-setup__heading">Test connection</h3>
+          <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
+            Test connection
+          </Text>
           <div className="ui-data-source-setup__body">{testConnection}</div>
         </section>
       )}
@@ -52,7 +57,9 @@ export const DataSourceSetupLayout = forwardRef<
           className="ui-data-source-setup__section"
           aria-label="Schema preview"
         >
-          <h3 className="ui-data-source-setup__heading">Schema preview</h3>
+          <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
+            Schema preview
+          </Text>
           <div className="ui-data-source-setup__body">{schemaPreview}</div>
         </section>
       )}
@@ -61,7 +68,9 @@ export const DataSourceSetupLayout = forwardRef<
           className="ui-data-source-setup__section"
           aria-label="Sync settings"
         >
-          <h3 className="ui-data-source-setup__heading">Sync settings</h3>
+          <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
+            Sync settings
+          </Text>
           <div className="ui-data-source-setup__body">{syncSettings}</div>
         </section>
       )}

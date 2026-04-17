@@ -137,11 +137,7 @@
   color: var(--color-status-error-text);
 }
 
-.ui-integration-hub__desc {
-  margin: 0;
-  font-size: var(--font-size-caption);
-  color: var(--color-text-secondary);
-}
+/* Typography for .ui-integration-hub__desc comes from the Text primitive. */
 
 @media (max-width: 767px) {
   .ui-integration-hub__body {

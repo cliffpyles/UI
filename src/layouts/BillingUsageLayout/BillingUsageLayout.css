@@ -27,10 +27,7 @@
 }
 
 .ui-billing-usage__heading {
-  margin: 0 0 var(--spacing-3) 0;
-  font-size: var(--font-size-heading);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
 }
 
 .ui-billing-usage__usage {

@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Text } from "../../primitives/Text";
 import "./EmptyStateScaffoldLayout.css";
 
 export interface EmptyStateScaffoldLayoutProps
@@ -48,9 +49,13 @@ export const EmptyStateScaffoldLayout = forwardRef<
             {illustration}
           </div>
         )}
-        <h2 className="ui-empty-state-scaffold__title">{title}</h2>
+        <Text as="h2" size="xl" weight="semibold" className="ui-empty-state-scaffold__title">
+          {title}
+        </Text>
         {description && (
-          <p className="ui-empty-state-scaffold__description">{description}</p>
+          <Text as="p" size="sm" color="secondary" className="ui-empty-state-scaffold__description">
+            {description}
+          </Text>
         )}
         {(primaryAction || secondaryAction) && (
           <div className="ui-empty-state-scaffold__actions">

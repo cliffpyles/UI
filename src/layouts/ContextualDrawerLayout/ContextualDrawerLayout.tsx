@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import "./ContextualDrawerLayout.css";
 
 export type DrawerMode = "overlay" | "push";
@@ -92,9 +93,15 @@ export const ContextualDrawerLayout = forwardRef<HTMLDivElement, ContextualDrawe
           style={{ width }}
         >
           <header className="ui-drawer-layout__drawer-header">
-            <h2 id={titleId} className="ui-drawer-layout__drawer-title">
+            <Text
+              as="h2"
+              size="base"
+              weight="semibold"
+              id={titleId}
+              className="ui-drawer-layout__drawer-title"
+            >
               {title}
-            </h2>
+            </Text>
             <button
               type="button"
               className="ui-drawer-layout__close"

@@ -3,6 +3,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./OnboardingChecklistLayout.css";
 
 export interface ChecklistTask {
@@ -52,7 +53,9 @@ export const OnboardingChecklistLayout = forwardRef<
       {...rest}
     >
       <div className="ui-onboarding-checklist__header">
-        <h2 className="ui-onboarding-checklist__title">{title}</h2>
+        <Text as="h2" size="lg" weight="semibold" className="ui-onboarding-checklist__title">
+          {title}
+        </Text>
         {dismissible && (
           <button
             type="button"

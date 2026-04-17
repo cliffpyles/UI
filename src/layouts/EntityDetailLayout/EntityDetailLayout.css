@@ -32,12 +32,7 @@
   min-width: 0;
 }
 
-.ui-entity-detail__title {
-  margin: 0;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
+/* Typography for .ui-entity-detail__title comes from the Text primitive. */
 
 .ui-entity-detail__subtitle {
   font-size: var(--font-size-sm);
@@ -69,8 +64,5 @@
 }
 
 .ui-entity-detail__section-heading {
-  margin: 0 0 var(--spacing-3);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
 }

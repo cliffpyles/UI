@@ -22,20 +22,7 @@
   margin-bottom: var(--spacing-2);
 }
 
-.ui-empty-state-scaffold__title {
-  margin: 0;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  line-height: var(--font-line-height-tight);
-}
-
-.ui-empty-state-scaffold__description {
-  margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--font-line-height-normal);
-}
+/* Typography for .ui-empty-state-scaffold__title and __description comes from the Text primitive. */
 
 .ui-empty-state-scaffold__actions {
   display: flex;

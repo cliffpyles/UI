@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Text } from "../../primitives/Text";
 import "./GlobalSearchLayout.css";
 
 export interface GlobalSearchCategory {
@@ -53,9 +54,14 @@ export const GlobalSearchLayout = forwardRef<HTMLDivElement, GlobalSearchLayoutP
                 className="ui-global-search__category"
                 aria-label={category.label}
               >
-                <h3 className="ui-global-search__category-label">
+                <Text
+                  as="h3"
+                  size="base"
+                  color="secondary"
+                  className="ui-global-search__category-label"
+                >
                   {category.label}
-                </h3>
+                </Text>
                 <ul className="ui-global-search__items">
                   {category.items.map((item, index) => (
                     <li

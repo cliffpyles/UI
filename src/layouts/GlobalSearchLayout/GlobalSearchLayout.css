@@ -31,9 +31,7 @@
 }
 
 .ui-global-search__category-label {
-  margin: 0 0 var(--spacing-content-gap) 0;
-  color: var(--color-text-secondary);
-  font-size: inherit;
+  margin-bottom: var(--spacing-content-gap);
 }
 
 .ui-global-search__items {

@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Breadcrumbs, type BreadcrumbItem } from "../Breadcrumbs";
+import { Text } from "../../primitives/Text";
 import "./EntityDetailLayout.css";
 
 export interface EntityDetailLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -26,7 +27,9 @@ const EntityDetailRoot = forwardRef<HTMLDivElement, EntityDetailLayoutProps>(
           )}
           <div className="ui-entity-detail__titlebar">
             <div className="ui-entity-detail__titles">
-              <h1 className="ui-entity-detail__title">{title}</h1>
+              <Text as="h1" size="xl" weight="semibold" className="ui-entity-detail__title">
+                {title}
+              </Text>
               {subtitle && (
                 <div className="ui-entity-detail__subtitle">{subtitle}</div>
               )}
@@ -52,7 +55,9 @@ const EntityDetailSection = forwardRef<HTMLElement, HTMLAttributes<HTMLElement> 
         {...rest}
       >
         {heading && (
-          <h2 className="ui-entity-detail__section-heading">{heading}</h2>
+          <Text as="h2" size="lg" weight="semibold" className="ui-entity-detail__section-heading">
+            {heading}
+          </Text>
         )}
         {children}
       </section>

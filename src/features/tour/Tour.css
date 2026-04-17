@@ -47,11 +47,7 @@
   letter-spacing: 0.05em;
 }
 
-.ui-tour__title {
-  margin: 0;
-  font-size: var(--font-size-heading);
-  font-weight: var(--font-weight-semibold);
-}
+/* Typography for .ui-tour__title comes from the Text primitive. */
 
 .ui-tour__content {
   font-size: var(--font-size-body);

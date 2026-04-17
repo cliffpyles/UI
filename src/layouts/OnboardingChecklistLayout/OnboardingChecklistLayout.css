@@ -15,12 +15,7 @@
   gap: var(--spacing-3);
 }
 
-.ui-onboarding-checklist__title {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
+/* Typography for .ui-onboarding-checklist__title comes from the Text primitive. */
 
 .ui-onboarding-checklist__dismiss {
   background: transparent;

@@ -10,6 +10,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "../../components/Button";
+import { Text } from "../../primitives/Text";
 import "./Tour.css";
 
 export interface TourStep {
@@ -189,7 +190,9 @@ export const Tour = forwardRef<HTMLDivElement, TourProps>(function Tour(
       )}
       <div className="ui-tour__popover" style={popoverStyle} role="document">
         <div className="ui-tour__progress" aria-live="polite">{progressLabel}</div>
-        <h3 className="ui-tour__title">{step.title}</h3>
+        <Text as="h3" size="lg" weight="semibold" className="ui-tour__title">
+          {step.title}
+        </Text>
         <div className="ui-tour__content">{step.content}</div>
         <div className="ui-tour__actions">
           <Button variant="ghost" size="sm" onClick={handleSkip}>{skipLabel}</Button>

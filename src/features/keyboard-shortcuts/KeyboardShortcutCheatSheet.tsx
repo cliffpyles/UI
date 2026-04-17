@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { Modal } from "../../components/Modal";
+import { Text } from "../../primitives/Text";
 import { useKeyboardShortcuts } from "./useKeyboardShortcut";
 import { formatComboLabel, isMac } from "./normalizeCombo";
 import "./KeyboardShortcutCheatSheet.css";
@@ -74,12 +75,16 @@ export function KeyboardShortcutCheatSheet({
       className="ui-keyboard-cheat-sheet"
     >
       {shortcuts.length === 0 ? (
-        <p className="ui-keyboard-cheat-sheet__empty">{emptyLabel}</p>
+        <Text as="p" size="base" color="secondary" className="ui-keyboard-cheat-sheet__empty">
+          {emptyLabel}
+        </Text>
       ) : (
         <div className="ui-keyboard-cheat-sheet__groups">
           {Array.from(byCategory.entries()).map(([category, list]) => (
             <section key={category} className="ui-keyboard-cheat-sheet__group">
-              <h3 className="ui-keyboard-cheat-sheet__category">{category}</h3>
+              <Text as="h3" size="sm" weight="semibold" color="secondary" className="ui-keyboard-cheat-sheet__category">
+                {category}
+              </Text>
               <ul className="ui-keyboard-cheat-sheet__list">
                 {list.map((s) => (
                   <li key={s.id} className="ui-keyboard-cheat-sheet__row">

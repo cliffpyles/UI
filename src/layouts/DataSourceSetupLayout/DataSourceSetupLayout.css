@@ -16,12 +16,7 @@
   background: var(--color-background-surface);
 }
 
-.ui-data-source-setup__heading {
-  margin: 0;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
+/* Typography for .ui-data-source-setup__heading comes from the Text primitive. */
 
 .ui-data-source-setup__body {
   display: flex;

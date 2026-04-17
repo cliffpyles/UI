@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Text } from "../../primitives/Text";
 import "./BillingUsageLayout.css";
 
 export interface UsageMeter {
@@ -47,7 +48,9 @@ export const BillingUsageLayout = forwardRef<HTMLDivElement, BillingUsageLayoutP
           role="group"
           aria-label="Usage"
         >
-          <h3 className="ui-billing-usage__heading">Usage</h3>
+          <Text as="h3" size="lg" weight="semibold" className="ui-billing-usage__heading">
+            Usage
+          </Text>
           <ul className="ui-billing-usage__meters">
             {usage.map((m) => {
               const pct = m.limit > 0 ? Math.min(100, (m.current / m.limit) * 100) : 0;
@@ -92,7 +95,9 @@ export const BillingUsageLayout = forwardRef<HTMLDivElement, BillingUsageLayoutP
             role="group"
             aria-label="Invoices"
           >
-            <h3 className="ui-billing-usage__heading">Invoices</h3>
+            <Text as="h3" size="lg" weight="semibold" className="ui-billing-usage__heading">
+              Invoices
+            </Text>
             {invoices}
           </div>
         )}

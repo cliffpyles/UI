@@ -1,8 +1,4 @@
-.ui-keyboard-cheat-sheet__empty {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-body);
-  margin: 0;
-}
+/* Typography for .ui-keyboard-cheat-sheet__empty comes from the Text primitive. */
 
 .ui-keyboard-cheat-sheet__groups {
   display: flex;
@@ -17,10 +13,6 @@
 }
 
 .ui-keyboard-cheat-sheet__category {
-  margin: 0;
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }

@@ -5,6 +5,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Text } from "../../primitives/Text";
 import "./NotificationActivityCenter.css";
 
 export type NotificationCategory = string;
@@ -73,14 +74,14 @@ export const NotificationActivityCenter = forwardRef<
   return (
     <div ref={ref} className={classes} {...rest}>
       <div className="ui-activity-center__header">
-        <h2 className="ui-activity-center__heading">
+        <Text as="h2" size="base" weight="semibold" className="ui-activity-center__heading">
           {heading}
           {unreadCount > 0 && (
             <span className="ui-activity-center__count" aria-label={`${unreadCount} unread`}>
               {unreadCount}
             </span>
           )}
-        </h2>
+        </Text>
         {unreadCount > 0 && onMarkAllRead && (
           <button
             type="button"
