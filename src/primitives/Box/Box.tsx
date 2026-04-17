@@ -67,6 +67,8 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   grow?: boolean | 0 | 1;
   /** Flex shrink factor (shorthand: false → 0, true → 1) */
   shrink?: boolean | 0 | 1;
+  /** Minimum inline size. Use `0` to allow flex children to shrink below content size (enables ellipsis in flex). */
+  minWidth?: 0 | "auto";
   /** Background color token */
   background?: BoxBackground;
   /** Border radius */
@@ -113,6 +115,7 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       wrap,
       grow,
       shrink,
+      minWidth,
       background,
       radius,
       shadow,
@@ -148,6 +151,7 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
     if (wrap) inlineStyle.flexWrap = "wrap";
     if (grow !== undefined) inlineStyle.flexGrow = grow === true ? 1 : grow === false ? 0 : grow;
     if (shrink !== undefined) inlineStyle.flexShrink = shrink === true ? 1 : shrink === false ? 0 : shrink;
+    if (minWidth !== undefined) inlineStyle.minInlineSize = minWidth === 0 ? "0" : "auto";
     if (background) inlineStyle.backgroundColor = backgroundMap[background];
 
     return (

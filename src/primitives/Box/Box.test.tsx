@@ -112,6 +112,21 @@ describe("Box", () => {
     expect(screen.getByTestId("box")).toHaveStyle({ "flex-shrink": "1" });
   });
 
+  it("applies minWidth=0 as min-inline-size: 0 (ellipsis in flex)", () => {
+    render(<Box display="flex" grow minWidth={0} data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "min-inline-size": "0" });
+  });
+
+  it("applies minWidth=auto as min-inline-size: auto", () => {
+    render(<Box minWidth="auto" data-testid="box" />);
+    expect(screen.getByTestId("box")).toHaveStyle({ "min-inline-size": "auto" });
+  });
+
+  it("does not set min-inline-size when minWidth is omitted", () => {
+    render(<Box data-testid="box" />);
+    expect(screen.getByTestId("box").style.minInlineSize).toBe("");
+  });
+
   // Background
   it("applies surface background", () => {
     render(<Box background="surface" data-testid="box" />);
