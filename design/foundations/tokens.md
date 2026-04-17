@@ -116,6 +116,17 @@ font.size.body.comfortable:       {font.size.base}     // 1rem
 
 Density is applied at the container level via a CSS class or context provider, not per-component. Components inside a density container inherit the appropriate token values.
 
+## Primitive vs semantic tokens in primitive props
+
+`Box`, `Grid`, and `Text` accept token-keyed props (`gap`, `padding`, `size`). These keys split into two groups:
+
+- **Primitive keys** (`gap="3"`, `padding="4"`, `size="lg"`) resolve to a fixed step on the scale and never change. Reach for these when the value should look identical regardless of where the element is rendered — icon insets, hairline tweaks, fixed-pixel layout grids.
+- **Semantic keys** (`gap="content"`, `padding="page"`, `size="body"`) resolve to density-responsive variables that swap inside `[data-density="compact"]`/`comfortable` containers. Reach for these for the default rhythm of layouts and surface text — toolbar/page padding, card lists, form bodies, body copy. The same component then breathes with the active density without any prop changes.
+
+Mixing is fine, but be deliberate: a body paragraph in `size="body"` next to an icon in `gap="2"` is exactly the intended split. Use the primitive scale only when the design genuinely demands a fixed value.
+
+The semantic spacing keys for `Box`/`Grid` are `content`, `section`, `inline`, and `page`; the semantic size keys for `Text` are `body`, `caption`, and `label`. Their resolved values live in `src/styles/density/*.css`.
+
 ## Theming
 
 Themes swap the values of semantic tokens. The token _names_ never change — only their resolved values.
