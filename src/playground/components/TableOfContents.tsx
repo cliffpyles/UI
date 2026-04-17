@@ -13,6 +13,28 @@ function slugify(s: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+function collectHeadings(container: Element): Heading[] {
+  const raw = Array.from(container.querySelectorAll("h3")) as HTMLElement[];
+  const used = new Set<string>();
+  return raw.map((el) => {
+    const text = el.textContent?.trim() ?? "";
+    let id = el.id || slugify(text);
+    let n = 2;
+    while (id && used.has(id)) id = `${slugify(text)}-${n++}`;
+    used.add(id);
+    el.id = id;
+    return { id, text };
+  });
+}
+
+function headingsEqual(a: Heading[], b: Heading[]) {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i].id !== b[i].id || a[i].text !== b[i].text) return false;
+  }
+  return true;
+}
+
 export function TableOfContents({ containerSelector, sectionKey }: { containerSelector: string; sectionKey: string }) {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
@@ -21,46 +43,44 @@ export function TableOfContents({ containerSelector, sectionKey }: { containerSe
     const container = document.querySelector(containerSelector);
     if (!container) return;
 
-    const raw = Array.from(container.querySelectorAll("h3")) as HTMLElement[];
-    const used = new Set<string>();
-    const next: Heading[] = raw.map((el) => {
-      const text = el.textContent?.trim() ?? "";
-      let id = el.id || slugify(text);
-      let n = 2;
-      while (id && used.has(id)) id = `${slugify(text)}-${n++}`;
-      used.add(id);
-      el.id = id;
-      return { id, text };
-    });
+    let currentHeadings: Heading[] = [];
+    let intersectionObserver: IntersectionObserver | null = null;
 
-    const handle = queueMicrotask
-      ? (queueMicrotask(() => {
-          setHeadings(next);
-          setActiveId(next[0]?.id ?? "");
-        }),
-        0)
-      : window.setTimeout(() => {
-          setHeadings(next);
-          setActiveId(next[0]?.id ?? "");
-        }, 0);
+    const rescan = () => {
+      const next = collectHeadings(container);
+      if (headingsEqual(next, currentHeadings)) return;
+      currentHeadings = next;
+      setHeadings(next);
+      setActiveId(next[0]?.id ?? "");
 
-    if (next.length === 0) {
-      return () => window.clearTimeout(handle);
-    }
+      intersectionObserver?.disconnect();
+      if (next.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-80px 0px -70% 0px", threshold: [0, 1] },
-    );
-    raw.forEach((el) => observer.observe(el));
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (visible[0]) setActiveId(visible[0].target.id);
+        },
+        { rootMargin: "-80px 0px -70% 0px", threshold: [0, 1] },
+      );
+      next.forEach((h) => {
+        const el = document.getElementById(h.id);
+        if (el) intersectionObserver?.observe(el);
+      });
+    };
+
+    const schedule =
+      typeof queueMicrotask === "function" ? queueMicrotask : (cb: () => void) => window.setTimeout(cb, 0);
+    schedule(rescan);
+
+    const mutationObserver = new MutationObserver(() => schedule(rescan));
+    mutationObserver.observe(container, { childList: true, subtree: true });
+
     return () => {
-      observer.disconnect();
-      window.clearTimeout(handle);
+      mutationObserver.disconnect();
+      intersectionObserver?.disconnect();
     };
   }, [containerSelector, sectionKey]);
 
