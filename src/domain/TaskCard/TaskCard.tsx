@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Text } from "../../primitives/Text";
 import { UserAvatar } from "../UserAvatar";
 import { DueDateIndicator } from "../DueDateIndicator";
 import { StatusBadge, type StatusMap } from "../StatusBadge";
@@ -48,7 +49,9 @@ export const TaskCard = forwardRef<HTMLDivElement, TaskCardProps>(
         {...rest}
       >
         <div className="ui-task-card__header">
-          <h4 className="ui-task-card__title">{task.title}</h4>
+          <Text as="h4" size="sm" weight="semibold" color="primary" className="ui-task-card__title">
+            {task.title}
+          </Text>
           {task.status && <StatusBadge status={task.status} statusMap={statusMap} size="sm" />}
         </div>
         {task.description && (

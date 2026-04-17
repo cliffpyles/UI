@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { Button } from "../../components/Button";
 import { Spinner } from "../../primitives/Spinner";
+import { Text } from "../../primitives/Text";
 import { ActivityItem, type ActivityItemProps } from "../ActivityItem";
 import "./ActivityFeed.css";
 
@@ -69,7 +70,11 @@ export const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
         ) : (
           Array.from(groups.entries()).map(([key, groupItems]) => (
             <section key={key || "__all"} className="ui-activity-feed__group">
-              {key && <h3 className="ui-activity-feed__group-label">{key}</h3>}
+              {key && (
+                <Text as="h3" size="xs" weight="semibold" color="tertiary" className="ui-activity-feed__group-label">
+                  {key}
+                </Text>
+              )}
               {groupItems.map((item) => (
                 <ActivityItem
                   key={item.id}

@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Button } from "../../components/Button";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import "./ChartHeader.css";
 
 export interface ChartHeaderProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
@@ -21,7 +22,9 @@ export const ChartHeader = forwardRef<HTMLElement, ChartHeaderProps>(
     return (
       <header ref={ref} className={classes} {...rest}>
         <div className="ui-chart-header__text">
-          <h3 className="ui-chart-header__title">{title}</h3>
+          <Text as="h3" size="base" weight="semibold" color="primary" className="ui-chart-header__title">
+            {title}
+          </Text>
           {subtitle && <div className="ui-chart-header__subtitle">{subtitle}</div>}
         </div>
         <div className="ui-chart-header__right">
