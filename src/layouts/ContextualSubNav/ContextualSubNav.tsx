@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./ContextualSubNav.css";
 
 export interface SubNavItem {
@@ -39,7 +40,17 @@ export const ContextualSubNav = forwardRef<HTMLElement, ContextualSubNavProps>(
       .join(" ");
 
     return (
-      <nav ref={ref} aria-label={ariaLabel} className={classes} {...rest}>
+      <Box
+        as="nav"
+        ref={ref as Ref<HTMLElement>}
+        aria-label={ariaLabel}
+        className={classes}
+        display="flex"
+        align="center"
+        justify="between"
+        gap="4"
+        {...rest}
+      >
         <ul className="ui-sub-nav__list" role="list">
           {items.map((item) => {
             const itemClass = [
@@ -86,8 +97,18 @@ export const ContextualSubNav = forwardRef<HTMLElement, ContextualSubNavProps>(
             );
           })}
         </ul>
-        {actions && <div className="ui-sub-nav__actions">{actions}</div>}
-      </nav>
+        {actions && (
+          <Box
+            className="ui-sub-nav__actions"
+            display="flex"
+            align="center"
+            gap="2"
+            shrink={false}
+          >
+            {actions}
+          </Box>
+        )}
+      </Box>
     );
   },
 );

@@ -1,6 +1,4 @@
 .ui-entity-detail {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   min-height: 0;
   background: var(--color-background-surface);
@@ -13,24 +11,11 @@
   background: var(--color-background-surface);
   border-bottom: 1px solid var(--color-border-default);
   padding: var(--spacing-4) var(--spacing-page-padding) var(--spacing-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
 }
 
-.ui-entity-detail__titlebar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--spacing-3);
-}
+/* .ui-entity-detail__titlebar layout is provided via the Box primitive. */
 
-.ui-entity-detail__titles {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-  min-width: 0;
-}
+/* .ui-entity-detail__titles layout is provided via the Box primitive. */
 
 /* Typography for .ui-entity-detail__title comes from the Text primitive. */
 
@@ -39,28 +24,16 @@
   color: var(--color-text-secondary);
 }
 
-.ui-entity-detail__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  flex-shrink: 0;
-}
+/* .ui-entity-detail__actions layout is provided via the Box primitive. */
 
 .ui-entity-detail__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-3);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
 .ui-entity-detail__body {
-  flex: 1 1 auto;
   overflow-y: auto;
   padding: var(--spacing-4) var(--spacing-page-padding);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
 }
 
 .ui-entity-detail__section-heading {

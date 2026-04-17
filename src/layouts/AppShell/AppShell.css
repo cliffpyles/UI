@@ -20,9 +20,6 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky-header);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
   padding: 0 var(--spacing-4);
   height: 56px;
   background: var(--color-background-surface);

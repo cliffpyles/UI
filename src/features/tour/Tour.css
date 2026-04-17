@@ -56,14 +56,7 @@
 }
 
 .ui-tour__actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-2);
   margin-top: var(--spacing-2);
 }
 
-.ui-tour__nav {
-  display: flex;
-  gap: var(--spacing-2);
-}
+/* .ui-tour__nav layout is provided via the Box primitive. */

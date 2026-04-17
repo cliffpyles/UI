@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import "./DashboardFrame.css";
 
 export interface DashboardWidget {
@@ -45,10 +46,26 @@ export const DashboardFrame = forwardRef<HTMLDivElement, DashboardFrameProps>(
         {...rest}
       >
         {(title || actions) && (
-          <header className="ui-dashboard-frame__header">
+          <Box
+            as="header"
+            className="ui-dashboard-frame__header"
+            display="flex"
+            align="center"
+            justify="between"
+            gap="3"
+          >
             {title && <div className="ui-dashboard-frame__title">{title}</div>}
-            {actions && <div className="ui-dashboard-frame__actions">{actions}</div>}
-          </header>
+            {actions && (
+              <Box
+                className="ui-dashboard-frame__actions"
+                display="flex"
+                align="center"
+                gap="2"
+              >
+                {actions}
+              </Box>
+            )}
+          </Box>
         )}
         {filterBar && (
           <div className="ui-dashboard-frame__filter-bar">{filterBar}</div>

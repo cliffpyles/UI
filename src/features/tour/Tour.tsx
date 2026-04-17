@@ -10,6 +10,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "../../components/Button";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./Tour.css";
 
@@ -194,15 +195,21 @@ export const Tour = forwardRef<HTMLDivElement, TourProps>(function Tour(
           {step.title}
         </Text>
         <div className="ui-tour__content">{step.content}</div>
-        <div className="ui-tour__actions">
+        <Box
+          className="ui-tour__actions"
+          display="flex"
+          align="center"
+          justify="between"
+          gap="2"
+        >
           <Button variant="ghost" size="sm" onClick={handleSkip}>{skipLabel}</Button>
-          <div className="ui-tour__nav">
+          <Box className="ui-tour__nav" display="flex" gap="2">
             {index > 0 && (
               <Button variant="secondary" size="sm" onClick={handlePrevious}>{previousLabel}</Button>
             )}
             <Button variant="primary" size="sm" onClick={handleNext}>{nextLabel}</Button>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </div>
     </div>
   );

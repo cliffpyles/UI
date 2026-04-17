@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import { Breadcrumbs, type BreadcrumbItem } from "../Breadcrumbs";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./EntityDetailLayout.css";
 
@@ -20,28 +21,71 @@ const EntityDetailRoot = forwardRef<HTMLDivElement, EntityDetailLayoutProps>(
   ) {
     const classes = ["ui-entity-detail", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...rest}>
-        <header className="ui-entity-detail__header">
+      <Box ref={ref as Ref<HTMLElement>} className={classes} display="flex" direction="column" {...rest}>
+        <Box
+          as="header"
+          className="ui-entity-detail__header"
+          display="flex"
+          direction="column"
+          gap="3"
+        >
           {breadcrumbs && breadcrumbs.length > 0 && (
             <Breadcrumbs items={breadcrumbs} className="ui-entity-detail__crumbs" />
           )}
-          <div className="ui-entity-detail__titlebar">
-            <div className="ui-entity-detail__titles">
+          <Box
+            className="ui-entity-detail__titlebar"
+            display="flex"
+            align="start"
+            justify="between"
+            gap="3"
+          >
+            <Box
+              className="ui-entity-detail__titles"
+              display="flex"
+              direction="column"
+              gap="1"
+              minWidth={0}
+            >
               <Text as="h1" size="xl" weight="semibold" className="ui-entity-detail__title">
                 {title}
               </Text>
               {subtitle && (
                 <div className="ui-entity-detail__subtitle">{subtitle}</div>
               )}
-            </div>
+            </Box>
             {actions && (
-              <div className="ui-entity-detail__actions">{actions}</div>
+              <Box
+                className="ui-entity-detail__actions"
+                display="flex"
+                align="center"
+                gap="2"
+                shrink={false}
+              >
+                {actions}
+              </Box>
             )}
-          </div>
-          {meta && <div className="ui-entity-detail__meta">{meta}</div>}
-        </header>
-        <div className="ui-entity-detail__body">{children}</div>
-      </div>
+          </Box>
+          {meta && (
+            <Box
+              className="ui-entity-detail__meta"
+              display="flex"
+              wrap
+              gap="3"
+            >
+              {meta}
+            </Box>
+          )}
+        </Box>
+        <Box
+          className="ui-entity-detail__body"
+          display="flex"
+          direction="column"
+          gap="6"
+          grow
+        >
+          {children}
+        </Box>
+      </Box>
     );
   },
 );

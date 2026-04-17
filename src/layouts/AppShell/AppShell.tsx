@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./AppShell.css";
 
 export interface AppShellProps extends HTMLAttributes<HTMLDivElement> {
@@ -55,13 +56,17 @@ const AppShellHeader = forwardRef<HTMLElement, SlotProps>(function AppShellHeade
   ref,
 ) {
   return (
-    <header
-      ref={ref}
+    <Box
+      as="header"
+      ref={ref as Ref<HTMLElement>}
       className={["ui-app-shell__header", className].filter(Boolean).join(" ")}
+      display="flex"
+      align="center"
+      gap="3"
       {...rest}
     >
       {children}
-    </header>
+    </Box>
   );
 });
 
