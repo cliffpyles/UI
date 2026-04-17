@@ -33,6 +33,7 @@ export const MetricOverviewLayout = forwardRef<
   return (
     <Box
       ref={ref as Ref<HTMLElement>}
+      display="flex"
       direction="column"
       gap="section"
       padding="page"

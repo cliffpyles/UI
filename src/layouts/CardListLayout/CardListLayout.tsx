@@ -42,6 +42,7 @@ function CardListLayoutInner<T>(
   return (
     <Box
       ref={ref as Ref<HTMLElement>}
+      display="flex"
       direction="column"
       gap="content"
       padding="page"
@@ -51,12 +52,12 @@ function CardListLayoutInner<T>(
       {...rest}
     >
       {toolbar && (
-        <Box align="center" gap="content" className="ui-card-list__toolbar">
+        <Box display="flex" align="center" gap="content" className="ui-card-list__toolbar">
           {toolbar}
         </Box>
       )}
       {isEmpty ? (
-        <Box align="center" justify="center" className="ui-card-list__empty">
+        <Box display="flex" align="center" justify="center" className="ui-card-list__empty">
           {emptyState}
         </Box>
       ) : (

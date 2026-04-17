@@ -63,6 +63,7 @@ export const MultiStepFormLayout = forwardRef<
   return (
     <Box
       ref={ref as Ref<HTMLElement>}
+      display="flex"
       direction="column"
       gap="section"
       padding="page"
@@ -111,6 +112,7 @@ export const MultiStepFormLayout = forwardRef<
         {current?.content}
       </div>
       <Box
+        display="flex"
         justify="between"
         gap="content"
         padding="content"

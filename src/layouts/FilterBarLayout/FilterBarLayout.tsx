@@ -36,6 +36,7 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
         ref={ref as Ref<HTMLElement>}
         role="toolbar"
         aria-label={ariaLabel}
+        display="flex"
         align="center"
         gap="content"
         paddingX="page"
@@ -44,6 +45,7 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
         {...rest}
       >
         <Box
+          display="flex"
           align="center"
           gap="content"
           grow
@@ -59,7 +61,7 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
             </div>
           ))}
         </Box>
-        <Box align="center" gap="content" shrink={0}>
+        <Box display="flex" align="center" gap="content" shrink={0}>
           {showClearAll && onClearAll && (
             <button
               type="button"
@@ -70,7 +72,7 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
             </button>
           )}
           {actions && (
-            <Box align="center" gap="content">
+            <Box display="flex" align="center" gap="content">
               {actions}
             </Box>
           )}
