@@ -46,4 +46,22 @@ if [ -n "$MATCHES" ]; then
   exit 2
 fi
 
+# Styled-span heuristic: flag <span> with BEM classes that carry typography
+# (title, label, name, value, text, desc, description, subtitle, unit,
+#  number, actor, action, target). These should route through <Text as="span">.
+SPAN_MATCHES=$(grep -nE '<span[^>]*className="[^"]*ui-[^"]*__(title|label|name|value|text|desc|description|subtitle|unit|number|actor|action|target)' "$FILE_PATH" || true)
+
+if [ -n "$SPAN_MATCHES" ]; then
+  {
+    echo "Composition rule violation in $FILE_PATH:"
+    echo "$SPAN_MATCHES"
+    echo ""
+    echo "Styled <span> elements carrying typography classes must render through the Text primitive."
+    echo "Replace with: <Text as=\"span\" size=\"...\" weight=\"...\" color=\"...\">…</Text>"
+    echo "Keep the BEM className only if it still carries non-typographic layout (ellipsis, flex-shrink, etc.)."
+    echo "See design/architecture.md → Composition-first rule."
+  } >&2
+  exit 2
+fi
+
 exit 0

@@ -110,7 +110,7 @@ If a base component needs domain-specific behavior, create a domain component th
 Components at any level must use the lowest existing primitive that satisfies the need before falling back to raw HTML.
 
 - **Typographic content** (`h1`-`h6`, `p`, `legend`, and any `span` that carries styling) **must** render through the `Text` primitive, using `as` to choose the tag. The `<label>` element is exempt when it functions as a structural wrapper for a form control (click target + implicit association) — the label's own text should still go through `Text` when it carries styling.
-- **Layout containers** (flex/stack wrappers, padded regions, surface cards) **should** render through `Box` unless the element's semantics demand a specific tag not supported by `Box`.
+- **Layout containers** (flex/stack wrappers, padded regions, surface cards) **should** render through `Box` unless the element's semantics demand a specific tag not supported by `Box`. This includes flex-item concerns — `flex-wrap`, `flex-grow`, and `flex-shrink` are expressed via Box's `wrap`, `grow`, and `shrink` props, not reimplemented in component stylesheets.
 - **Raw HTML is acceptable only when**: (a) semantics require a tag not covered by a primitive (`<table>`, `<nav>`, `<form>`, `<dialog>`, `<ol>`/`<ul>`/`<li>`); (b) the element is an unstyled structural wrapper; or (c) no primitive exists yet — in which case, **create one** rather than inlining raw tags across the codebase.
 
 Rationale: the hierarchy only pays off when higher levels are composed from lower levels. A component that reimplements typography or spacing with ad-hoc CSS classes bypasses the token system, drifts from the theme, and multiplies the blast radius of future changes.

@@ -178,6 +178,24 @@ Some components render as different HTML elements depending on context:
 
 Use sparingly — only for components where the rendered element genuinely varies (Button, Text, Box).
 
+### Layout via Box
+
+Flex stacks belong on the `Box` primitive, not on per-component `display: flex` declarations. When a component needs to line up children horizontally or vertically, compose `Box` instead of spinning up bespoke flex CSS.
+
+```tsx
+// Do: layout is expressed in the markup, stylesheet stays focused on visuals
+<Box display="flex" align="center" justify="between" gap="3">
+  <CardTitle />
+  <CardActions />
+</Box>
+
+// Don't: duplicate flex primitives in every component stylesheet
+<div className="ui-card__header">…</div>
+// .ui-card__header { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-3); }
+```
+
+Box covers the common axis props (`display`, `direction`, `align`, `justify`, `gap`), sizing (`padding`, `paddingX`, `paddingY`), and the flex-item escape hatches (`wrap`, `grow`, `shrink`). Reach for a stylesheet only when the layout needs something Box can't express — grid templates, responsive breakpoints, or density-specific overrides that must defeat inline styles.
+
 ### Event Handler Conventions
 
 - Named `on{Event}`: `onClick`, `onChange`, `onSelect`, `onDismiss`.
