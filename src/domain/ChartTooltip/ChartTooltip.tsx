@@ -1,4 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./ChartTooltip.css";
 
 export interface ChartTooltipRow {
@@ -25,10 +27,30 @@ export const ChartTooltip = forwardRef<HTMLDivElement, ChartTooltipProps>(
 
     return (
       <div ref={ref} className={classes} role="tooltip" style={mergedStyle} {...rest}>
-        {title && <div className="ui-chart-tooltip__title">{title}</div>}
-        <div className="ui-chart-tooltip__rows">
+        {title && (
+          <Text
+            as="span"
+            weight="semibold"
+            color="primary"
+            className="ui-chart-tooltip__title"
+          >
+            {title}
+          </Text>
+        )}
+        <Box
+          className="ui-chart-tooltip__rows"
+          display="flex"
+          direction="column"
+          gap="0.5"
+        >
           {rows.map((r, i) => (
-            <div key={i} className="ui-chart-tooltip__row">
+            <Box
+              key={i}
+              className="ui-chart-tooltip__row"
+              display="flex"
+              align="center"
+              gap="2"
+            >
               {r.color && (
                 <span
                   className="ui-chart-tooltip__swatch"
@@ -36,11 +58,19 @@ export const ChartTooltip = forwardRef<HTMLDivElement, ChartTooltipProps>(
                   aria-hidden="true"
                 />
               )}
-              <span className="ui-chart-tooltip__label">{r.label}</span>
-              <span className="ui-chart-tooltip__value">{r.value}</span>
-            </div>
+              <Text
+                as="span"
+                color="secondary"
+                className="ui-chart-tooltip__label"
+              >
+                {r.label}
+              </Text>
+              <Text as="span" weight="medium" color="primary" tabularNums>
+                {r.value}
+              </Text>
+            </Box>
           ))}
-        </div>
+        </Box>
       </div>
     );
   },

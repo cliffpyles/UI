@@ -3,7 +3,10 @@ import {
   useState,
   type HTMLAttributes,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
 import { UserAvatar, type UserData } from "../UserAvatar";
 import { Timestamp } from "../Timestamp";
@@ -38,15 +41,33 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
   const [reply, setReply] = useState("");
 
   return (
-    <div className="ui-comment-thread__comment" style={{ paddingLeft: `${depth * 24}px` }}>
-      <div className="ui-comment-thread__header">
+    <Box
+      className="ui-comment-thread__comment"
+      display="flex"
+      direction="column"
+      gap="1"
+      style={{ paddingLeft: `${depth * 24}px` }}
+    >
+      <Box
+        className="ui-comment-thread__header"
+        display="flex"
+        align="center"
+        gap="2"
+      >
         <UserAvatar user={comment.author} size="sm" />
-        <span className="ui-comment-thread__author">{comment.author.name}</span>
+        <Text as="span" weight="semibold" color="primary">
+          {comment.author.name}
+        </Text>
         <Timestamp date={comment.timestamp} format="auto" className="ui-comment-thread__time" />
-      </div>
+      </Box>
       <div className="ui-comment-thread__body">{comment.body}</div>
       {comment.reactions && comment.reactions.length > 0 && (
-        <div className="ui-comment-thread__reactions">
+        <Box
+          className="ui-comment-thread__reactions"
+          display="inline-flex"
+          gap="1"
+          wrap
+        >
           {comment.reactions.map((r) => (
             <button
               key={r.emoji}
@@ -61,7 +82,7 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
               <span>{r.count}</span>
             </button>
           ))}
-        </div>
+        </Box>
       )}
       {onReply && (
         <div className="ui-comment-thread__actions">
@@ -91,14 +112,19 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
                 onChange={(e) => setReply(e.target.value)}
                 className="ui-comment-thread__textarea"
               />
-              <div className="ui-comment-thread__form-actions">
+              <Box
+                className="ui-comment-thread__form-actions"
+                display="inline-flex"
+                gap="1"
+                justify="end"
+              >
                 <Button variant="ghost" size="sm" onClick={() => setReplying(false)} type="button">
                   Cancel
                 </Button>
                 <Button variant="primary" size="sm" type="submit">
                   Reply
                 </Button>
-              </div>
+              </Box>
             </form>
           )}
         </div>
@@ -112,7 +138,7 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
           depth={depth + 1}
         />
       ))}
-    </div>
+    </Box>
   );
 }
 
@@ -125,7 +151,14 @@ export const CommentThread = forwardRef<HTMLDivElement, CommentThreadProps>(
     const classes = ["ui-comment-thread", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        direction="column"
+        gap="3"
+        {...rest}
+      >
         {comments.map((c) => (
           <CommentView
             key={c.id}
@@ -158,7 +191,7 @@ export const CommentThread = forwardRef<HTMLDivElement, CommentThreadProps>(
             </Button>
           </form>
         )}
-      </div>
+      </Box>
     );
   },
 );

@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { UserChip } from "../UserChip";
 import { Timestamp } from "../Timestamp";
 import type { UserData } from "../UserAvatar";
@@ -24,15 +26,37 @@ export const AuditEntry = forwardRef<HTMLDivElement, AuditEntryProps>(
     const classes = ["ui-audit-entry", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
-        <div className="ui-audit-entry__header">
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        direction="column"
+        gap="2"
+        {...rest}
+      >
+        <Box
+          className="ui-audit-entry__header"
+          display="flex"
+          align="center"
+          gap="2"
+          wrap
+        >
           <UserChip user={entry.actor} size="sm" />
-          <span className="ui-audit-entry__action">
+          <Text as="span" color="primary">
             {entry.action}
-            {entry.resource && <span className="ui-audit-entry__resource"> {entry.resource}</span>}
-          </span>
+            {entry.resource && (
+              <Text
+                as="span"
+                weight="medium"
+                color="secondary"
+              >
+                {" "}
+                {entry.resource}
+              </Text>
+            )}
+          </Text>
           <Timestamp date={entry.timestamp} format="auto" className="ui-audit-entry__time" />
-        </div>
+        </Box>
         <dl className="ui-audit-entry__meta">
           {entry.ip && (
             <>
@@ -48,7 +72,7 @@ export const AuditEntry = forwardRef<HTMLDivElement, AuditEntryProps>(
           )}
         </dl>
         {entry.detail && <div className="ui-audit-entry__detail">{entry.detail}</div>}
-      </div>
+      </Box>
     );
   },
 );

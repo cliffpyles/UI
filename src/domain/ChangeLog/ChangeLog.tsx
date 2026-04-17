@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { UserChip } from "../UserChip";
 import { Timestamp } from "../Timestamp";
 import type { UserData } from "../UserAvatar";
@@ -27,11 +29,27 @@ export const ChangeLog = forwardRef<HTMLDivElement, ChangeLogProps>(
     const classes = ["ui-changelog", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        direction="column"
+        gap="2"
+        {...rest}
+      >
         {(title || actor || timestamp) && (
-          <div className="ui-changelog__header">
+          <Box
+            className="ui-changelog__header"
+            display="flex"
+            align="center"
+            gap="2"
+          >
             {actor && <UserChip user={actor} size="sm" />}
-            {title && <span className="ui-changelog__title">{title}</span>}
+            {title && (
+              <Text as="span" weight="medium" color="primary">
+                {title}
+              </Text>
+            )}
             {timestamp && (
               <Timestamp
                 date={timestamp}
@@ -39,7 +57,7 @@ export const ChangeLog = forwardRef<HTMLDivElement, ChangeLogProps>(
                 className="ui-changelog__time"
               />
             )}
-          </div>
+          </Box>
         )}
         <ul className="ui-changelog__list">
           {changes.map((c) => (
@@ -51,7 +69,7 @@ export const ChangeLog = forwardRef<HTMLDivElement, ChangeLogProps>(
             </li>
           ))}
         </ul>
-      </div>
+      </Box>
     );
   },
 );

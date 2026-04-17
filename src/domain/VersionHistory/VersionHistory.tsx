@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
 import { UserChip } from "../UserChip";
 import { Timestamp } from "../Timestamp";
@@ -28,7 +30,14 @@ export const VersionHistory = forwardRef<HTMLDivElement, VersionHistoryProps>(
     const classes = ["ui-version-history", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        direction="column"
+        gap="2"
+        {...rest}
+      >
         <ol className="ui-version-history__list">
           {versions.map((v) => (
             <li
@@ -38,8 +47,15 @@ export const VersionHistory = forwardRef<HTMLDivElement, VersionHistoryProps>(
                 (v.id === current ? " ui-version-history__item--current" : "")
               }
             >
-              <div className="ui-version-history__header">
-                <span className="ui-version-history__label">{v.label}</span>
+              <Box
+                className="ui-version-history__header"
+                display="flex"
+                align="center"
+                gap="2"
+              >
+                <Text as="span" weight="semibold" color="primary">
+                  {v.label}
+                </Text>
                 {v.id === current && (
                   <span className="ui-version-history__current">Current</span>
                 )}
@@ -48,10 +64,14 @@ export const VersionHistory = forwardRef<HTMLDivElement, VersionHistoryProps>(
                   format="auto"
                   className="ui-version-history__time"
                 />
-              </div>
+              </Box>
               {v.actor && <UserChip user={v.actor} size="sm" />}
               {v.note && <div className="ui-version-history__note">{v.note}</div>}
-              <div className="ui-version-history__actions">
+              <Box
+                className="ui-version-history__actions"
+                display="inline-flex"
+                gap="1"
+              >
                 {onCompare && (
                   <Button variant="ghost" size="sm" onClick={() => onCompare(v.id)}>
                     Compare
@@ -62,11 +82,11 @@ export const VersionHistory = forwardRef<HTMLDivElement, VersionHistoryProps>(
                     Restore
                   </Button>
                 )}
-              </div>
+              </Box>
             </li>
           ))}
         </ol>
-      </div>
+      </Box>
     );
   },
 );
