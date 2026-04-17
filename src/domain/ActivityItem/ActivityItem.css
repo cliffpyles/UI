@@ -2,11 +2,6 @@
   padding: var(--spacing-2) 0;
 }
 
-.ui-activity-item__body {
-  flex: 1;
-  min-width: 0;
-}
-
 .ui-activity-item__time {
   display: block;
   font-size: var(--font-size-xs);

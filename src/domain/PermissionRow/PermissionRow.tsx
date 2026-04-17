@@ -37,12 +37,12 @@ export const PermissionRow = forwardRef<HTMLDivElement, PermissionRowProps>(
         gap="3"
         {...rest}
       >
-        <div className="ui-permission-row__body">
+        <Box className="ui-permission-row__body" grow minWidth={0}>
           <div className="ui-permission-row__label">{label}</div>
           {description && (
             <div className="ui-permission-row__description">{description}</div>
           )}
-        </div>
+        </Box>
         {options ? (
           <Select
             aria-label={label}

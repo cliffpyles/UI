@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import { Avatar } from "../../components/Avatar";
 import { Timestamp } from "../Timestamp";
@@ -41,9 +42,12 @@ export const NotificationItem = forwardRef<HTMLDivElement, NotificationItemProps
     };
 
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as Ref<HTMLElement>}
         className={classes}
+        display="flex"
+        align="start"
+        gap="3"
         role="button"
         tabIndex={0}
         onClick={handleActivate}
@@ -69,7 +73,7 @@ export const NotificationItem = forwardRef<HTMLDivElement, NotificationItemProps
             <Icon name="info" size="md" />
           )}
         </div>
-        <div className="ui-notification-item__body">
+        <Box className="ui-notification-item__body" grow minWidth={0}>
           <div className="ui-notification-item__title">{notification.title}</div>
           {notification.body && (
             <div className="ui-notification-item__content">{notification.body}</div>
@@ -79,11 +83,11 @@ export const NotificationItem = forwardRef<HTMLDivElement, NotificationItemProps
             format="auto"
             className="ui-notification-item__time"
           />
-        </div>
+        </Box>
         {!notification.read && (
           <span className="ui-notification-item__dot" aria-label="Unread" />
         )}
-      </div>
+      </Box>
     );
   },
 );

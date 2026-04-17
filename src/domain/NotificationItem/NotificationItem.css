@@ -1,7 +1,4 @@
 .ui-notification-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-3);
   padding: var(--spacing-3);
   border-radius: var(--radius-md);
   cursor: pointer;
@@ -24,11 +21,6 @@
 
 .ui-notification-item__visual {
   flex-shrink: 0;
-}
-
-.ui-notification-item__body {
-  flex: 1;
-  min-width: 0;
 }
 
 .ui-notification-item__title {

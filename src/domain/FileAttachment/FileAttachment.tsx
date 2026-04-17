@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import { FileSize } from "../FileSize";
 import "./FileAttachment.css";
@@ -32,11 +33,18 @@ export const FileAttachment = forwardRef<HTMLDivElement, FileAttachmentProps>(
     const classes = ["ui-file-attachment", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        align="center"
+        gap="3"
+        {...rest}
+      >
         <div className="ui-file-attachment__icon" aria-hidden="true">
           <Icon name={iconForType(file.type)} size="md" />
         </div>
-        <div className="ui-file-attachment__body">
+        <Box className="ui-file-attachment__body" grow minWidth={0}>
           <div className="ui-file-attachment__name" title={file.name}>
             {file.name}
           </div>
@@ -44,8 +52,8 @@ export const FileAttachment = forwardRef<HTMLDivElement, FileAttachmentProps>(
             <FileSize bytes={file.size} />
             {file.type && <span> · {file.type}</span>}
           </div>
-        </div>
-        <div className="ui-file-attachment__actions">
+        </Box>
+        <Box className="ui-file-attachment__actions" display="inline-flex" gap="1">
           {onPreview && (
             <button
               type="button"
@@ -76,8 +84,8 @@ export const FileAttachment = forwardRef<HTMLDivElement, FileAttachmentProps>(
               <Icon name="trash" size="xs" aria-hidden />
             </button>
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );

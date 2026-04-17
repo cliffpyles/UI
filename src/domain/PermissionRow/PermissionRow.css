@@ -2,11 +2,6 @@
   padding: var(--spacing-2) 0;
 }
 
-.ui-permission-row__body {
-  flex: 1;
-  min-width: 0;
-}
-
 .ui-permission-row__label {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);

@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./BannerAlert.css";
 
@@ -45,15 +46,23 @@ export const BannerAlert = forwardRef<HTMLDivElement, BannerAlertProps>(
     const role = variant === "error" || variant === "warning" ? "alert" : "status";
 
     return (
-      <div ref={ref} className={classes} role={role} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        align="start"
+        gap="3"
+        role={role}
+        {...rest}
+      >
         {iconName && (
           <Icon name={iconName} size="md" className="ui-banner-alert__icon" aria-hidden />
         )}
-        <div className="ui-banner-alert__body">
+        <Box className="ui-banner-alert__body" grow minWidth={0}>
           {title && <div className="ui-banner-alert__title">{title}</div>}
           {description && <div className="ui-banner-alert__description">{description}</div>}
           {children}
-        </div>
+        </Box>
         {action && <div className="ui-banner-alert__action">{action}</div>}
         {dismissible && (
           <button
@@ -65,7 +74,7 @@ export const BannerAlert = forwardRef<HTMLDivElement, BannerAlertProps>(
             <Icon name="x" size="sm" aria-hidden />
           </button>
         )}
-      </div>
+      </Box>
     );
   },
 );

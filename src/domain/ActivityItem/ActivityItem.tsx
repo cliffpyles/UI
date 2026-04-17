@@ -37,7 +37,7 @@ export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
         {...rest}
       >
         <UserAvatar user={actor} size="sm" />
-        <div className="ui-activity-item__body">
+        <Box className="ui-activity-item__body" grow minWidth={0}>
           <div className="ui-activity-item__summary">
             <Text as="span" size="sm" weight="semibold">{actor.name}</Text>{" "}
             <Text as="span" size="sm" color="secondary">{action}</Text>
@@ -71,7 +71,7 @@ export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
               {expanded && <div className="ui-activity-item__detail">{detail}</div>}
             </>
           )}
-        </div>
+        </Box>
       </Box>
     );
   },

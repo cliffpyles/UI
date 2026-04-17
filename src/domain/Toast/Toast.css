@@ -1,7 +1,4 @@
 .ui-toast {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-2);
   padding: var(--spacing-3) var(--spacing-4);
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-default);
@@ -24,8 +21,6 @@
 .ui-toast--error .ui-toast__icon { color: var(--color-status-error-icon); }
 
 .ui-toast__body {
-  flex: 1;
-  min-width: 0;
   color: var(--color-text-primary);
 }
 

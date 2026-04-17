@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./InlineMessage.css";
 
@@ -34,15 +35,22 @@ export const InlineMessage = forwardRef<HTMLDivElement, InlineMessageProps>(
     const role = variant === "error" || variant === "warning" ? "alert" : "status";
 
     return (
-      <div ref={ref} className={classes} role={role} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        display="flex"
+        gap="2"
+        role={role}
+        {...rest}
+      >
         {iconName && (
           <Icon name={iconName} size="sm" className="ui-inline-message__icon" aria-hidden />
         )}
-        <div className="ui-inline-message__body">
+        <Box className="ui-inline-message__body" grow minWidth={0}>
           {title && <div className="ui-inline-message__title">{title}</div>}
           {children && <div className="ui-inline-message__content">{children}</div>}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );

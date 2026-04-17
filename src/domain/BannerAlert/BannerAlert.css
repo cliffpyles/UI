@@ -1,7 +1,4 @@
 .ui-banner-alert {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-3);
   padding: var(--spacing-3) var(--spacing-4);
   border-radius: var(--radius-md);
   border: 1px solid transparent;
@@ -35,11 +32,6 @@
 .ui-banner-alert--success .ui-banner-alert__icon { color: var(--color-status-success-icon); }
 .ui-banner-alert--warning .ui-banner-alert__icon { color: var(--color-status-warning-icon); }
 .ui-banner-alert--error .ui-banner-alert__icon { color: var(--color-status-error-icon); }
-
-.ui-banner-alert__body {
-  flex: 1;
-  min-width: 0;
-}
 
 .ui-banner-alert__title {
   font-weight: var(--font-weight-semibold);

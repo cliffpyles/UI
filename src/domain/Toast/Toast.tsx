@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./Toast.css";
 
@@ -37,12 +38,21 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
   const role = variant === "error" || variant === "warning" ? "alert" : "status";
 
   return (
-    <div ref={ref} className={classes} role={role} aria-live={role === "alert" ? "assertive" : "polite"} {...rest}>
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      className={classes}
+      display="flex"
+      align="start"
+      gap="2"
+      role={role}
+      aria-live={role === "alert" ? "assertive" : "polite"}
+      {...rest}
+    >
       <Icon name={ICON[variant]} size="sm" className="ui-toast__icon" aria-hidden />
-      <div className="ui-toast__body">
+      <Box className="ui-toast__body" grow minWidth={0}>
         <div className="ui-toast__title">{title}</div>
         {description && <div className="ui-toast__description">{description}</div>}
-      </div>
+      </Box>
       {action && <div className="ui-toast__action">{action}</div>}
       {dismissible && (
         <button
@@ -54,6 +64,6 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
           <Icon name="x" size="xs" aria-hidden />
         </button>
       )}
-    </div>
+    </Box>
   );
 });

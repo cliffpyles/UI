@@ -6,6 +6,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Tag } from "../../components/Tag";
 import "./TagInput.css";
 
@@ -88,7 +89,13 @@ export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
         className={classes}
         {...rest}
       >
-        <div className="ui-tag-input__control">
+        <Box
+          className="ui-tag-input__control"
+          display="flex"
+          align="center"
+          gap="1"
+          wrap
+        >
           {value.map((tag) => (
             <Tag key={tag} removable onRemove={() => removeTag(tag)}>
               {tag}
@@ -109,7 +116,7 @@ export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
             disabled={disabled || !canAdd}
             aria-label="Add tag"
           />
-        </div>
+        </Box>
         {open && filtered.length > 0 && (
           <ul className="ui-tag-input__list" role="listbox">
             {filtered.map((s) => (
