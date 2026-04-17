@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./MetricOverviewLayout.css";
 
 export type MetricItem = ReactNode | { key: string; content: ReactNode };
@@ -30,8 +31,11 @@ export const MetricOverviewLayout = forwardRef<
 ) {
   const classes = ["ui-metric-overview", className].filter(Boolean).join(" ");
   return (
-    <div
-      ref={ref}
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      direction="column"
+      gap="section"
+      padding="page"
       className={classes}
       role="region"
       aria-label={label}
@@ -53,7 +57,11 @@ export const MetricOverviewLayout = forwardRef<
           );
         })}
       </div>
-      {charts && <div className="ui-metric-overview__charts">{charts}</div>}
-    </div>
+      {charts && (
+        <Box direction="column" gap="content" className="ui-metric-overview__charts">
+          {charts}
+        </Box>
+      )}
+    </Box>
   );
 });

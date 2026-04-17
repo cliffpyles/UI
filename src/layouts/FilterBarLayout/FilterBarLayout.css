@@ -2,34 +2,18 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-content-gap);
-  padding: var(--spacing-content-gap) var(--spacing-page-padding);
   background: var(--color-background-surface);
   border-bottom: 1px solid var(--color-border-default);
   box-shadow: var(--shadow-sm);
 }
 
 .ui-filter-bar__filters {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-content-gap);
   overflow-x: auto;
   scrollbar-width: thin;
 }
 
 .ui-filter-bar__filter {
   flex: 0 0 auto;
-}
-
-.ui-filter-bar__trailing {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-content-gap);
 }
 
 .ui-filter-bar__clear {
@@ -44,10 +28,4 @@
 
 .ui-filter-bar__clear:hover {
   border-color: var(--color-border-strong);
-}
-
-.ui-filter-bar__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-content-gap);
 }

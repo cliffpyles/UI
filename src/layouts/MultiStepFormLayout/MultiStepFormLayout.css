@@ -1,10 +1,6 @@
 .ui-multi-step-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-section-gap);
   width: 100%;
   min-height: 0;
-  padding: var(--spacing-page-padding);
   background: var(--color-background-surface);
   color: var(--color-text-primary);
 }
@@ -69,10 +65,6 @@
   position: sticky;
   bottom: 0;
   z-index: var(--z-index-sticky);
-  display: flex;
-  justify-content: space-between;
-  gap: var(--spacing-content-gap);
-  padding: var(--spacing-content-gap);
   background: var(--color-background-surface-raised);
   border-top: 1px solid var(--color-border-default);
 }

@@ -2,7 +2,9 @@ import {
   forwardRef,
   type HTMLAttributes,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
 import "./FilterBarLayout.css";
 
 export interface FilterBarLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -30,14 +32,24 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
   ) {
     const classes = ["ui-filter-bar", className].filter(Boolean).join(" ");
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as Ref<HTMLElement>}
         role="toolbar"
         aria-label={ariaLabel}
+        align="center"
+        gap="content"
+        paddingX="page"
+        paddingY="content"
         className={classes}
         {...rest}
       >
-        <div className="ui-filter-bar__filters">
+        <Box
+          align="center"
+          gap="content"
+          grow
+          minWidth={0}
+          className="ui-filter-bar__filters"
+        >
           {filters.map((filter, index) => (
             <div
               key={index}
@@ -46,8 +58,8 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
               {filter}
             </div>
           ))}
-        </div>
-        <div className="ui-filter-bar__trailing">
+        </Box>
+        <Box align="center" gap="content" shrink={0}>
           {showClearAll && onClearAll && (
             <button
               type="button"
@@ -58,10 +70,12 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
             </button>
           )}
           {actions && (
-            <div className="ui-filter-bar__actions">{actions}</div>
+            <Box align="center" gap="content">
+              {actions}
+            </Box>
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );

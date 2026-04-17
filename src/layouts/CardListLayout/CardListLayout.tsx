@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Grid } from "../../primitives/Grid";
 import "./CardListLayout.css";
 
 export type CardListView = "grid" | "list";
@@ -38,12 +40,27 @@ function CardListLayoutInner<T>(
   const isEmpty = items.length === 0;
 
   return (
-    <div ref={ref} className={classes} role="region" aria-label={label} {...rest}>
-      {toolbar && <div className="ui-card-list__toolbar">{toolbar}</div>}
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      direction="column"
+      gap="content"
+      padding="page"
+      className={classes}
+      role="region"
+      aria-label={label}
+      {...rest}
+    >
+      {toolbar && (
+        <Box align="center" gap="content" className="ui-card-list__toolbar">
+          {toolbar}
+        </Box>
+      )}
       {isEmpty ? (
-        <div className="ui-card-list__empty">{emptyState}</div>
+        <Box align="center" justify="center" className="ui-card-list__empty">
+          {emptyState}
+        </Box>
       ) : (
-        <div className="ui-card-list__items">
+        <Grid gap="content" className="ui-card-list__items">
           {items.map((item, i) => (
             <div
               key={getKey ? getKey(item, i) : i}
@@ -52,9 +69,9 @@ function CardListLayoutInner<T>(
               {renderCard(item, i)}
             </div>
           ))}
-        </div>
+        </Grid>
       )}
-    </div>
+    </Box>
   );
 }
 

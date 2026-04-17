@@ -2,7 +2,9 @@ import {
   forwardRef,
   type HTMLAttributes,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
 import "./MultiStepFormLayout.css";
 
 export interface FormStep {
@@ -59,7 +61,14 @@ export const MultiStepFormLayout = forwardRef<
   };
 
   return (
-    <div ref={ref} className={classes} {...rest}>
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      direction="column"
+      gap="section"
+      padding="page"
+      className={classes}
+      {...rest}
+    >
       <ol
         className="ui-multi-step-form__progress"
         aria-label="Form progress"
@@ -101,7 +110,12 @@ export const MultiStepFormLayout = forwardRef<
       >
         {current?.content}
       </div>
-      <div className="ui-multi-step-form__footer">
+      <Box
+        justify="between"
+        gap="content"
+        padding="content"
+        className="ui-multi-step-form__footer"
+      >
         {footer ?? (
           <>
             <button
@@ -122,7 +136,7 @@ export const MultiStepFormLayout = forwardRef<
             </button>
           </>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 });

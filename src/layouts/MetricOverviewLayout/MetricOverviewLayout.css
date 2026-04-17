@@ -1,8 +1,4 @@
 .ui-metric-overview {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-section-gap);
-  padding: var(--spacing-page-padding);
   background: var(--color-background-surface);
 }
 
@@ -19,12 +15,6 @@
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-}
-
-.ui-metric-overview__charts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-content-gap);
 }
 
 @media (max-width: 1199px) {
