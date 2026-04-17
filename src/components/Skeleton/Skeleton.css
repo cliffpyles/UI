@@ -21,11 +21,7 @@
 
 /* ---------- Multi-line group ---------- */
 
-.ui-skeleton__group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
+/* .ui-skeleton__group layout is provided via the Box primitive. */
 
 /* ---------- Pulse animation ---------- */
 

@@ -16,22 +16,13 @@
 /* ---------- Header ---------- */
 
 .ui-card__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-3);
   padding: var(--spacing-4) var(--spacing-5);
 }
 
 /* Typography for .ui-card__title comes from the Text primitive.
    Only density-specific size overrides live here. */
 
-.ui-card__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  flex-shrink: 0;
-}
+/* .ui-card__actions layout is provided via the Box primitive. */
 
 /* ---------- Body ---------- */
 
@@ -50,8 +41,6 @@
 /* ---------- Footer ---------- */
 
 .ui-card__footer {
-  display: flex;
-  align-items: center;
   padding: var(--spacing-3) var(--spacing-5);
   border-top: 1px solid var(--color-border-default);
   font-size: var(--font-size-sm);

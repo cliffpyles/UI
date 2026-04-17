@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./Card.css";
 
@@ -30,9 +31,17 @@ const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   function CardHeader({ children, className, ...props }, ref) {
     const classes = ["ui-card__header", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...props}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        display="flex"
+        align="center"
+        justify="between"
+        gap="3"
+        className={classes}
+        {...props}
+      >
         {children}
-      </div>
+      </Box>
     );
   },
 );
@@ -68,9 +77,17 @@ const CardActions = forwardRef<HTMLDivElement, CardActionsProps>(
   function CardActions({ children, className, ...props }, ref) {
     const classes = ["ui-card__actions", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...props}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        display="flex"
+        align="center"
+        gap="2"
+        shrink={false}
+        className={classes}
+        {...props}
+      >
         {children}
-      </div>
+      </Box>
     );
   },
 );
@@ -98,9 +115,15 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   function CardFooter({ children, className, ...props }, ref) {
     const classes = ["ui-card__footer", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...props}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        display="flex"
+        align="center"
+        className={classes}
+        {...props}
+      >
         {children}
-      </div>
+      </Box>
     );
   },
 );

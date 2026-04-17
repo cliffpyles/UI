@@ -11,6 +11,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
+import { Box } from "../../primitives/Box";
 import "./Tabs.css";
 
 // --- Context ---
@@ -123,19 +124,22 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
     const classes = ["ui-tabs__list", className].filter(Boolean).join(" ");
 
     return (
-      <div
+      <Box
         ref={(node) => {
-          (listRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+          (listRef as React.MutableRefObject<HTMLDivElement | null>).current = node as HTMLDivElement | null;
+          if (typeof ref === "function") ref(node as HTMLDivElement | null);
+          else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node as HTMLDivElement | null;
         }}
         role="tablist"
+        display="flex"
+        align="center"
+        gap="0"
         className={classes}
         onKeyDown={handleKeyDown}
         {...props}
       >
         {children}
-      </div>
+      </Box>
     );
   },
 );

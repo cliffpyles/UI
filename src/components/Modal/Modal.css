@@ -71,10 +71,6 @@
 /* ---------- Header ---------- */
 
 .ui-modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-3);
   padding: var(--spacing-5) var(--spacing-6) var(--spacing-0);
 }
 
@@ -130,9 +126,6 @@
 /* ---------- Footer ---------- */
 
 .ui-modal__footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
   gap: var(--spacing-3);
   padding: var(--spacing-0) var(--spacing-6) var(--spacing-5);
 }

@@ -11,9 +11,6 @@
 /* ---------- Tab List ---------- */
 
 .ui-tabs__list {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-0);
   border-bottom: 1px solid var(--color-border-default);
 }
 

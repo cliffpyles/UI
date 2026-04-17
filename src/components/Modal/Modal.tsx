@@ -8,6 +8,7 @@ import {
   type HTMLAttributes,
 } from "react";
 import { createPortal } from "react-dom";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./Modal.css";
 
@@ -175,7 +176,13 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           {...props}
         >
           {title && (
-            <div className="ui-modal__header">
+            <Box
+              display="flex"
+              align="center"
+              justify="between"
+              gap="3"
+              className="ui-modal__header"
+            >
               <Text
                 as="h2"
                 id={titleId}
@@ -207,7 +214,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
-            </div>
+            </Box>
           )}
           {description && (
             <Text
@@ -221,7 +228,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             </Text>
           )}
           <div className="ui-modal__body">{children}</div>
-          {footer && <div className="ui-modal__footer">{footer}</div>}
+          {footer && (
+            <Box
+              display="flex"
+              align="center"
+              justify="end"
+              className="ui-modal__footer"
+            >
+              {footer}
+            </Box>
+          )}
         </div>
       </div>
     );

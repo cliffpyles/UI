@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
 import "./Skeleton.css";
 
 type SkeletonVariant = "text" | "circle" | "rect";
@@ -42,9 +43,12 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
 
     if (variant === "text" && lines > 1) {
       return (
-        <div
-          ref={ref}
+        <Box
+          ref={ref as React.Ref<HTMLElement>}
           className="ui-skeleton__group"
+          display="flex"
+          direction="column"
+          gap="2"
           role="status"
           aria-busy="true"
           aria-label="Loading content"
@@ -60,7 +64,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
               }}
             />
           ))}
-        </div>
+        </Box>
       );
     }
 
