@@ -7,7 +7,6 @@ import { TableOfContents } from "./components/TableOfContents";
 import { SECTIONS } from "./sections";
 import { useHashRoute } from "./useHashRoute";
 import { usePersistedDensity } from "./usePersistedDensity";
-import "../App.css";
 import "./Playground.css";
 
 const SECTION_ROOT_SELECTOR = "#pg-section-root";

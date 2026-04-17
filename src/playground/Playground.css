@@ -7,6 +7,60 @@
   background: var(--color-background-page, transparent);
 }
 
+.playground h2 {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-content-gap);
+  padding-bottom: var(--spacing-2);
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-primary);
+}
+
+.playground section {
+  margin-bottom: var(--spacing-section-gap);
+}
+
+.token-demo {
+  padding: var(--spacing-4);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+}
+
+.status-row {
+  display: flex;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.status-badge--success {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-text);
+}
+
+.status-badge--warning {
+  background: var(--color-status-warning-bg);
+  color: var(--color-status-warning-text);
+}
+
+.status-badge--error {
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-text);
+}
+
+.status-badge--info {
+  background: var(--color-status-info-bg);
+  color: var(--color-status-info-text);
+}
+
 .pg-sidebar {
   position: sticky;
   top: 0;
