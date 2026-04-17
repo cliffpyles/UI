@@ -1,8 +1,13 @@
 import "@testing-library/jest-dom/vitest";
-import { expect } from "vitest";
+import { afterEach, expect } from "vitest";
+import { cleanup } from "@testing-library/react";
 import * as matchers from "vitest-axe/matchers";
 
 expect.extend(matchers);
+
+afterEach(() => {
+  cleanup();
+});
 
 // Mock window.matchMedia for jsdom (used by ThemeProvider)
 Object.defineProperty(window, "matchMedia", {
