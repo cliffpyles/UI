@@ -10,7 +10,7 @@ import { Demo } from "../components/Demo";
 export default function Primitives() {
   return (
     <section>
-      <h2>Primitives</h2>
+      <Text as="h2" size="xl" weight="semibold">Primitives</Text>
 
       <Demo title="Text" description="Typography primitive with size, weight, color, truncation.">
         <Box display="flex" direction="column" gap="2">

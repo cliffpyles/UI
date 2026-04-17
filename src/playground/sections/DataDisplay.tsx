@@ -25,7 +25,7 @@ export default function DataDisplay() {
 
   return (
     <section>
-      <h2>Data Display (Phase 5)</h2>
+      <Text as="h2" size="xl" weight="semibold">Data Display (Phase 5)</Text>
 
       <Demo title="Formatting Utilities" description="Number, currency, percent, date, duration, and bytes helpers.">
         <Box display="flex" direction="column" gap="2">

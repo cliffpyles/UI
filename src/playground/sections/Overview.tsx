@@ -1,9 +1,10 @@
+import { Text } from "../../primitives/Text";
 import { Demo } from "../components/Demo";
 
 export default function Overview() {
   return (
     <section>
-      <h2>Overview</h2>
+      <Text as="h2" size="xl" weight="semibold">Overview</Text>
 
       <Demo title="Status colors" description="Semantic colors for success, warning, error, info.">
         <div className="status-row">
@@ -18,23 +19,23 @@ export default function Overview() {
         <div style={{ display: "flex", gap: "var(--spacing-content-gap)", flexWrap: "wrap" }}>
           <div className="token-demo">
             <strong>Raised</strong>
-            <p style={{ color: "var(--color-text-secondary)" }}>Cards and panels</p>
+            <Text as="p" color="secondary">Cards and panels</Text>
           </div>
           <div className="token-demo" style={{ background: "var(--color-background-surface-sunken)" }}>
             <strong>Sunken</strong>
-            <p style={{ color: "var(--color-text-secondary)" }}>Inset areas and wells</p>
+            <Text as="p" color="secondary">Inset areas and wells</Text>
           </div>
         </div>
       </Demo>
 
       <Demo title="Typography scale" description="Font-size tokens from 2xs through 2xl.">
-        <p style={{ fontSize: "var(--font-size-2xs)" }}>2xs (10px)</p>
-        <p style={{ fontSize: "var(--font-size-xs)" }}>xs (12px)</p>
-        <p style={{ fontSize: "var(--font-size-sm)" }}>sm (14px)</p>
-        <p style={{ fontSize: "var(--font-size-base)" }}>base (16px)</p>
-        <p style={{ fontSize: "var(--font-size-lg)" }}>lg (18px)</p>
-        <p style={{ fontSize: "var(--font-size-xl)" }}>xl (20px)</p>
-        <p style={{ fontSize: "var(--font-size-2xl)" }}>2xl (24px)</p>
+        <Text as="p" size="2xs">2xs (10px)</Text>
+        <Text as="p" size="xs">xs (12px)</Text>
+        <Text as="p" size="sm">sm (14px)</Text>
+        <Text as="p" size="base">base (16px)</Text>
+        <Text as="p" size="lg">lg (18px)</Text>
+        <Text as="p" size="xl">xl (20px)</Text>
+        <Text as="p" size="2xl">2xl (24px)</Text>
       </Demo>
 
       <Demo title="Categorical colors" description="8-color categorical palette for charts.">

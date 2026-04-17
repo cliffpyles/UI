@@ -21,7 +21,7 @@ export default function CompositeComponents() {
 
   return (
     <section>
-      <h2>Composite Components</h2>
+      <Text as="h2" size="xl" weight="semibold">Composite Components</Text>
 
       <Demo title="FormField" description="Label, required, hint, and error states.">
         <Box display="flex" direction="column" gap="3" style={{ maxWidth: "320px" }}>

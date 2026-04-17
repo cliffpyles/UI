@@ -57,7 +57,7 @@ export default function Layouts() {
 
   return (
     <section>
-      <h2>Layouts (Phase 7)</h2>
+      <Text as="h2" size="xl" weight="semibold">Layouts (Phase 7)</Text>
 
       <Demo title="AppShell" description="Header, sidebar, and main with breadcrumbs.">
         <Box

@@ -65,10 +65,6 @@
   padding: var(--spacing-3) var(--spacing-4);
 }
 
-[data-density="compact"] .ui-card__title {
-  font-size: var(--font-size-sm);
-}
-
 [data-density="compact"] .ui-card__body {
   padding: var(--spacing-0) var(--spacing-4) var(--spacing-3);
   font-size: var(--font-size-sm);

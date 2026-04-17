@@ -54,7 +54,7 @@ export default function Advanced() {
 
   return (
     <section>
-      <h2>Advanced Features (Phase 8)</h2>
+      <Text as="h2" size="xl" weight="semibold">Advanced Features (Phase 8)</Text>
 
       <Demo title="Keyboard Shortcuts" description="Global shortcuts with a cheat sheet dialog.">
         <Text>

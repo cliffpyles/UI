@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from "react";
+import { Text } from "../../primitives/Text";
 
 interface Props {
   sectionLabel: string;
@@ -26,7 +27,7 @@ export class SectionErrorBoundary extends Component<Props, State> {
     if (this.state.error) {
       return (
         <div className="pg-error">
-          <h2>Failed to render “{this.props.sectionLabel}”</h2>
+          <Text as="h2" size="xl" weight="semibold">Failed to render “{this.props.sectionLabel}”</Text>
           <pre>{this.state.error.message}</pre>
           <button type="button" onClick={() => this.setState({ error: null })}>
             Retry

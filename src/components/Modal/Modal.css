@@ -143,10 +143,6 @@
   padding: var(--spacing-3) var(--spacing-4) var(--spacing-0);
 }
 
-[data-density="compact"] .ui-modal__title {
-  font-size: var(--font-size-base);
-}
-
 [data-density="compact"] .ui-modal__description {
   padding: var(--spacing-1) var(--spacing-4) var(--spacing-0);
   font-size: var(--font-size-xs);

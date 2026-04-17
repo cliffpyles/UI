@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Checkbox } from "../../components/Checkbox";
@@ -29,7 +30,7 @@ export default function BaseComponents() {
 
   return (
     <section>
-      <h2>Base Components</h2>
+      <Text as="h2" size="xl" weight="semibold">Base Components</Text>
 
       <Demo title="Button" description="Variants, sizes, loading, disabled, and link-as-button.">
         <Box display="flex" gap="3" align="center">

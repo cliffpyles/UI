@@ -59,7 +59,7 @@ export default function Domain() {
 
   return (
     <section>
-      <h2>Domain Components (Phase 6)</h2>
+      <Text as="h2" size="xl" weight="semibold">Domain Components (Phase 6)</Text>
 
       <Demo title="Data Display" description="MetricCard, Currency, Percentage, Timestamp, TrendIndicator.">
         <Box display="flex" gap="3" style={{ flexWrap: "wrap" }}>

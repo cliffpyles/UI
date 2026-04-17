@@ -1,5 +1,6 @@
 import { useTheme } from "../../providers";
 import { useDensity } from "../../providers";
+import { Text } from "../../primitives/Text";
 
 interface HeaderProps {
   onDensityChange: (d: "compact" | "default" | "comfortable") => void;
@@ -11,7 +12,7 @@ export function Header({ onDensityChange }: HeaderProps) {
 
   return (
     <header className="pg-header">
-      <h1 className="pg-header__title">UI Component Library</h1>
+      <Text as="h1" className="pg-header__title" size="xl" weight="bold">UI Component Library</Text>
       <div className="pg-header__controls">
         <label>
           Theme:{" "}
