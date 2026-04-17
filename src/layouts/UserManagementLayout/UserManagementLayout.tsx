@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./UserManagementLayout.css";
 
 export interface UserManagementLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -19,16 +20,35 @@ export const UserManagementLayout = forwardRef<HTMLDivElement, UserManagementLay
     const showBulk = selectedCount > 0 && bulkActions;
 
     return (
-      <section
-        ref={ref}
+      <Box
+        as="section"
+        ref={ref as Ref<HTMLElement>}
+        display="flex"
+        direction="column"
+        gap="content"
+        padding="page"
         className={classes}
         role="region"
         aria-label={label}
         {...rest}
       >
-        {toolbar && <div className="ui-user-management__toolbar">{toolbar}</div>}
+        {toolbar && (
+          <Box
+            display="flex"
+            wrap
+            align="center"
+            gap="inline"
+            className="ui-user-management__toolbar"
+          >
+            {toolbar}
+          </Box>
+        )}
         {showBulk && (
-          <div
+          <Box
+            display="flex"
+            align="center"
+            justify="between"
+            gap="inline"
             className="ui-user-management__bulk"
             role="status"
             aria-live="polite"
@@ -36,12 +56,24 @@ export const UserManagementLayout = forwardRef<HTMLDivElement, UserManagementLay
             <span className="ui-user-management__bulk-count">
               {selectedCount} selected
             </span>
-            <div className="ui-user-management__bulk-actions">{bulkActions}</div>
-          </div>
+            <Box display="flex" gap="inline" className="ui-user-management__bulk-actions">
+              {bulkActions}
+            </Box>
+          </Box>
         )}
         <div className="ui-user-management__table">{table}</div>
-        {footer && <div className="ui-user-management__footer">{footer}</div>}
-      </section>
+        {footer && (
+          <Box
+            display="flex"
+            align="center"
+            justify="between"
+            gap="inline"
+            className="ui-user-management__footer"
+          >
+            {footer}
+          </Box>
+        )}
+      </Box>
     );
   },
 );

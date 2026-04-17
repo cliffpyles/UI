@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./DataGridLayout.css";
 
 export interface DataGridLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -15,21 +16,37 @@ export const DataGridLayout = forwardRef<HTMLDivElement, DataGridLayoutProps>(
   ) {
     const classes = ["ui-data-grid-layout", className].filter(Boolean).join(" ");
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        display="flex"
+        direction="column"
         className={classes}
         role="region"
         aria-label={label}
         {...rest}
       >
         {toolbar && (
-          <div className="ui-data-grid-layout__toolbar">{toolbar}</div>
+          <Box
+            display="flex"
+            align="center"
+            gap="content"
+            className="ui-data-grid-layout__toolbar"
+          >
+            {toolbar}
+          </Box>
         )}
         {filters && (
-          <div className="ui-data-grid-layout__filters">{filters}</div>
+          <Box
+            display="flex"
+            wrap
+            gap="content"
+            className="ui-data-grid-layout__filters"
+          >
+            {filters}
+          </Box>
         )}
         <div className="ui-data-grid-layout__body">{children}</div>
-      </div>
+      </Box>
     );
   },
 );

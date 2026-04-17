@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Grid } from "../../primitives/Grid";
 import "./ChartGridLayout.css";
 
 export interface ChartGridItem {
@@ -21,8 +22,9 @@ export const ChartGridLayout = forwardRef<HTMLDivElement, ChartGridLayoutProps>(
   ) {
     const classes = ["ui-chart-grid", className].filter(Boolean).join(" ");
     return (
-      <div
-        ref={ref}
+      <Grid
+        ref={ref as Ref<HTMLElement>}
+        gap="content"
         className={classes}
         role="region"
         aria-label={label}
@@ -44,7 +46,7 @@ export const ChartGridLayout = forwardRef<HTMLDivElement, ChartGridLayoutProps>(
             {chart.content}
           </div>
         ))}
-      </div>
+      </Grid>
     );
   },
 );

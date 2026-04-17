@@ -1,7 +1,5 @@
 .ui-chart-grid {
-  display: grid;
   grid-template-columns: repeat(var(--ui-chart-grid-columns, 12), minmax(0, 1fr));
-  gap: var(--spacing-content-gap);
   padding: var(--spacing-page-padding);
   background: var(--color-background-surface);
 }

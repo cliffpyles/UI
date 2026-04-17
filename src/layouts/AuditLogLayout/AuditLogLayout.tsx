@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./AuditLogLayout.css";
 
 export interface AuditLogLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -22,21 +23,29 @@ export const AuditLogLayout = forwardRef<HTMLDivElement, AuditLogLayoutProps>(
       .join(" ");
 
     return (
-      <section
-        ref={ref}
+      <Box
+        as="section"
+        ref={ref as Ref<HTMLElement>}
+        display="flex"
+        direction="column"
+        gap="content"
+        padding="page"
         className={classes}
         role="region"
         aria-label={label}
         {...rest}
       >
         {filters && (
-          <div
+          <Box
+            display="flex"
+            wrap
+            gap="inline"
             className="ui-audit-log__filters"
             role="group"
             aria-label="Audit filters"
           >
             {filters}
-          </div>
+          </Box>
         )}
         <div className="ui-audit-log__main">
           <div
@@ -56,7 +65,7 @@ export const AuditLogLayout = forwardRef<HTMLDivElement, AuditLogLayoutProps>(
             </div>
           )}
         </div>
-      </section>
+      </Box>
     );
   },
 );
