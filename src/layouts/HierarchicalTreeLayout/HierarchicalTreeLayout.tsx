@@ -4,7 +4,9 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Grid } from "../../primitives/Grid";
 import { Icon } from "../../primitives/Icon";
 import "./HierarchicalTreeLayout.css";
 
@@ -115,7 +117,12 @@ export const HierarchicalTreeLayout = forwardRef<HTMLDivElement, HierarchicalTre
     const classes = ["ui-hierarchy-tree", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Grid
+        ref={ref as Ref<HTMLElement>}
+        className={classes}
+        columns="280px 1fr"
+        {...rest}
+      >
         <aside className="ui-hierarchy-tree__sidebar">
           <div
             role="tree"
@@ -167,7 +174,7 @@ export const HierarchicalTreeLayout = forwardRef<HTMLDivElement, HierarchicalTre
           </div>
         </aside>
         <div className="ui-hierarchy-tree__content">{children}</div>
-      </div>
+      </Grid>
     );
   },
 );

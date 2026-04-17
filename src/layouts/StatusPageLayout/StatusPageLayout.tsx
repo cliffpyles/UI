@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Grid } from "../../primitives/Grid";
 import "./StatusPageLayout.css";
 
 export type SystemStatus =
@@ -48,7 +49,13 @@ export const StatusPageLayout = forwardRef<HTMLDivElement, StatusPageLayoutProps
       <div ref={ref} className={classes} {...rest}>
         {header && <header className="ui-status-page__header">{header}</header>}
         <section className="ui-status-page__systems" aria-label={systemsLabel}>
-          <ul className="ui-status-page__grid" role="list">
+          <Grid
+            as="ul"
+            className="ui-status-page__grid"
+            role="list"
+            columns="repeat(auto-fill, minmax(16rem, 1fr))"
+            gap="3"
+          >
             {systems.map((system) => (
               <li
                 key={system.id}
@@ -80,7 +87,7 @@ export const StatusPageLayout = forwardRef<HTMLDivElement, StatusPageLayoutProps
                 )}
               </li>
             ))}
-          </ul>
+          </Grid>
         </section>
         {incidents && (
           <section

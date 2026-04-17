@@ -14,9 +14,6 @@
 }
 
 .ui-status-page__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  gap: var(--spacing-3);
   list-style: none;
   margin: 0;
   padding: 0;
