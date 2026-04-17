@@ -14,7 +14,7 @@ function slugify(s: string) {
 }
 
 function collectHeadings(container: Element): Heading[] {
-  const raw = Array.from(container.querySelectorAll("h3")) as HTMLElement[];
+  const raw = Array.from(container.querySelectorAll("h3.pg-demo__title")) as HTMLElement[];
   const used = new Set<string>();
   return raw.map((el) => {
     const text = el.textContent?.trim() ?? "";
