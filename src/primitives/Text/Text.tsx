@@ -22,7 +22,10 @@ type TextSize =
   | "xl"
   | "2xl"
   | "3xl"
-  | "4xl";
+  | "4xl"
+  | "body"
+  | "caption"
+  | "label";
 
 type TextWeight = "normal" | "medium" | "semibold" | "bold";
 
@@ -43,7 +46,7 @@ type TextFamily = "sans" | "mono";
 export interface TextProps extends HTMLAttributes<HTMLElement> {
   /** HTML element to render */
   as?: TextElement;
-  /** Font size token */
+  /** Font size token. Primitive sizes (`2xs`–`4xl`) resolve to fixed scale steps. Semantic sizes (`body`, `caption`, `label`) track the active density container. */
   size?: TextSize;
   /** Font weight */
   weight?: TextWeight;

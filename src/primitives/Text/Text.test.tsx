@@ -29,9 +29,18 @@ describe("Text", () => {
     expect(screen.getByText("Text").tagName).toBe(expectedTag);
   });
 
-  // Size
+  // Size — primitive scale
   it.each(["2xs", "xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl"] as const)(
     "applies size class for %s",
+    (size) => {
+      render(<Text size={size}>Text</Text>);
+      expect(screen.getByText("Text")).toHaveClass(`ui-text--${size}`);
+    },
+  );
+
+  // Size — semantic (density-tracking)
+  it.each(["body", "caption", "label"] as const)(
+    "applies semantic size class for %s",
     (size) => {
       render(<Text size={size}>Text</Text>);
       expect(screen.getByText("Text")).toHaveClass(`ui-text--${size}`);
