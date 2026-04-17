@@ -406,6 +406,9 @@ export type {
 // Layouts — Level 6
 export * from "./layouts";
 
+// Features — Cross-cutting infrastructure (Phase 8)
+export * from "./features";
+
 // Utilities — Level 3-4
 export {
   formatNumber,

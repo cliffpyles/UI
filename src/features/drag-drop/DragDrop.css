@@ -1,0 +1,52 @@
+.ui-draggable {
+  cursor: grab;
+  user-select: none;
+  transition: transform var(--duration-fast) var(--easing-default),
+    opacity var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default);
+}
+
+.ui-draggable:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.ui-draggable--dragging {
+  cursor: grabbing;
+  opacity: 0.85;
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.01);
+}
+
+.ui-draggable--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ui-droppable {
+  transition: background-color var(--duration-fast) var(--easing-default),
+    outline-color var(--duration-fast) var(--easing-default);
+}
+
+.ui-droppable--over {
+  background-color: var(--color-action-primary-bg);
+  outline: 2px dashed var(--color-action-primary);
+  outline-offset: -2px;
+}
+
+.ui-droppable--invalid {
+  background-color: var(--color-status-error-bg);
+  outline: 2px dashed var(--color-status-error-text);
+  outline-offset: -2px;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-draggable,
+  .ui-droppable {
+    transition: none;
+  }
+  .ui-draggable--dragging {
+    transform: none;
+  }
+}

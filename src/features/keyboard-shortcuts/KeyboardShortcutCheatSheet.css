@@ -1,0 +1,64 @@
+.ui-keyboard-cheat-sheet__empty {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+  margin: 0;
+}
+
+.ui-keyboard-cheat-sheet__groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-section-gap);
+}
+
+.ui-keyboard-cheat-sheet__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-content-gap);
+}
+
+.ui-keyboard-cheat-sheet__category {
+  margin: 0;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ui-keyboard-cheat-sheet__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.ui-keyboard-cheat-sheet__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-2) 0;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ui-keyboard-cheat-sheet__row:last-child {
+  border-bottom: none;
+}
+
+.ui-keyboard-cheat-sheet__description {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
+}
+
+.ui-keyboard-cheat-sheet__combo {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-caption);
+  padding: var(--spacing-1) var(--spacing-2);
+  background: var(--color-background-surface-raised);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
