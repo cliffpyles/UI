@@ -1,8 +1,13 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
 import type { IconName } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
+import type { ButtonProps } from "../Button";
 import "./EmptyState.css";
+
+// `action` is expected to be a `Button` per design/components/composite/EmptyState.md.
+export type EmptyStateAction = React.ReactElement<ButtonProps>;
 
 type EmptyStateVariant =
   | "no-data"
@@ -48,10 +53,22 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
     const classes = ["ui-empty-state", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={classes} {...props}>
-        <div className="ui-empty-state__icon">
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        direction="column"
+        align="center"
+        justify="center"
+        gap="3"
+        className={classes}
+        {...props}
+      >
+        <Box
+          align="center"
+          justify="center"
+          className="ui-empty-state__icon"
+        >
           {icon ?? <Icon name={variantIconMap[variant]} size="xl" color="secondary" />}
-        </div>
+        </Box>
         <Text as="h3" size="lg" weight="semibold" color="primary" className="ui-empty-state__title">
           {title}
         </Text>
@@ -60,8 +77,12 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
             {description}
           </Text>
         )}
-        {action && <div className="ui-empty-state__action">{action}</div>}
-      </div>
+        {action && (
+          <Box className="ui-empty-state__action">{action}</Box>
+        )}
+      </Box>
     );
   },
 );
+
+EmptyState.displayName = "EmptyState";
