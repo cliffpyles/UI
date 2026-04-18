@@ -6,23 +6,48 @@ import { createRef } from "react";
 import { BannerAlert } from "./BannerAlert";
 
 describe("BannerAlert", () => {
-  it("renders title and description", () => {
-    render(<BannerAlert title="Hi" description="Body text" />);
-    expect(screen.getByText("Hi")).toBeInTheDocument();
+  it("renders title (Text) and description (Text)", () => {
+    const { container } = render(
+      <BannerAlert title="Heads up" description="Body text" />,
+    );
+    expect(screen.getByText("Heads up")).toBeInTheDocument();
     expect(screen.getByText("Body text")).toBeInTheDocument();
+    // Title and description should flow through Text primitive
+    expect(container.querySelectorAll(".ui-text").length).toBeGreaterThanOrEqual(2);
   });
 
-  it("alerts on error", () => {
-    render(<BannerAlert variant="error" title="Bad" />);
+  it("role=alert for error + warning, role=status for info + success", () => {
+    const { rerender } = render(<BannerAlert variant="error" title="e" />);
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+    rerender(<BannerAlert variant="warning" title="w" />);
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+    rerender(<BannerAlert variant="info" title="i" />);
+    expect(screen.getByRole("status")).toBeInTheDocument();
+    rerender(<BannerAlert variant="success" title="s" />);
+    expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
+  it("accepts `severity` as a spec alias for `variant`", () => {
+    render(<BannerAlert severity="error" title="e" />);
     expect(screen.getByRole("alert")).toBeInTheDocument();
   });
 
-  it("dismissible fires onDismiss", async () => {
+  it("dismissible renders Dismiss alert button and fires onDismiss", async () => {
     const user = userEvent.setup();
     const onDismiss = vi.fn();
     render(<BannerAlert title="x" dismissible onDismiss={onDismiss} />);
-    await user.click(screen.getByRole("button", { name: "Dismiss" }));
+    await user.click(screen.getByRole("button", { name: "Dismiss alert" }));
     expect(onDismiss).toHaveBeenCalled();
+  });
+
+  it("renders an action Button from {label, onAction} and fires onAction", async () => {
+    const user = userEvent.setup();
+    const onAction = vi.fn();
+    render(
+      <BannerAlert title="x" action={{ label: "Upgrade", onAction }} />,
+    );
+    await user.click(screen.getByRole("button", { name: "Upgrade" }));
+    expect(onAction).toHaveBeenCalled();
   });
 
   it("forwards ref and merges className", () => {
@@ -32,10 +57,26 @@ describe("BannerAlert", () => {
     expect(screen.getByTestId("b")).toHaveClass("ui-banner-alert", "x");
   });
 
-  it("no a11y violations", async () => {
-    const { container } = render(
-      <BannerAlert variant="info" title="Hi" description="body" dismissible onDismiss={() => {}} />,
-    );
-    expect(await axe(container)).toHaveNoViolations();
+  it("has no a11y violations across severities and with action", async () => {
+    const cases = [
+      <BannerAlert key="i" variant="info" title="i" description="b" />,
+      <BannerAlert key="s" variant="success" title="s" description="b" />,
+      <BannerAlert key="w" variant="warning" title="w" description="b" />,
+      <BannerAlert key="e" variant="error" title="e" description="b" />,
+      <BannerAlert
+        key="a"
+        variant="warning"
+        title="Trial ending"
+        description="3 days left"
+        action={{ label: "Upgrade", onAction: () => {} }}
+        dismissible
+        onDismiss={() => {}}
+      />,
+    ];
+    for (const c of cases) {
+      const { container, unmount } = render(c);
+      expect(await axe(container)).toHaveNoViolations();
+      unmount();
+    }
   });
 });

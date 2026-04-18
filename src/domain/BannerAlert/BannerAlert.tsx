@@ -1,33 +1,54 @@
-import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
-import { Button } from "../../components/Button";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Icon, type IconName } from "../../primitives/Icon";
+import { Button } from "../../components/Button";
 import "./BannerAlert.css";
 
 export type BannerAlertVariant = "info" | "success" | "warning" | "error";
+/** Spec alias — see design/components/domain/BannerAlert.md */
+export type BannerAlertSeverity = BannerAlertVariant;
 
-export interface BannerAlertProps extends HTMLAttributes<HTMLDivElement> {
+export interface BannerAlertAction {
+  label: string;
+  onAction: () => void;
+}
+
+export interface BannerAlertProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   variant?: BannerAlertVariant;
-  title?: string;
+  /** Alias for `variant`, per spec. */
+  severity?: BannerAlertSeverity;
+  title?: ReactNode;
   description?: ReactNode;
   icon?: IconName | false;
   dismissible?: boolean;
   onDismiss?: () => void;
-  action?: ReactNode;
+  action?: BannerAlertAction | ReactNode;
   children?: ReactNode;
 }
 
 const DEFAULT_ICON: Record<BannerAlertVariant, IconName> = {
   info: "info",
-  success: "info",
+  success: "check",
   warning: "alert-triangle",
   error: "alert-circle",
 };
 
+function isActionObject(a: unknown): a is BannerAlertAction {
+  return (
+    !!a &&
+    typeof a === "object" &&
+    "label" in (a as Record<string, unknown>) &&
+    "onAction" in (a as Record<string, unknown>)
+  );
+}
+
 export const BannerAlert = forwardRef<HTMLDivElement, BannerAlertProps>(
   function BannerAlert(
     {
-      variant = "info",
+      variant,
+      severity,
       title,
       description,
       icon,
@@ -40,43 +61,73 @@ export const BannerAlert = forwardRef<HTMLDivElement, BannerAlertProps>(
     },
     ref,
   ) {
-    const classes = ["ui-banner-alert", `ui-banner-alert--${variant}`, className]
+    const sev: BannerAlertVariant = severity ?? variant ?? "info";
+    const classes = [
+      "ui-banner-alert",
+      `ui-banner-alert--${sev}`,
+      className,
+    ]
       .filter(Boolean)
       .join(" ");
-    const iconName = icon === false ? null : (icon ?? DEFAULT_ICON[variant]);
-    const role = variant === "error" || variant === "warning" ? "alert" : "status";
+    const iconName = icon === false ? null : (icon ?? DEFAULT_ICON[sev]);
+    const role = sev === "error" || sev === "warning" ? "alert" : "status";
 
     return (
       <Box
-        ref={ref as Ref<HTMLElement>}
+        ref={ref as React.Ref<HTMLElement>}
         className={classes}
-        display="flex"
+        direction="row"
         align="start"
         gap="3"
         role={role}
         {...rest}
       >
         {iconName && (
-          <Icon name={iconName} size="md" className="ui-banner-alert__icon" aria-hidden />
+          <Icon
+            name={iconName}
+            size="md"
+            className="ui-banner-alert__icon"
+            aria-hidden
+          />
         )}
-        <Box className="ui-banner-alert__body" grow minWidth={0}>
-          {title && <div className="ui-banner-alert__title">{title}</div>}
-          {description && <div className="ui-banner-alert__description">{description}</div>}
+        <Box direction="column" gap="1" grow minWidth={0} className="ui-banner-alert__body">
+          {title && (
+            <Text as="span" size="sm" weight="semibold" className="ui-banner-alert__title">
+              {title}
+            </Text>
+          )}
+          {description && (
+            <Text as="p" size="sm" color="secondary" className="ui-banner-alert__description">
+              {description}
+            </Text>
+          )}
           {children}
         </Box>
-        {action && <div className="ui-banner-alert__action">{action}</div>}
+        {isActionObject(action) ? (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="ui-banner-alert__action"
+            onClick={action.onAction}
+          >
+            {action.label}
+          </Button>
+        ) : (
+          action && <Box className="ui-banner-alert__action">{action}</Box>
+        )}
         {dismissible && (
           <Button
             variant="ghost"
             size="sm"
+            icon="x"
             className="ui-banner-alert__dismiss"
             onClick={onDismiss}
-            aria-label="Dismiss"
-          >
-            <Icon name="x" size="sm" aria-hidden />
-          </Button>
+            aria-label="Dismiss alert"
+          />
         )}
       </Box>
     );
   },
 );
+
+BannerAlert.displayName = "BannerAlert";
