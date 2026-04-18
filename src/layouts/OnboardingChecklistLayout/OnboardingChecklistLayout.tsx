@@ -3,6 +3,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./OnboardingChecklistLayout.css";
 
@@ -52,7 +53,7 @@ export const OnboardingChecklistLayout = forwardRef<
       className={classes}
       {...rest}
     >
-      <div className="ui-onboarding-checklist__header">
+      <Box align="center" justify="between" gap="3" className="ui-onboarding-checklist__header">
         <Text as="h2" size="lg" weight="semibold" className="ui-onboarding-checklist__title">
           {title}
         </Text>
@@ -66,7 +67,7 @@ export const OnboardingChecklistLayout = forwardRef<
             Dismiss
           </button>
         )}
-      </div>
+      </Box>
       <div className="ui-onboarding-checklist__progress">
         <div
           className="ui-onboarding-checklist__progress-bar"
@@ -101,7 +102,7 @@ export const OnboardingChecklistLayout = forwardRef<
               >
                 {task.completed ? "✓" : ""}
               </span>
-              <div className="ui-onboarding-checklist__body">
+              <Box grow direction="column" gap="1" minWidth={0} className="ui-onboarding-checklist__body">
                 {task.href ? (
                   <a
                     href={task.href}
@@ -110,16 +111,16 @@ export const OnboardingChecklistLayout = forwardRef<
                     {task.title}
                   </a>
                 ) : (
-                  <span className="ui-onboarding-checklist__item-title">
+                  <Text as="span" size="body" weight="medium" className="ui-onboarding-checklist__item-title">
                     {task.title}
-                  </span>
+                  </Text>
                 )}
                 {task.description && (
-                  <span className="ui-onboarding-checklist__item-desc">
+                  <Text as="span" size="caption" color="secondary" className="ui-onboarding-checklist__item-desc">
                     {task.description}
-                  </span>
+                  </Text>
                 )}
-              </div>
+              </Box>
               {task.action && (
                 <div className="ui-onboarding-checklist__action">
                   {task.action}

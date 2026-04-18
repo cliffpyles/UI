@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import "./ScheduledDeliveryLayout.css";
 
 export interface ScheduledDeliveryLayoutProps
@@ -55,7 +56,7 @@ export const ScheduledDeliveryLayout = forwardRef<
         </section>
       )}
       {footer && (
-        <div className="ui-scheduled-delivery__footer">{footer}</div>
+        <Box justify="end" gap="content" className="ui-scheduled-delivery__footer">{footer}</Box>
       )}
     </div>
   );

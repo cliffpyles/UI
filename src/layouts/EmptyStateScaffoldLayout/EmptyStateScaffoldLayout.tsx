@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./EmptyStateScaffoldLayout.css";
 
@@ -58,10 +59,10 @@ export const EmptyStateScaffoldLayout = forwardRef<
           </Text>
         )}
         {(primaryAction || secondaryAction) && (
-          <div className="ui-empty-state-scaffold__actions">
+          <Box wrap justify="center" gap="2" className="ui-empty-state-scaffold__actions">
             {primaryAction}
             {secondaryAction}
-          </div>
+          </Box>
         )}
         {steps && steps.length > 0 && (
           <ol

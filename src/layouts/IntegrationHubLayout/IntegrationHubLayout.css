@@ -7,11 +7,7 @@
   padding: var(--spacing-page-padding);
 }
 
-.ui-integration-hub__toolbar {
-  display: flex;
-  gap: var(--spacing-inline-gap);
-  align-items: center;
-}
+/* Layout for .ui-integration-hub__toolbar comes from the Box primitive. */
 
 .ui-integration-hub__body {
   display: flex;

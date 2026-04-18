@@ -3,6 +3,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
 import "./FormulaEditorLayout.css";
 
 export interface FormulaEditorLayoutProps
@@ -24,13 +25,15 @@ export const FormulaEditorLayout = forwardRef<
   return (
     <div ref={ref} className={classes} {...rest}>
       {toolbar && (
-        <div
+        <Box
+          align="center"
+          gap="content"
           className="ui-formula-editor__toolbar"
           role="toolbar"
           aria-label="Formula toolbar"
         >
           {toolbar}
-        </div>
+        </Box>
       )}
       <div className="ui-formula-editor__body">
         <section

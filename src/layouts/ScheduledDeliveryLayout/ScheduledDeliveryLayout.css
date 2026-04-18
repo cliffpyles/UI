@@ -24,9 +24,6 @@
 }
 
 .ui-scheduled-delivery__footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--spacing-content-gap);
   padding-top: var(--spacing-content-gap);
   border-top: 1px solid var(--color-border-default);
 }

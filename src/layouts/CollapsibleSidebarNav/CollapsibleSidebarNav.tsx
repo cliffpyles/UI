@@ -1,5 +1,7 @@
 import { forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import { Tooltip } from "../../components/Tooltip";
 import "./CollapsibleSidebarNav.css";
 
@@ -61,7 +63,9 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
             <Icon name={item.icon} size="sm" className="ui-sidebar-nav__icon" />
           )}
           {!collapsed && (
-            <span className="ui-sidebar-nav__label">{item.label}</span>
+            <Text as="span" size="label" className="ui-sidebar-nav__label">
+              {item.label}
+            </Text>
           )}
           {!collapsed && item.badge && (
             <span className="ui-sidebar-nav__badge">{item.badge}</span>
@@ -148,7 +152,7 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
             {regular.map((i) => renderItem(i))}
           </ul>
         </div>
-        <div className="ui-sidebar-nav__footer">
+        <Box direction="column" gap="2" className="ui-sidebar-nav__footer">
           {footer}
           <button
             type="button"
@@ -162,7 +166,7 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
               size="sm"
             />
           </button>
-        </div>
+        </Box>
       </nav>
     );
   },

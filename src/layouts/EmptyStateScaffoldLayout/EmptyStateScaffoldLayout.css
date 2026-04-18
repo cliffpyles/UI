@@ -25,11 +25,7 @@
 /* Typography for .ui-empty-state-scaffold__title and __description comes from the Text primitive. */
 
 .ui-empty-state-scaffold__actions {
-  display: flex;
-  gap: var(--spacing-2);
   margin-top: var(--spacing-2);
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .ui-empty-state-scaffold__steps {

@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./IntegrationHubLayout.css";
 
@@ -80,7 +81,11 @@ export const IntegrationHubLayout = forwardRef<
       aria-label={label}
       {...rest}
     >
-      {toolbar && <div className="ui-integration-hub__toolbar">{toolbar}</div>}
+      {toolbar && (
+        <Box align="center" gap="inline" className="ui-integration-hub__toolbar">
+          {toolbar}
+        </Box>
+      )}
       <div className="ui-integration-hub__body">
         <nav
           className="ui-integration-hub__sidebar"
@@ -138,7 +143,9 @@ export const IntegrationHubLayout = forwardRef<
                       {i.icon}
                     </span>
                   )}
-                  <span className="ui-integration-hub__name">{i.name}</span>
+                  <Text as="span" size="label" weight="semibold" className="ui-integration-hub__name">
+                    {i.name}
+                  </Text>
                   <span
                     className={`ui-integration-hub__status ui-integration-hub__status--${i.status}`}
                   >

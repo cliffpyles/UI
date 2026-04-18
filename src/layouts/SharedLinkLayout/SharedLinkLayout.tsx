@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
 import "./SharedLinkLayout.css";
 
 export interface SharedLinkLayoutProps
@@ -42,7 +43,7 @@ export const SharedLinkLayout = forwardRef<HTMLDivElement, SharedLinkLayoutProps
 
     return (
       <div ref={ref} className={classes} {...rest}>
-        <div className="ui-shared-link__row">
+        <Box align="end" gap="content" className="ui-shared-link__row">
           <label className="ui-shared-link__label">
             {urlLabel}
             <input
@@ -60,7 +61,7 @@ export const SharedLinkLayout = forwardRef<HTMLDivElement, SharedLinkLayoutProps
           >
             {copyLabel}
           </button>
-        </div>
+        </Box>
         {preview && (
           <section
             className="ui-shared-link__section"

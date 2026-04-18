@@ -42,7 +42,7 @@ export const DataGridLayout = forwardRef<HTMLDivElement, DataGridLayoutProps>(
             {filters}
           </Box>
         )}
-        <div className="ui-data-grid-layout__body">{children}</div>
+        <Box grow className="ui-data-grid-layout__body">{children}</Box>
       </Box>
     );
   },

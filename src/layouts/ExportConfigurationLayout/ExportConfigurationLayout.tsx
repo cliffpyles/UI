@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import "./ExportConfigurationLayout.css";
 
 export interface ExportConfigurationLayoutProps
@@ -51,7 +52,7 @@ export const ExportConfigurationLayout = forwardRef<
           {options}
         </section>
       )}
-      <div className="ui-export-config__footer">{footer}</div>
+      <Box justify="end" gap="content" className="ui-export-config__footer">{footer}</Box>
     </div>
   );
 });

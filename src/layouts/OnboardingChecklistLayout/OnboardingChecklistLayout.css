@@ -8,12 +8,7 @@
   background: var(--color-background-surface);
 }
 
-.ui-onboarding-checklist__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-3);
-}
+/* Layout for .ui-onboarding-checklist__header comes from the Box primitive. */
 
 /* Typography for .ui-onboarding-checklist__title comes from the Text primitive. */
 
@@ -103,13 +98,7 @@
   border-color: var(--color-status-success-icon);
 }
 
-.ui-onboarding-checklist__body {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-  min-width: 0;
-}
+/* Layout for .ui-onboarding-checklist__body comes from the Box primitive. */
 
 .ui-onboarding-checklist__item-title {
   font-size: var(--font-size-sm);

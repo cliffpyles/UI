@@ -10,11 +10,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-.ui-shared-link__row {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--spacing-content-gap);
-}
+/* Layout for .ui-shared-link__row comes from the Box primitive. */
 
 .ui-shared-link__label {
   display: flex;

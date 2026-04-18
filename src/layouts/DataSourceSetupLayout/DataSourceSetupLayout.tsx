@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./DataSourceSetupLayout.css";
 
@@ -39,7 +40,7 @@ export const DataSourceSetupLayout = forwardRef<
         <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
           Credentials
         </Text>
-        <div className="ui-data-source-setup__body">{credentials}</div>
+        <Box direction="column" gap="2" className="ui-data-source-setup__body">{credentials}</Box>
       </section>
       {testConnection && (
         <section
@@ -49,7 +50,7 @@ export const DataSourceSetupLayout = forwardRef<
           <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
             Test connection
           </Text>
-          <div className="ui-data-source-setup__body">{testConnection}</div>
+          <Box direction="column" gap="2" className="ui-data-source-setup__body">{testConnection}</Box>
         </section>
       )}
       {schemaPreview && (
@@ -60,7 +61,7 @@ export const DataSourceSetupLayout = forwardRef<
           <Text as="h3" size="base" weight="semibold" className="ui-data-source-setup__heading">
             Schema preview
           </Text>
-          <div className="ui-data-source-setup__body">{schemaPreview}</div>
+          <Box direction="column" gap="2" className="ui-data-source-setup__body">{schemaPreview}</Box>
         </section>
       )}
       {syncSettings && (
@@ -75,7 +76,7 @@ export const DataSourceSetupLayout = forwardRef<
         </section>
       )}
       {footer && (
-        <div className="ui-data-source-setup__footer">{footer}</div>
+        <Box align="center" justify="end" gap="2" className="ui-data-source-setup__footer">{footer}</Box>
       )}
     </div>
   );
