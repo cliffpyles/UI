@@ -4,6 +4,8 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./Toggle.css";
 
 type ToggleSize = "sm" | "md";
@@ -68,22 +70,30 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
 
     return (
       <label className={wrapperClasses}>
-        <input
-          ref={ref}
-          type="checkbox"
-          role="switch"
-          className="ui-toggle__input"
-          checked={isChecked}
-          onChange={handleChange}
-          disabled={disabled}
-          aria-checked={isChecked}
-          {...props}
-        />
-        <span className="ui-toggle__track">
-          <span className="ui-toggle__thumb" />
-        </span>
-        {label && <span className="ui-toggle__label">{label}</span>}
+        <Box direction="row" align="center" gap="2" className="ui-toggle__row">
+          <input
+            ref={ref}
+            type="checkbox"
+            role="switch"
+            className="ui-toggle__input"
+            checked={isChecked}
+            onChange={handleChange}
+            disabled={disabled}
+            aria-checked={isChecked}
+            {...props}
+          />
+          <span className="ui-toggle__track">
+            <span className="ui-toggle__thumb" />
+          </span>
+          {label && (
+            <Text as="span" size="body" color="primary" className="ui-toggle__label">
+              {label}
+            </Text>
+          )}
+        </Box>
       </label>
     );
   },
 );
+
+Toggle.displayName = "Toggle";
