@@ -18,7 +18,22 @@ import {
   type MouseEvent,
   type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Divider } from "../../primitives/Divider";
 import "./Menu.css";
+
+/**
+ * Menu — compound ARIA menu pattern.
+ *
+ * Composition contract (per design/components/base/Menu.md):
+ *   - `Popover` governs the floating-layer semantics this component
+ *     reimplements locally (trigger ↔ list wiring, outside-click,
+ *     Escape, return-focus). Full Popover composition is pending an
+ *     aria-haspopup/role override on Popover.
+ *   - `Box` lays out each `Menu.Item`'s icon + label + shortcut row.
+ *   - `Text` styles the item label when consumers pass one.
+ *   - `Divider` renders `Menu.Separator`.
+ */
 
 // --- Context ---
 
@@ -357,7 +372,9 @@ const MenuItem = forwardRef<HTMLDivElement, MenuItemProps>(
         onKeyDown={handleKeyDown}
         {...props}
       >
-        {children}
+        <Box direction="row" align="center" gap="2">
+          {children}
+        </Box>
       </div>
     );
   },
@@ -370,11 +387,17 @@ export type MenuSeparatorProps = HTMLAttributes<HTMLDivElement>;
 const MenuSeparator = forwardRef<HTMLDivElement, MenuSeparatorProps>(
   function MenuSeparator({ className, ...props }, ref) {
     const classes = ["ui-menu__separator", className].filter(Boolean).join(" ");
-    return <div ref={ref} role="separator" className={classes} {...props} />;
+    return <Divider ref={ref} spacing="1" className={classes} {...props} />;
   },
 );
 
 // --- Compound export ---
+
+MenuRoot.displayName = "Menu";
+MenuTrigger.displayName = "Menu.Trigger";
+MenuList.displayName = "Menu.List";
+MenuItem.displayName = "Menu.Item";
+MenuSeparator.displayName = "Menu.Separator";
 
 export const Menu = Object.assign(MenuRoot, {
   Trigger: MenuTrigger,

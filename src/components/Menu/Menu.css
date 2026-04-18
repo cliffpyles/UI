@@ -39,9 +39,6 @@
 /* ---------- Item ---------- */
 
 .ui-menu__item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
   padding: var(--spacing-1-5) var(--spacing-3);
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
@@ -68,14 +65,6 @@
 .ui-menu__item--disabled:hover,
 .ui-menu__item--disabled:focus {
   background: transparent;
-}
-
-/* ---------- Separator ---------- */
-
-.ui-menu__separator {
-  height: 1px;
-  margin: var(--spacing-1) 0;
-  background: var(--color-border-default);
 }
 
 /* ---------- Density ---------- */
