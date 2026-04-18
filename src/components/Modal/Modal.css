@@ -115,7 +115,6 @@
 /* ---------- Body ---------- */
 
 .ui-modal__body {
-  flex: 1 1 auto;
   overflow-y: auto;
   padding: var(--spacing-5) var(--spacing-6);
   font-size: var(--font-size-body);

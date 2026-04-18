@@ -1,4 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./ProgressBar.css";
 
 type ProgressBarVariant = "default" | "success" | "warning" | "error";
@@ -49,14 +51,30 @@ export const ProgressBar = forwardRef<HTMLDivElement, ProgressBarProps>(
     return (
       <div ref={ref} className={classes} {...props}>
         {(label || showValue) && (
-          <div className="ui-progress-bar__header">
-            {label && <span className="ui-progress-bar__label">{label}</span>}
-            {showValue && !indeterminate && (
-              <span className="ui-progress-bar__value">
-                {Math.round(percentage)}%
-              </span>
+          <Box justify="between" className="ui-progress-bar__header">
+            {label && (
+              <Text
+                as="span"
+                size="label"
+                weight="medium"
+                className="ui-progress-bar__label"
+              >
+                {label}
+              </Text>
             )}
-          </div>
+            {showValue && !indeterminate && (
+              <Text
+                as="span"
+                size="caption"
+                weight="medium"
+                color="secondary"
+                tabularNums
+                className="ui-progress-bar__value"
+              >
+                {Math.round(percentage)}%
+              </Text>
+            )}
+          </Box>
         )}
         <div
           className="ui-progress-bar__track"

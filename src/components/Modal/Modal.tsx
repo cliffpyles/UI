@@ -227,7 +227,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               {description}
             </Text>
           )}
-          <div className="ui-modal__body">{children}</div>
+          <Box grow className="ui-modal__body">{children}</Box>
           {footer && (
             <Box
               display="flex"

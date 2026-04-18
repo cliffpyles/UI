@@ -6,26 +6,11 @@
 }
 
 .ui-progress-bar__header {
-  display: flex;
-  justify-content: space-between;
   align-items: baseline;
 }
 
-.ui-progress-bar__label {
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  line-height: var(--font-line-height-tight);
-}
-
-.ui-progress-bar__value {
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-  font-variant-numeric: tabular-nums;
-}
+/* Typography and layout for __label/__value come from the Text primitive.
+   Their BEM classes are retained only for downstream targeting hooks. */
 
 /* Track */
 .ui-progress-bar__track {
@@ -81,15 +66,8 @@
   }
 }
 
-/* Density: compact */
-[data-density="compact"] .ui-progress-bar__label {
-  font-size: var(--font-size-xs);
-}
-
-[data-density="compact"] .ui-progress-bar__value {
-  font-size: var(--font-size-2xs);
-}
-
+/* Density: compact — label/value font sizes scale via Text semantic sizes
+   (`label`, `caption`). Only container gap needs a compact override. */
 [data-density="compact"] .ui-progress-bar {
   gap: var(--spacing-1);
 }
