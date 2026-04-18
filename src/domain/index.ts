@@ -227,7 +227,7 @@ export { FilePreview } from "./FilePreview";
 export type { FilePreviewProps } from "./FilePreview";
 
 export { AttachmentList } from "./AttachmentList";
-export type { AttachmentListProps } from "./AttachmentList";
+export type { AttachmentListProps, Attachment } from "./AttachmentList";
 
 export { FileUploader } from "./FileUploader";
 export type { FileUploaderProps, UploadProgress } from "./FileUploader";

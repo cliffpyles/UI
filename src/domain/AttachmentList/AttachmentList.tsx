@@ -1,60 +1,98 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
-import { Icon } from "../../primitives/Icon";
-import { FileAttachment, type FileData } from "../FileAttachment";
+import { FileAttachment } from "../FileAttachment";
 import "./AttachmentList.css";
 
+export interface Attachment {
+  id: string;
+  name: string;
+  size: number;
+  mimeType?: string;
+  url?: string;
+}
+
 export interface AttachmentListProps extends HTMLAttributes<HTMLDivElement> {
-  files: FileData[];
+  items: Attachment[];
   onAdd?: () => void;
-  onRemove?: (index: number) => void;
-  onDownload?: (index: number) => void;
-  onPreview?: (index: number) => void;
-  editable?: boolean;
-  emptyMessage?: string;
+  onRemove?: (id: string) => void;
+  onPreview?: (id: string) => void;
+  onDownload?: (id: string) => void;
+  emptyLabel?: ReactNode;
+  readOnly?: boolean;
 }
 
 export const AttachmentList = forwardRef<HTMLDivElement, AttachmentListProps>(
   function AttachmentList(
     {
-      files,
+      items,
       onAdd,
       onRemove,
-      onDownload,
       onPreview,
-      editable = true,
-      emptyMessage = "No attachments",
+      onDownload,
+      emptyLabel = "No attachments",
+      readOnly = false,
       className,
       ...rest
     },
     ref,
   ) {
     const classes = ["ui-attachment-list", className].filter(Boolean).join(" ");
+    const showAdd = !readOnly && !!onAdd;
 
     return (
-      <div ref={ref} className={classes} {...rest}>
-        {files.length === 0 ? (
-          <div className="ui-attachment-list__empty">{emptyMessage}</div>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        direction="column"
+        gap="2"
+        className={classes}
+        {...rest}
+      >
+        {items.length === 0 ? (
+          <Text
+            as="p"
+            size="sm"
+            color="tertiary"
+            className="ui-attachment-list__empty"
+          >
+            {emptyLabel}
+          </Text>
         ) : (
-          <ul className="ui-attachment-list__items">
-            {files.map((f, i) => (
-              <li key={`${f.name}-${i}`}>
-                <FileAttachment
-                  file={f}
-                  onDownload={onDownload ? () => onDownload(i) : undefined}
-                  onPreview={onPreview ? () => onPreview(i) : undefined}
-                  onRemove={editable && onRemove ? () => onRemove(i) : undefined}
-                />
-              </li>
+          <Box role="list" direction="column" gap="1">
+            {items.map((item) => (
+              <FileAttachment
+                key={item.id}
+                role="listitem"
+                file={{
+                  name: item.name,
+                  size: item.size,
+                  type: item.mimeType,
+                  url: item.url,
+                }}
+                onPreview={onPreview ? () => onPreview(item.id) : undefined}
+                onDownload={onDownload ? () => onDownload(item.id) : undefined}
+                onRemove={
+                  !readOnly && onRemove ? () => onRemove(item.id) : undefined
+                }
+              />
             ))}
-          </ul>
+          </Box>
         )}
-        {editable && onAdd && (
-          <Button variant="secondary" size="sm" onClick={onAdd}>
-            <Icon name="plus" size="xs" aria-hidden /> Add attachment
+        {showAdd && (
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="plus"
+            aria-label="Add attachment"
+            onClick={onAdd}
+          >
+            Add attachment
           </Button>
         )}
-      </div>
+      </Box>
     );
   },
 );
+
+AttachmentList.displayName = "AttachmentList";

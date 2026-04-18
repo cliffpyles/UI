@@ -357,6 +357,7 @@ export type {
   FileData,
   FilePreviewProps,
   AttachmentListProps,
+  Attachment,
   FileUploaderProps,
   UploadProgress,
   RoleBadgeProps,
