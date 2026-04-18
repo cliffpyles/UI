@@ -7,6 +7,7 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./Radio.css";
 
@@ -86,15 +87,17 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       <RadioGroupContext.Provider
         value={{ name: groupName, value: currentValue, disabled, onChange: handleChange }}
       >
-        <div
-          ref={ref}
+        <Box
+          ref={ref as React.Ref<HTMLElement>}
           role="radiogroup"
           className={classes}
           aria-orientation={orientation}
+          direction={orientation === "horizontal" ? "row" : "column"}
+          gap={orientation === "horizontal" ? "4" : "content"}
           {...props}
         >
           {children}
-        </div>
+        </Box>
       </RadioGroupContext.Provider>
     );
   },
@@ -140,35 +143,40 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
 
     return (
       <label className={classes}>
-        <input
-          ref={ref}
-          type="radio"
-          className="ui-radio__input"
-          name={name}
-          value={value}
-          checked={isChecked}
-          onChange={handleChange}
-          disabled={isDisabled}
-          {...props}
-        />
-        <span className="ui-radio__control" aria-hidden="true">
-          <span className="ui-radio__dot" />
-        </span>
-        {(label || description) && (
-          <span className="ui-radio__content">
-            {label && (
-              <Text as="span" size="body" color="primary" className="ui-radio__label">
-                {label}
-              </Text>
-            )}
-            {description && (
-              <Text as="span" size="caption" color="secondary" className="ui-radio__description">
-                {description}
-              </Text>
-            )}
+        <Box direction="row" align="start" gap="2" className="ui-radio__row">
+          <input
+            ref={ref}
+            type="radio"
+            className="ui-radio__input"
+            name={name}
+            value={value}
+            checked={isChecked}
+            onChange={handleChange}
+            disabled={isDisabled}
+            {...props}
+          />
+          <span className="ui-radio__control" aria-hidden="true">
+            <span className="ui-radio__dot" />
           </span>
-        )}
+          {(label || description) && (
+            <Box direction="column" gap="0.5" className="ui-radio__content">
+              {label && (
+                <Text as="span" size="body" color="primary" className="ui-radio__label">
+                  {label}
+                </Text>
+              )}
+              {description && (
+                <Text as="span" size="caption" color="secondary" className="ui-radio__description">
+                  {description}
+                </Text>
+              )}
+            </Box>
+          )}
+        </Box>
       </label>
     );
   },
 );
+
+RadioGroup.displayName = "RadioGroup";
+Radio.displayName = "Radio";
