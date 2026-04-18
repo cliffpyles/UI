@@ -5,15 +5,7 @@
   font-size: var(--font-size-sm);
 }
 
-.ui-funnel-chart__stage {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-}
-
 .ui-funnel-chart__header {
-  display: flex;
-  justify-content: space-between;
   color: var(--color-text-primary);
 }
 
