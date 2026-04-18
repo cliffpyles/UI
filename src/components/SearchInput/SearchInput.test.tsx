@@ -23,7 +23,7 @@ describe("SearchInput", () => {
 
   it("renders search icon", () => {
     const { container } = render(<SearchInput />);
-    expect(container.querySelector(".ui-search-input__icon")).toBeInTheDocument();
+    expect(container.querySelector(".ui-icon")).toBeInTheDocument();
   });
 
   it("renders custom placeholder", () => {
@@ -101,26 +101,26 @@ describe("SearchInput", () => {
 
   it("hides search icon when loading", () => {
     const { container } = render(<SearchInput loading />);
-    // Should have spinner, not the search SVG (search icon has a line element)
-    const icon = container.querySelector(".ui-search-input__icon");
-    expect(icon?.querySelector("line")).not.toBeInTheDocument();
+    // When loading, the leading adornment is a Spinner, not the search Icon
+    expect(container.querySelector(".ui-icon")).not.toBeInTheDocument();
+    expect(container.querySelector(".ui-spinner")).toBeInTheDocument();
   });
 
   // --- Size variants ---
 
   it("applies sm size class", () => {
     const { container } = render(<SearchInput size="sm" />);
-    expect(container.firstChild).toHaveClass("ui-search-input--sm");
+    expect(container.firstChild).toHaveClass("ui-input-wrapper--sm");
   });
 
   it("defaults to md size", () => {
     const { container } = render(<SearchInput />);
-    expect(container.firstChild).toHaveClass("ui-search-input--md");
+    expect(container.firstChild).toHaveClass("ui-input-wrapper--md");
   });
 
   it("applies lg size class", () => {
     const { container } = render(<SearchInput size="lg" />);
-    expect(container.firstChild).toHaveClass("ui-search-input--lg");
+    expect(container.firstChild).toHaveClass("ui-input-wrapper--lg");
   });
 
   // --- Controlled mode ---

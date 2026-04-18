@@ -6,8 +6,15 @@ import {
   useEffect,
   type InputHTMLAttributes,
 } from "react";
+import { Icon } from "../../primitives/Icon";
 import { Spinner } from "../../primitives/Spinner";
+import { Button } from "../Button";
+import { Input } from "../Input";
 import "./SearchInput.css";
+
+// Composition: Input owns the chrome; Box-style layout comes from Input's
+// leadingIcon/trailingIcon slots. We pass Icon, Spinner, and Button as the
+// adornments rather than overlaying raw markup.
 
 type SearchInputSize = "sm" | "md" | "lg";
 
@@ -86,7 +93,6 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       onChange?.("");
       clearTimeout(debounceRef.current);
 
-      // Focus the input after clearing
       const input = inputRef.current;
       if (input) input.focus();
     }, [isControlled, onChange]);
@@ -109,78 +115,49 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       [isControlled, onChange, onSearch, currentValue],
     );
 
-    const wrapperClasses = [
-      "ui-search-input",
-      `ui-search-input--${size}`,
-      disabled && "ui-search-input--disabled",
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
+    const classes = ["ui-search-input", className].filter(Boolean).join(" ");
     const hasValue = currentValue.length > 0;
 
-    return (
-      <div className={wrapperClasses}>
-        <span className="ui-search-input__icon" aria-hidden="true">
-          {loading ? (
-            <Spinner size="sm" />
-          ) : (
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          )}
-        </span>
-        <input
-          ref={(node) => {
-            (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
-            if (typeof ref === "function") ref(node);
-            else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
-          }}
-          type="search"
-          className="ui-search-input__field"
-          value={currentValue}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          disabled={disabled}
-          aria-label={props["aria-label"] ?? placeholder}
-          {...props}
+    const leadingAdornment = loading ? (
+      <Spinner size="sm" aria-hidden="true" />
+    ) : (
+      <Icon name="search" size="sm" aria-hidden="true" />
+    );
+
+    const trailingAdornment =
+      hasValue && !disabled ? (
+        <Button
+          variant="ghost"
+          size="sm"
+          icon="x"
+          onClick={handleClear}
+          aria-label="Clear search"
+          className="ui-search-input__clear"
         />
-        {hasValue && !disabled && (
-          <button
-            type="button"
-            className="ui-search-input__clear"
-            onClick={handleClear}
-            aria-label="Clear search"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        )}
-      </div>
+      ) : undefined;
+
+    return (
+      <Input
+        ref={(node) => {
+          (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
+          if (typeof ref === "function") ref(node);
+          else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
+        }}
+        type="search"
+        size={size}
+        className={classes}
+        value={currentValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder}
+        disabled={disabled}
+        aria-label={props["aria-label"] ?? placeholder}
+        leadingIcon={leadingAdornment}
+        trailingIcon={trailingAdornment}
+        {...props}
+      />
     );
   },
 );
+
+SearchInput.displayName = "SearchInput";
