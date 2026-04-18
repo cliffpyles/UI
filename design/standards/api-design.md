@@ -81,13 +81,14 @@ This ensures consumers can add event handlers, data attributes, and ARIA propert
 
 ## Composition Patterns
 
-### Compose from lower-level primitives
+### Compose from existing components
 
-Components must build on the primitives and base components beneath them rather than reimplementing those concerns with raw HTML + CSS.
+Components must build on the existing components beneath them — the **nearest suitable abstraction**, not necessarily the most atomic one. Reach for whichever level already encapsulates the need.
 
 - Render typographic content (`h1`-`h6`, `p`, `label`, `legend`, styled `span`) through [`Text`](../../src/primitives/Text/Text.tsx) — use `as="h3"`, `size`, `weight`, `color` instead of custom typography classes.
 - Render flex/stack containers through [`Box`](../../src/primitives/Box/Box.tsx) when semantics allow.
-- If a primitive is missing for a recurring need, add one — do not inline the raw implementation.
+- Render interactive controls through their existing components — `Button`, `Input`, `Checkbox`, `Select`, `Tabs`, `Modal`, etc. Do not rebuild a button from `Box` + `Text`, or a checkbox from a raw `<input type="checkbox">`. If you need a variant the component doesn't expose, extend its API or wrap it.
+- If no existing component fits a recurring need, add one at the appropriate level — do not inline the raw implementation.
 
 See [Architecture → Composition-first rule](../architecture.md) for the full policy.
 

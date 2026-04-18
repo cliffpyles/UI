@@ -45,7 +45,7 @@ Complex UI is built by composing simple components, not by passing fifty props t
 
 **Implications:**
 - Favor small, focused component APIs over large, configurable ones.
-- Complex views (filter bars, toolbars, detail panels) are assembled from composable primitives, not provided as all-in-one components with extensive configuration.
+- Complex views (filter bars, toolbars, detail panels) are assembled from composable components — primitives, base, and composite pieces — not provided as all-in-one components with extensive configuration.
 - Render props and slots are preferred over boolean flags for conditional content.
 - If a prop only makes sense in one context, it belongs on a domain wrapper component, not the base component.
 

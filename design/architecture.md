@@ -107,13 +107,16 @@ If a base component needs domain-specific behavior, create a domain component th
 
 ### Composition-first rule
 
-Components at any level must use the lowest existing primitive that satisfies the need before falling back to raw HTML.
+Components at any level must compose from existing components that already encapsulate the need — primitives for typography and layout, base components for interactive controls, composites for common assemblies, and so on up the hierarchy. Reach for the **nearest suitable abstraction**, not the most atomic one: a `TaskCard` uses `Button`, not a hand-rolled `Box`+`Text` button; a `DataGrid` uses `Checkbox`, not a wired-up native input.
 
 - **Typographic content** (`h1`-`h6`, `p`, `legend`, and any `span` that carries styling) **must** render through the `Text` primitive, using `as` to choose the tag. The `<label>` element is exempt when it functions as a structural wrapper for a form control (click target + implicit association) — the label's own text should still go through `Text` when it carries styling.
 - **Layout containers** (flex/stack wrappers, padded regions, surface cards) **should** render through `Box` unless the element's semantics demand a specific tag not supported by `Box`. This includes flex-item concerns — `flex-wrap`, `flex-grow`, and `flex-shrink` are expressed via Box's `wrap`, `grow`, and `shrink` props, not reimplemented in component stylesheets.
-- **Raw HTML is acceptable only when**: (a) semantics require a tag not covered by a primitive (`<table>`, `<nav>`, `<form>`, `<dialog>`, `<ol>`/`<ul>`/`<li>`); (b) the element is an unstyled structural wrapper; or (c) no primitive exists yet — in which case, **create one** rather than inlining raw tags across the codebase.
+- **Interactive controls** (buttons, inputs, checkboxes, selects, tabs, menus, dialogs, etc.) **must** use the existing base/composite component rather than a bespoke implementation. If the existing component doesn't cover a variant you need, extend its API or wrap it in a domain component — do not reimplement the behavior from scratch.
+- **Raw HTML is acceptable only when**: (a) semantics require a tag not wrapped by a component (`<table>`, `<nav>`, `<form>`, `<dialog>`, `<ol>`/`<ul>`/`<li>`); (b) the element is an unstyled structural wrapper with no typography, layout, or interactive behavior; or (c) no existing component fits — in which case, **create the component** rather than inlining raw tags or ad-hoc CSS across the codebase.
 
-Rationale: the hierarchy only pays off when higher levels are composed from lower levels. A component that reimplements typography or spacing with ad-hoc CSS classes bypasses the token system, drifts from the theme, and multiplies the blast radius of future changes.
+The direction of composition is upward: primitives wrap raw semantic tags, base components compose primitives, composites compose base components, domain components compose composites, and so on. Reaching past the nearest suitable abstraction is the failure mode — it duplicates behavior, duplicates accessibility, and multiplies the blast radius of future changes.
+
+Rationale: the hierarchy only pays off when each level composes from the levels below. A component that reimplements typography, layout, or interaction concerns with ad-hoc CSS and markup bypasses the token system, drifts from the theme, forks accessibility, and forces every future change to happen in N places instead of one.
 
 ### Change blast radius increases downward
 

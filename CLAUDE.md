@@ -76,7 +76,7 @@ Then add the export to the parent directory's `index.ts` and to `src/index.ts`.
 
 ### Composition Rules (from design/architecture.md)
 
-- **Compose from primitives, don't reimplement**. Typographic content (`h1`-`h6`, `p`, `label`, `legend`, styled `span`) must render through the `Text` primitive. Layout containers should use `Box` when semantics allow. Raw HTML is acceptable only for semantic tags not covered by a primitive (`table`, `nav`, `form`, `dialog`, lists), unstyled structural wrappers, or when a primitive is genuinely missing — in which case add the primitive.
+- **Compose from existing components, don't reimplement**. Reach for the nearest suitable abstraction — primitives, base, composite, or domain — whichever already encapsulates the need. Typographic content (`h1`-`h6`, `p`, `label`, `legend`, styled `span`) must render through the `Text` primitive; layout containers should use `Box` when semantics allow; interactive controls must use their existing components (`Button`, `Input`, `Checkbox`, `Select`, `Tabs`, `Modal`, etc.) rather than bespoke implementations. Raw HTML is acceptable only for semantic tags not wrapped by a component (`table`, `nav`, `form`, `dialog`, lists), unstyled structural wrappers, or when no existing component fits — in which case add the component rather than inlining.
 
 ### CSS Rules (from design/foundations/tokens.md)
 
