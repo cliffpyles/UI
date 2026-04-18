@@ -4,7 +4,9 @@ import {
   useState,
   type HTMLAttributes,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./NotificationActivityCenter.css";
 
@@ -72,8 +74,13 @@ export const NotificationActivityCenter = forwardRef<
   const classes = ["ui-activity-center", className].filter(Boolean).join(" ");
 
   return (
-    <div ref={ref} className={classes} {...rest}>
-      <div className="ui-activity-center__header">
+    <Box ref={ref as Ref<HTMLElement>} direction="column" className={classes} {...rest}>
+      <Box
+        align="center"
+        justify="between"
+        gap="3"
+        className="ui-activity-center__header"
+      >
         <Text as="h2" size="base" weight="semibold" className="ui-activity-center__heading">
           {heading}
           {unreadCount > 0 && (
@@ -91,8 +98,8 @@ export const NotificationActivityCenter = forwardRef<
             Mark all as read
           </button>
         )}
-      </div>
-      <div role="tablist" aria-label="Notification categories" className="ui-activity-center__tabs">
+      </Box>
+      <Box gap="1" role="tablist" aria-label="Notification categories" className="ui-activity-center__tabs">
         <button
           type="button"
           role="tab"
@@ -124,7 +131,7 @@ export const NotificationActivityCenter = forwardRef<
             {c.label}
           </button>
         ))}
-      </div>
+      </Box>
       <ul className="ui-activity-center__list">
         {filtered.length === 0 && (
           <li className="ui-activity-center__empty">{emptyMessage}</li>
@@ -139,7 +146,13 @@ export const NotificationActivityCenter = forwardRef<
               .filter(Boolean)
               .join(" ")}
           >
-            <div className="ui-activity-center__item-body">
+            <Box
+              direction="column"
+              gap="1"
+              grow
+              minWidth={0}
+              className="ui-activity-center__item-body"
+            >
               <div className="ui-activity-center__item-title">
                 {!n.read && (
                   <span
@@ -156,8 +169,13 @@ export const NotificationActivityCenter = forwardRef<
               {n.timestamp && (
                 <div className="ui-activity-center__item-time">{n.timestamp}</div>
               )}
-            </div>
-            <div className="ui-activity-center__item-actions">
+            </Box>
+            <Box
+              align="center"
+              gap="2"
+              shrink={false}
+              className="ui-activity-center__item-actions"
+            >
               {n.actions}
               {onToggleRead && (
                 <button
@@ -169,10 +187,10 @@ export const NotificationActivityCenter = forwardRef<
                   {n.read ? "Mark unread" : "Mark read"}
                 </button>
               )}
-            </div>
+            </Box>
           </li>
         ))}
       </ul>
-    </div>
+    </Box>
   );
 });

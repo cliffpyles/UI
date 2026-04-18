@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./GlobalSearchLayout.css";
 
@@ -32,15 +33,16 @@ export const GlobalSearchLayout = forwardRef<HTMLDivElement, GlobalSearchLayoutP
     const classes = ["ui-global-search", className].filter(Boolean).join(" ");
     const hasResults = categories.some((c) => c.items.length > 0);
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        direction="column"
         role="search"
         aria-label={ariaLabel}
         className={classes}
         {...rest}
       >
         <div className="ui-global-search__input">{searchInput}</div>
-        <div className="ui-global-search__body">
+        <Box direction="column" gap="section" className="ui-global-search__body">
           {!hasResults && recents && (
             <div className="ui-global-search__recents">{recents}</div>
           )}
@@ -74,8 +76,8 @@ export const GlobalSearchLayout = forwardRef<HTMLDivElement, GlobalSearchLayoutP
                 </ul>
               </section>
             ))}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );

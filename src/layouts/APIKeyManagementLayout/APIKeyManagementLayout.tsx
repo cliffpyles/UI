@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./APIKeyManagementLayout.css";
 
 export interface APIKeyManagementLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -29,14 +30,21 @@ export const APIKeyManagementLayout = forwardRef<
   const classes = ["ui-api-keys", className].filter(Boolean).join(" ");
 
   return (
-    <section
-      ref={ref}
+    <Box
+      as="section"
+      ref={ref as Ref<HTMLElement>}
+      direction="column"
+      gap="content"
       className={classes}
       role="region"
       aria-label={label}
       {...rest}
     >
-      {toolbar && <div className="ui-api-keys__toolbar">{toolbar}</div>}
+      {toolbar && (
+        <Box align="center" gap="inline" className="ui-api-keys__toolbar">
+          {toolbar}
+        </Box>
+      )}
       {showCreate && createForm && (
         <div
           className="ui-api-keys__create"
@@ -47,7 +55,15 @@ export const APIKeyManagementLayout = forwardRef<
         </div>
       )}
       <div className="ui-api-keys__table">{keys}</div>
-      {footer && <div className="ui-api-keys__footer">{footer}</div>}
-    </section>
+      {footer && (
+        <Box
+          align="center"
+          justify="between"
+          className="ui-api-keys__footer"
+        >
+          {footer}
+        </Box>
+      )}
+    </Box>
   );
 });

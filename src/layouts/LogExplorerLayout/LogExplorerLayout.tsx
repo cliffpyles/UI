@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./LogExplorerLayout.css";
 
 export interface LogExplorerLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -30,14 +31,25 @@ export const LogExplorerLayout = forwardRef<
 ) {
   const classes = ["ui-log-explorer", className].filter(Boolean).join(" ");
   return (
-    <div ref={ref} className={classes} {...rest}>
-      <header className="ui-log-explorer__search" aria-label={searchBarLabel}>
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      direction="column"
+      className={classes}
+      {...rest}
+    >
+      <Box
+        as="header"
+        align="center"
+        gap="3"
+        className="ui-log-explorer__search"
+        aria-label={searchBarLabel}
+      >
         <div className="ui-log-explorer__search-bar">{searchBar}</div>
         {timeWindow && (
           <div className="ui-log-explorer__time-window">{timeWindow}</div>
         )}
-      </header>
-      <div className="ui-log-explorer__body">
+      </Box>
+      <Box display="flex" className="ui-log-explorer__body">
         {fields && (
           <aside className="ui-log-explorer__fields" aria-label={fieldsLabel}>
             {fields}
@@ -46,7 +58,7 @@ export const LogExplorerLayout = forwardRef<
         <section className="ui-log-explorer__logs" aria-label={logsLabel}>
           {logs}
         </section>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 });

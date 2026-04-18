@@ -18,7 +18,6 @@ export const DataGridLayout = forwardRef<HTMLDivElement, DataGridLayoutProps>(
     return (
       <Box
         ref={ref as Ref<HTMLElement>}
-        display="flex"
         direction="column"
         className={classes}
         role="region"
@@ -27,7 +26,6 @@ export const DataGridLayout = forwardRef<HTMLDivElement, DataGridLayoutProps>(
       >
         {toolbar && (
           <Box
-            display="flex"
             align="center"
             gap="content"
             className="ui-data-grid-layout__toolbar"
@@ -37,7 +35,6 @@ export const DataGridLayout = forwardRef<HTMLDivElement, DataGridLayoutProps>(
         )}
         {filters && (
           <Box
-            display="flex"
             wrap
             gap="content"
             className="ui-data-grid-layout__filters"

@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./KanbanLayout.css";
 
 export interface KanbanColumn {
@@ -29,47 +31,76 @@ export const KanbanLayout = forwardRef<HTMLDivElement, KanbanLayoutProps>(
   ) {
     const classes = ["ui-kanban-layout", className].filter(Boolean).join(" ");
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        direction="column"
         className={classes}
         role="region"
         aria-label={label}
         {...rest}
       >
-        {toolbar && <div className="ui-kanban-layout__toolbar">{toolbar}</div>}
-        <div className="ui-kanban-layout__columns">
+        {toolbar && (
+          <Box
+            align="center"
+            gap="content"
+            className="ui-kanban-layout__toolbar"
+          >
+            {toolbar}
+          </Box>
+        )}
+        <Box gap="content" className="ui-kanban-layout__columns">
           {columns.map((column) => (
-            <div key={column.id} className="ui-kanban-layout__column">
+            <Box
+              key={column.id}
+              direction="column"
+              className="ui-kanban-layout__column"
+            >
               {renderColumn ? (
                 renderColumn(column)
               ) : (
                 <>
-                  <div className="ui-kanban-layout__column-header">
-                    <span className="ui-kanban-layout__column-title">
+                  <Box
+                    align="center"
+                    justify="between"
+                    gap="inline"
+                    className="ui-kanban-layout__column-header"
+                  >
+                    <Text
+                      as="span"
+                      weight="semibold"
+                      color="primary"
+                      className="ui-kanban-layout__column-title"
+                    >
                       {column.title}
-                    </span>
+                    </Text>
                     {column.wipLimit !== undefined && (
-                      <span
+                      <Text
+                        as="span"
+                        color="secondary"
                         className="ui-kanban-layout__column-count"
                         aria-label={`${column.cards.length} of ${column.wipLimit}`}
                       >
                         {column.cards.length} / {column.wipLimit}
-                      </span>
+                      </Text>
                     )}
-                  </div>
-                  <div className="ui-kanban-layout__column-cards">
+                  </Box>
+                  <Box
+                    direction="column"
+                    gap="inline"
+                    className="ui-kanban-layout__column-cards"
+                  >
                     {column.cards.map((card, i) => (
                       <div key={i} className="ui-kanban-layout__card">
                         {card}
                       </div>
                     ))}
-                  </div>
+                  </Box>
                 </>
               )}
-            </div>
+            </Box>
           ))}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );

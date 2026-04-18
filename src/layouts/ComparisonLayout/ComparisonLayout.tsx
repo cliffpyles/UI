@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode, type CSSProperties } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref, type CSSProperties } from "react";
+import { Box } from "../../primitives/Box";
 import "./ComparisonLayout.css";
 
 export interface ComparisonEntity {
@@ -43,8 +44,9 @@ export const ComparisonLayout = forwardRef<HTMLDivElement, ComparisonLayoutProps
     } as CSSProperties;
 
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        direction="column"
         className={classes}
         role="region"
         aria-label={label}
@@ -52,9 +54,15 @@ export const ComparisonLayout = forwardRef<HTMLDivElement, ComparisonLayoutProps
         {...rest}
       >
         {toolbar && (
-          <div className="ui-comparison-layout__toolbar">{toolbar}</div>
+          <Box
+            align="center"
+            gap="content"
+            className="ui-comparison-layout__toolbar"
+          >
+            {toolbar}
+          </Box>
         )}
-        <div className="ui-comparison-layout__table" role="table">
+        <Box direction="column" className="ui-comparison-layout__table" role="table">
           <div className="ui-comparison-layout__row ui-comparison-layout__row--header" role="row">
             <div
               className="ui-comparison-layout__cell ui-comparison-layout__cell--label"
@@ -97,8 +105,8 @@ export const ComparisonLayout = forwardRef<HTMLDivElement, ComparisonLayoutProps
               ))}
             </div>
           ))}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   },
 ) as <T extends ComparisonEntity = ComparisonEntity>(

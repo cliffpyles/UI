@@ -1,16 +1,7 @@
 .ui-permission-matrix {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-content-gap);
   width: 100%;
   background: var(--color-background-surface);
   padding: var(--spacing-page-padding);
-}
-
-.ui-permission-matrix__toolbar {
-  display: flex;
-  gap: var(--spacing-inline-gap);
-  align-items: center;
 }
 
 .ui-permission-matrix__scroll {
@@ -66,14 +57,10 @@
 
 .ui-permission-matrix__resource-label {
   display: block;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
 }
 
 .ui-permission-matrix__action-label {
   display: block;
-  font-size: var(--font-size-caption);
-  color: var(--color-text-secondary);
 }
 
 .ui-permission-matrix__sr {

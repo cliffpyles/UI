@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./PermissionMatrixLayout.css";
 
 export interface PermissionRole {
@@ -42,15 +44,23 @@ export const PermissionMatrixLayout = forwardRef<
   const classes = ["ui-permission-matrix", className].filter(Boolean).join(" ");
 
   return (
-    <div
-      ref={ref}
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      direction="column"
+      gap="content"
       className={classes}
       role="region"
       aria-label={label}
       {...rest}
     >
       {toolbar && (
-        <div className="ui-permission-matrix__toolbar">{toolbar}</div>
+        <Box
+          align="center"
+          gap="inline"
+          className="ui-permission-matrix__toolbar"
+        >
+          {toolbar}
+        </Box>
       )}
       <div className="ui-permission-matrix__scroll">
         <table className="ui-permission-matrix__table">
@@ -84,13 +94,23 @@ export const PermissionMatrixLayout = forwardRef<
                       className="ui-permission-matrix__resource-header"
                     >
                       {idx === 0 && (
-                        <span className="ui-permission-matrix__resource-label">
+                        <Text
+                          as="span"
+                          weight="semibold"
+                          color="primary"
+                          className="ui-permission-matrix__resource-label"
+                        >
                           {resource.label}
-                        </span>
+                        </Text>
                       )}
-                      <span className="ui-permission-matrix__action-label">
+                      <Text
+                        as="span"
+                        size="caption"
+                        color="secondary"
+                        className="ui-permission-matrix__action-label"
+                      >
                         {action}
-                      </span>
+                      </Text>
                     </th>
                     {roles.map((role) => (
                       <td
@@ -109,9 +129,14 @@ export const PermissionMatrixLayout = forwardRef<
                     scope="row"
                     className="ui-permission-matrix__resource-header"
                   >
-                    <span className="ui-permission-matrix__resource-label">
+                    <Text
+                      as="span"
+                      weight="semibold"
+                      color="primary"
+                      className="ui-permission-matrix__resource-label"
+                    >
                       {resource.label}
-                    </span>
+                    </Text>
                   </th>
                   {roles.map((role) => (
                     <td
@@ -127,6 +152,6 @@ export const PermissionMatrixLayout = forwardRef<
           </tbody>
         </table>
       </div>
-    </div>
+    </Box>
   );
 });
