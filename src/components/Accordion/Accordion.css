@@ -3,8 +3,6 @@
    ========================================================================== */
 
 .ui-accordion {
-  display: flex;
-  flex-direction: column;
   font-family: var(--font-family-sans);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-lg);
@@ -30,21 +28,13 @@
 /* ---------- Trigger ---------- */
 
 .ui-accordion__trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   width: 100%;
   padding: var(--spacing-3) var(--spacing-4);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
   background: var(--color-background-surface);
   border: none;
-  cursor: pointer;
   text-align: left;
-  line-height: var(--font-line-height-normal);
-  transition: background-color var(--duration-fast) var(--easing-default);
-  outline: none;
 }
 
 .ui-accordion__trigger:hover {
@@ -63,9 +53,8 @@
 /* ---------- Chevron ---------- */
 
 .ui-accordion__chevron {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   flex-shrink: 0;
   color: var(--color-text-secondary);
   transition: transform var(--duration-normal) var(--easing-default);

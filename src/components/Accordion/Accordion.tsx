@@ -11,7 +11,10 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Icon } from "../../primitives/Icon";
+import { Button } from "../Button";
 import "./Accordion.css";
 
 // --- Context ---
@@ -123,9 +126,14 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionProps>(
 
     return (
       <AccordionContext.Provider value={{ expandedValues, toggle, type, baseId }}>
-        <div ref={ref} className={classes} {...props}>
+        <Box
+          ref={ref as React.Ref<HTMLElement>}
+          direction="column"
+          className={classes}
+          {...props}
+        >
           {children}
-        </div>
+        </Box>
       </AccordionContext.Provider>
     );
   },
@@ -220,9 +228,10 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
     return (
       <div ref={containerRef}>
         <Text as="h3" color="inherit" className="ui-accordion__heading">
-          <button
-            ref={ref}
-            type="button"
+          <Button
+            ref={ref as React.Ref<HTMLButtonElement>}
+            variant="ghost"
+            size="md"
             id={`${baseId}-trigger-${value}`}
             aria-expanded={isExpanded}
             aria-controls={`${baseId}-content-${value}`}
@@ -231,22 +240,22 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
             onKeyDown={handleKeyDown}
             {...props}
           >
-            <span className="ui-accordion__trigger-text">{children}</span>
-            <span className={`ui-accordion__chevron${isExpanded ? " ui-accordion__chevron--open" : ""}`} aria-hidden="true">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <Box
+              direction="row"
+              align="center"
+              justify="between"
+              gap="2"
+              className="ui-accordion__trigger-row"
+            >
+              <span className="ui-accordion__trigger-text">{children}</span>
+              <span
+                className={`ui-accordion__chevron${isExpanded ? " ui-accordion__chevron--open" : ""}`}
+                aria-hidden="true"
               >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </span>
-          </button>
+                <Icon name="chevron-down" size="sm" aria-hidden="true" />
+              </span>
+            </Box>
+          </Button>
         </Text>
       </div>
     );
@@ -280,11 +289,18 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
         hidden={!isExpanded}
         {...props}
       >
-        <div className="ui-accordion__content-inner">{children}</div>
+        <Box direction="column" className="ui-accordion__content-inner">
+          {children}
+        </Box>
       </div>
     );
   },
 );
+
+AccordionRoot.displayName = "Accordion";
+AccordionItem.displayName = "Accordion.Item";
+AccordionTrigger.displayName = "Accordion.Trigger";
+AccordionContent.displayName = "Accordion.Content";
 
 // --- Compound export ---
 
