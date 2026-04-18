@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./UserManagementLayout.css";
 
 export interface UserManagementLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -53,9 +54,14 @@ export const UserManagementLayout = forwardRef<HTMLDivElement, UserManagementLay
             role="status"
             aria-live="polite"
           >
-            <span className="ui-user-management__bulk-count">
+            <Text
+              as="span"
+              size="label"
+              weight="medium"
+              className="ui-user-management__bulk-count"
+            >
               {selectedCount} selected
-            </span>
+            </Text>
             <Box display="flex" gap="inline" className="ui-user-management__bulk-actions">
               {bulkActions}
             </Box>
