@@ -3,8 +3,6 @@
    ========================================================================== */
 
 .ui-input-wrapper {
-  display: inline-flex;
-  align-items: stretch;
   width: 100%;
   font-family: var(--font-family-sans);
 }
@@ -13,10 +11,6 @@
 
 .ui-input__field-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  flex: 1 1 auto;
-  min-width: 0;
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
@@ -146,7 +140,7 @@
 
 .ui-input-wrapper--error .ui-input__field-wrapper:focus-within {
   border-color: var(--color-status-error-icon);
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 0 var(--spacing-0-5) var(--color-status-error-bg);
 }
 
 /* Disabled */

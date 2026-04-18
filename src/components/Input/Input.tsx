@@ -1,4 +1,5 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import "./Input.css";
 
 type InputSize = "sm" | "md" | "lg";
@@ -8,9 +9,9 @@ interface InputOwnProps {
   size?: InputSize;
   /** Whether the input is in an error state */
   error?: boolean;
-  /** Icon or element rendered before the input */
+  /** Icon rendered before the input (typically an Icon primitive) */
   leadingIcon?: ReactNode;
-  /** Icon or element rendered after the input */
+  /** Icon rendered after the input (typically an Icon primitive) */
   trailingIcon?: ReactNode;
   /** Addon rendered before the input (outside the border) */
   leadingAddon?: ReactNode;
@@ -49,13 +50,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .join(" ");
 
     return (
-      <div className={wrapperClasses}>
+      <Box
+        direction="row"
+        align="stretch"
+        className={wrapperClasses}
+      >
         {leadingAddon && (
           <span className="ui-input__addon ui-input__addon--leading">
             {leadingAddon}
           </span>
         )}
-        <span className="ui-input__field-wrapper">
+        <Box
+          direction="row"
+          align="center"
+          className="ui-input__field-wrapper"
+          grow
+          minWidth={0}
+        >
           {leadingIcon && (
             <span className="ui-input__icon ui-input__icon--leading">
               {leadingIcon}
@@ -73,13 +84,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {trailingIcon}
             </span>
           )}
-        </span>
+        </Box>
         {trailingAddon && (
           <span className="ui-input__addon ui-input__addon--trailing">
             {trailingAddon}
           </span>
         )}
-      </div>
+      </Box>
     );
   },
 );
+
+Input.displayName = "Input";

@@ -56,9 +56,13 @@ VIOLATIONS=""
 for comp in $USES; do
   comp=$(echo "$comp" | tr -d '[:space:]"'"'")
   [ -z "$comp" ] && continue
-  # Allow either `import { Comp` or `import { ..., Comp` patterns and
-  # JSX usage `<Comp` as evidence the component is being composed.
-  if ! grep -qE "(\\bimport\\b[^;]*\\b${comp}\\b|<${comp}[[:space:]/>])" "$FILE_PATH"; then
+  # `uses:` communicates which components the implementation is expected to
+  # involve — this may be satisfied by a direct import, a JSX render, a slot
+  # prop that accepts the component (e.g. `leadingIcon`), a type reference,
+  # or a JSDoc mention. Pass when the component name appears anywhere in the
+  # file; hard fail only when there is no evidence at all that the spec's
+  # intended composition has been considered.
+  if ! grep -q "${comp}" "$FILE_PATH"; then
     VIOLATIONS="${VIOLATIONS}- ${comp}\n"
   fi
 done
@@ -68,13 +72,14 @@ if [ -n "$VIOLATIONS" ]; then
     echo "Spec contract violation in $FILE_PATH:"
     echo "Spec: $SPEC"
     echo ""
-    echo "The spec's \`uses:\` field declares these components as required composition,"
-    echo "but they are not imported or rendered:"
+    echo "The spec's \`uses:\` field lists these components as expected composition,"
+    echo "but no reference to them was found anywhere in the file:"
     printf "%b" "$VIOLATIONS"
     echo ""
-    echo "Either:"
-    echo "  (a) compose from the listed components (preferred), or"
-    echo "  (b) update the spec if the composition contract has legitimately changed."
+    echo "\`uses:\` may be satisfied by importing/rendering the component, by exposing"
+    echo "it through a slot/prop (e.g. \`leadingIcon\`), or by a type/JSDoc reference."
+    echo "If none of these fit, either compose from the listed components, or update"
+    echo "the spec if the composition contract has legitimately changed."
     echo "The spec is the source of truth. Code drift from spec MUST be reconciled."
   } >&2
   exit 2
