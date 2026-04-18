@@ -9,6 +9,16 @@ import {
 import { Icon } from "../../primitives/Icon";
 import "./Table.css";
 
+/**
+ * Table owns the semantic `<table>` / `<thead>` / `<tbody>` / `<tfoot>` /
+ * `<tr>` / `<th>` / `<td>` markup because those tags carry required ARIA
+ * semantics that no primitive can replace. Typography, layout, and form
+ * controls inside cells follow the standard composition rules — callers
+ * compose `Box` (scroll wrapper / outer overflow), `Text` (non-default cell
+ * typography), and `Checkbox` (row-selection column) as children. `Icon`
+ * is used directly below for the sort-direction indicator.
+ */
+
 /* ---------- Table ---------- */
 
 export type TableProps = HTMLAttributes<HTMLTableElement>;
@@ -190,6 +200,14 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
 );
 
 /* ---------- Compound export ---------- */
+
+TableRoot.displayName = "Table";
+TableHeader.displayName = "Table.Header";
+TableBody.displayName = "Table.Body";
+TableFooter.displayName = "Table.Footer";
+TableRow.displayName = "Table.Row";
+TableHead.displayName = "Table.Head";
+TableCell.displayName = "Table.Cell";
 
 export const Table = Object.assign(TableRoot, {
   Header: TableHeader,
