@@ -1,6 +1,5 @@
 import {
   forwardRef,
-  useMemo,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -8,6 +7,8 @@ import {
 } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
+import { Tabs } from "../../components/Tabs";
 import "./NotificationActivityCenter.css";
 
 export type NotificationCategory = string;
@@ -59,12 +60,73 @@ export const NotificationActivityCenter = forwardRef<
   const [internalActive, setInternalActive] = useState<NotificationCategory | "all">("all");
   const active = activeCategoryId ?? internalActive;
 
-  const filtered = useMemo(
-    () => (active === "all" ? notifications : notifications.filter((n) => n.category === active)),
-    [active, notifications],
-  );
+  const filterFor = (id: NotificationCategory | "all") =>
+    id === "all" ? notifications : notifications.filter((n) => n.category === id);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const renderList = (items: ActivityNotification[]) => (
+    <ul className="ui-activity-center__list">
+      {items.length === 0 && (
+        <li className="ui-activity-center__empty">{emptyMessage}</li>
+      )}
+      {items.map((n) => (
+        <li
+          key={n.id}
+          className={[
+            "ui-activity-center__item",
+            !n.read && "ui-activity-center__item--unread",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          <Box
+            direction="column"
+            gap="1"
+            grow
+            minWidth={0}
+            className="ui-activity-center__item-body"
+          >
+            <div className="ui-activity-center__item-title">
+              {!n.read && (
+                <span
+                  className="ui-activity-center__item-dot"
+                  role="presentation"
+                  aria-hidden="true"
+                />
+              )}
+              {n.title}
+            </div>
+            {n.description && (
+              <div className="ui-activity-center__item-desc">{n.description}</div>
+            )}
+            {n.timestamp && (
+              <div className="ui-activity-center__item-time">{n.timestamp}</div>
+            )}
+          </Box>
+          <Box
+            align="center"
+            gap="2"
+            shrink={false}
+            className="ui-activity-center__item-actions"
+          >
+            {n.actions}
+            {onToggleRead && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="ui-activity-center__read-toggle"
+                onClick={() => onToggleRead(n.id, !n.read)}
+                aria-pressed={!!n.read}
+              >
+                {n.read ? "Mark unread" : "Mark read"}
+              </Button>
+            )}
+          </Box>
+        </li>
+      ))}
+    </ul>
+  );
 
   const setActive = (id: NotificationCategory | "all") => {
     if (activeCategoryId === undefined) setInternalActive(id);
@@ -90,107 +152,40 @@ export const NotificationActivityCenter = forwardRef<
           )}
         </Text>
         {unreadCount > 0 && onMarkAllRead && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-activity-center__mark-all"
             onClick={onMarkAllRead}
           >
             Mark all as read
-          </button>
+          </Button>
         )}
       </Box>
-      <Box gap="1" role="tablist" aria-label="Notification categories" className="ui-activity-center__tabs">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={active === "all"}
-          className={[
-            "ui-activity-center__tab",
-            active === "all" && "ui-activity-center__tab--active",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          onClick={() => setActive("all")}
+      <Tabs
+        value={active}
+        onChange={(v) => setActive(v as NotificationCategory | "all")}
+      >
+        <Tabs.List
+          aria-label="Notification categories"
+          className="ui-activity-center__tabs"
         >
-          All
-        </button>
+          <Tabs.Tab value="all" className="ui-activity-center__tab">
+            All
+          </Tabs.Tab>
+          {categories.map((c) => (
+            <Tabs.Tab key={c.id} value={c.id} className="ui-activity-center__tab">
+              {c.label}
+            </Tabs.Tab>
+          ))}
+        </Tabs.List>
+        <Tabs.Panel value="all">{renderList(filterFor("all"))}</Tabs.Panel>
         {categories.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            role="tab"
-            aria-selected={active === c.id}
-            className={[
-              "ui-activity-center__tab",
-              active === c.id && "ui-activity-center__tab--active",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            onClick={() => setActive(c.id)}
-          >
-            {c.label}
-          </button>
+          <Tabs.Panel key={c.id} value={c.id}>
+            {renderList(filterFor(c.id))}
+          </Tabs.Panel>
         ))}
-      </Box>
-      <ul className="ui-activity-center__list">
-        {filtered.length === 0 && (
-          <li className="ui-activity-center__empty">{emptyMessage}</li>
-        )}
-        {filtered.map((n) => (
-          <li
-            key={n.id}
-            className={[
-              "ui-activity-center__item",
-              !n.read && "ui-activity-center__item--unread",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-          >
-            <Box
-              direction="column"
-              gap="1"
-              grow
-              minWidth={0}
-              className="ui-activity-center__item-body"
-            >
-              <div className="ui-activity-center__item-title">
-                {!n.read && (
-                  <span
-                    className="ui-activity-center__item-dot"
-                    role="presentation"
-                    aria-hidden="true"
-                  />
-                )}
-                {n.title}
-              </div>
-              {n.description && (
-                <div className="ui-activity-center__item-desc">{n.description}</div>
-              )}
-              {n.timestamp && (
-                <div className="ui-activity-center__item-time">{n.timestamp}</div>
-              )}
-            </Box>
-            <Box
-              align="center"
-              gap="2"
-              shrink={false}
-              className="ui-activity-center__item-actions"
-            >
-              {n.actions}
-              {onToggleRead && (
-                <button
-                  type="button"
-                  className="ui-activity-center__read-toggle"
-                  onClick={() => onToggleRead(n.id, !n.read)}
-                  aria-pressed={!!n.read}
-                >
-                  {n.read ? "Mark unread" : "Mark read"}
-                </button>
-              )}
-            </Box>
-          </li>
-        ))}
-      </ul>
+      </Tabs>
     </Box>
   );
 });

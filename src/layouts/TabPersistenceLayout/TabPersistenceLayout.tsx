@@ -3,11 +3,11 @@ import {
   useRef,
   type HTMLAttributes,
   type ReactNode,
-  type KeyboardEvent,
 } from "react";
 import { Icon } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
+import { Tabs } from "../../components/Tabs";
 import "./TabPersistenceLayout.css";
 
 export interface PersistentTab {
@@ -44,104 +44,79 @@ export const TabPersistenceLayout = forwardRef<HTMLDivElement, TabPersistenceLay
     const dragIdRef = useRef<string | null>(null);
 
     const classes = ["ui-tab-persist", className].filter(Boolean).join(" ");
-    const active = tabs.find((t) => t.id === activeId);
-
-    const onTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>, id: string) => {
-      const idx = tabs.findIndex((t) => t.id === id);
-      if (e.key === "ArrowRight" && idx < tabs.length - 1) {
-        e.preventDefault();
-        onActivate(tabs[idx + 1]!.id);
-      } else if (e.key === "ArrowLeft" && idx > 0) {
-        e.preventDefault();
-        onActivate(tabs[idx - 1]!.id);
-      }
-    };
 
     return (
       <div ref={ref} className={classes} {...rest}>
-        <div
-          role="tablist"
-          aria-label="Open tabs"
-          className="ui-tab-persist__bar"
-        >
-          <div className="ui-tab-persist__tabs">
-            {tabs.map((tab) => {
-              const selected = tab.id === activeId;
-              return (
-                <div
-                  key={tab.id}
-                  className={[
-                    "ui-tab-persist__tab-wrap",
-                    selected && "ui-tab-persist__tab-wrap--active",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  draggable={!!onReorder}
-                  onDragStart={() => {
-                    dragIdRef.current = tab.id;
-                  }}
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    if (dragIdRef.current && onReorder) {
-                      onReorder(dragIdRef.current, tab.id);
-                    }
-                    dragIdRef.current = null;
-                  }}
-                >
-                  <button
-                    type="button"
-                    role="tab"
-                    id={`tab-${tab.id}`}
-                    aria-selected={selected}
-                    aria-controls={`tabpanel-${tab.id}`}
-                    tabIndex={selected ? 0 : -1}
-                    className="ui-tab-persist__tab"
-                    onClick={() => onActivate(tab.id)}
-                    onKeyDown={(e) => onTabKeyDown(e, tab.id)}
+        <Tabs value={activeId} onChange={onActivate}>
+          <Tabs.List aria-label="Open tabs" className="ui-tab-persist__bar">
+            <div className="ui-tab-persist__tabs">
+              {tabs.map((tab) => {
+                const selected = tab.id === activeId;
+                return (
+                  <div
+                    key={tab.id}
+                    className={[
+                      "ui-tab-persist__tab-wrap",
+                      selected && "ui-tab-persist__tab-wrap--active",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    draggable={!!onReorder}
+                    onDragStart={() => {
+                      dragIdRef.current = tab.id;
+                    }}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      if (dragIdRef.current && onReorder) {
+                        onReorder(dragIdRef.current, tab.id);
+                      }
+                      dragIdRef.current = null;
+                    }}
                   >
-                    {tab.unsaved && (
-                      <span className="ui-tab-persist__dot" aria-hidden="true" />
+                    <Tabs.Tab value={tab.id} className="ui-tab-persist__tab">
+                      {tab.unsaved && (
+                        <span className="ui-tab-persist__dot" aria-hidden="true" />
+                      )}
+                      <Text as="span" className="ui-tab-persist__title">{tab.title}</Text>
+                    </Tabs.Tab>
+                    {tab.closable !== false && onClose && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="ui-tab-persist__close"
+                        aria-label={`Close ${tab.title}`}
+                        onClick={() => onClose(tab.id)}
+                      >
+                        <Icon name="x" size="xs" />
+                      </Button>
                     )}
-                    <Text as="span" className="ui-tab-persist__title">{tab.title}</Text>
-                  </button>
-                  {tab.closable !== false && onClose && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="ui-tab-persist__close"
-                      aria-label={`Close ${tab.title}`}
-                      onClick={() => onClose(tab.id)}
-                    >
-                      <Icon name="x" size="xs" />
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          {onAddTab && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="ui-tab-persist__add"
-              aria-label="New tab"
-              onClick={onAddTab}
+                  </div>
+                );
+              })}
+            </div>
+            {onAddTab && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="ui-tab-persist__add"
+                aria-label="New tab"
+                onClick={onAddTab}
+              >
+                <Icon name="plus" size="sm" />
+              </Button>
+            )}
+          </Tabs.List>
+          {tabs.map((tab) => (
+            <Tabs.Panel
+              key={tab.id}
+              value={tab.id}
+              className="ui-tab-persist__panel"
             >
-              <Icon name="plus" size="sm" />
-            </Button>
-          )}
-        </div>
-        {active && (
-          <div
-            role="tabpanel"
-            id={`tabpanel-${active.id}`}
-            aria-labelledby={`tab-${active.id}`}
-            className="ui-tab-persist__panel"
-          >
-            {active.content}
-          </div>
-        )}
+              {tab.content}
+            </Tabs.Panel>
+          ))}
+        </Tabs>
       </div>
     );
   },
