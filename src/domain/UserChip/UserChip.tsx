@@ -1,5 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Button } from "../../components/Button";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import { UserAvatar, type UserData } from "../UserAvatar";
 import "./UserChip.css";
 
@@ -25,16 +27,17 @@ export const UserChip = forwardRef<HTMLSpanElement, UserChipProps>(
     return (
       <span ref={ref} className={classes} {...rest}>
         <UserAvatar user={user} size="sm" showPresence={showPresence} />
-        <span className="ui-user-chip__name">{user.name}</span>
+        <Text as="span" size="sm" className="ui-user-chip__name">{user.name}</Text>
         {removable && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-user-chip__remove"
             onClick={onRemove}
             aria-label={`Remove ${user.name}`}
           >
             <Icon name="x" size="xs" aria-hidden />
-          </button>
+          </Button>
         )}
       </span>
     );

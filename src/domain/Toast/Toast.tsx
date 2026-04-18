@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Button } from "../../components/Button";
 import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./Toast.css";
@@ -55,14 +56,15 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(function Toast(
       </Box>
       {action && <div className="ui-toast__action">{action}</div>}
       {dismissible && (
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           className="ui-toast__dismiss"
           onClick={onDismiss}
           aria-label="Dismiss"
         >
           <Icon name="x" size="xs" aria-hidden />
-        </button>
+        </Button>
       )}
     </Box>
   );

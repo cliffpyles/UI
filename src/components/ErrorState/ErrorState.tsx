@@ -60,14 +60,15 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
         )}
         {details && (
           <div className="ui-error-state__details">
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-error-state__details-toggle"
               onClick={() => setDetailsOpen((prev) => !prev)}
               aria-expanded={detailsOpen}
             >
               {detailsOpen ? "Hide details" : "Show details"}
-            </button>
+            </Button>
             {detailsOpen && (
               <pre className="ui-error-state__details-content">{details}</pre>
             )}

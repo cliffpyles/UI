@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Button } from "../../components/Button";
 import { Icon } from "../../primitives/Icon";
 import { Spinner } from "../../primitives/Spinner";
 import { Text } from "../../primitives/Text";
@@ -60,9 +61,9 @@ export const SyncStatus = forwardRef<HTMLSpanElement, SyncStatusProps>(
           <Text as="span" size="xs" color="tertiary">· {relative}</Text>
         )}
         {onRetry && status === "error" && (
-          <button type="button" className="ui-sync-status__retry" onClick={onRetry}>
+          <Button variant="ghost" size="sm" className="ui-sync-status__retry" onClick={onRetry}>
             Retry
-          </button>
+          </Button>
         )}
       </span>
     );

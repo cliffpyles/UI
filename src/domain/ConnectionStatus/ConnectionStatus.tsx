@@ -1,6 +1,8 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Button } from "../../components/Button";
 import { Dot } from "../../primitives/Dot";
 import { Spinner } from "../../primitives/Spinner";
+import { Text } from "../../primitives/Text";
 import { formatDate } from "../../utils";
 import "./ConnectionStatus.css";
 
@@ -56,12 +58,16 @@ export const ConnectionStatus = forwardRef<HTMLSpanElement, ConnectionStatusProp
         <span className="ui-connection-status__indicator" aria-hidden="true">
           {status === "connecting" ? <Spinner size="sm" /> : <Dot color={TONES[status]} size="sm" />}
         </span>
-        <span className="ui-connection-status__label">{label}</span>
-        {meta && <span className="ui-connection-status__meta">· {meta}</span>}
+        <Text as="span" size="sm" className="ui-connection-status__label">{label}</Text>
+        {meta && (
+          <Text as="span" size="xs" color="tertiary" className="ui-connection-status__meta">
+            · {meta}
+          </Text>
+        )}
         {onRetry && status === "disconnected" && (
-          <button type="button" className="ui-connection-status__retry" onClick={onRetry}>
+          <Button variant="ghost" size="sm" className="ui-connection-status__retry" onClick={onRetry}>
             Retry
-          </button>
+          </Button>
         )}
       </span>
     );

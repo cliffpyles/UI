@@ -1,4 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Button } from "../../components/Button";
+import { Box } from "../../primitives/Box";
 import "./ChartLegend.css";
 
 export interface LegendSeries {
@@ -50,9 +52,9 @@ export const ChartLegend = forwardRef<HTMLDivElement, ChartLegendProps>(
             </>
           );
           return isButton ? (
-            <button key={s.id} type="button" {...commonProps}>
-              {content}
-            </button>
+            <Button key={s.id} variant="ghost" size="sm" {...commonProps}>
+              <Box display="inline-flex" align="center" gap="1">{content}</Box>
+            </Button>
           ) : (
             <span key={s.id} {...commonProps}>
               {content}

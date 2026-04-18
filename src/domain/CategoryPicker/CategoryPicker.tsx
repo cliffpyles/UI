@@ -1,6 +1,7 @@
 import { forwardRef, useState, type HTMLAttributes } from "react";
 import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
+import { Button } from "../../components/Button";
 import { Checkbox } from "../../components/Checkbox";
 import "./CategoryPicker.css";
 
@@ -43,15 +44,16 @@ function NodeRow({
     <li className="ui-category-picker__item" style={{ paddingLeft: `${depth * 16}px` }}>
       <Box className="ui-category-picker__row" align="center" gap="1">
         {hasChildren ? (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-category-picker__chevron"
             onClick={() => setExpanded((v) => !v)}
             aria-expanded={expanded}
             aria-label={expanded ? "Collapse" : "Expand"}
           >
             <Icon name={expanded ? "chevron-down" : "chevron-right"} size="xs" aria-hidden />
-          </button>
+          </Button>
         ) : (
           <span className="ui-category-picker__spacer" aria-hidden="true" />
         )}

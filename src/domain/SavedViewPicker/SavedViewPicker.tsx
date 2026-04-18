@@ -87,8 +87,9 @@ export const SavedViewPicker = forwardRef<HTMLDivElement, SavedViewPickerProps>(
                   (v.id === current ? " ui-saved-view-picker__option--active" : "")
                 }
               >
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className="ui-saved-view-picker__select"
                   onClick={() => {
                     onChange(v.id);
@@ -97,16 +98,17 @@ export const SavedViewPicker = forwardRef<HTMLDivElement, SavedViewPickerProps>(
                 >
                   {v.name}
                   {v.isDefault && <span className="ui-saved-view-picker__badge">default</span>}
-                </button>
+                </Button>
                 {onDelete && !v.isDefault && (
-                  <button
-                    type="button"
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className="ui-saved-view-picker__delete"
                     onClick={() => onDelete(v.id)}
                     aria-label={`Delete ${v.name}`}
                   >
                     <Icon name="trash" size="xs" aria-hidden />
-                  </button>
+                  </Button>
                 )}
               </div>
             ))}
@@ -135,13 +137,14 @@ export const SavedViewPicker = forwardRef<HTMLDivElement, SavedViewPickerProps>(
                     />
                   </form>
                 ) : (
-                  <button
-                    type="button"
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className="ui-saved-view-picker__add"
                     onClick={() => setSaving(true)}
                   >
                     <Icon name="plus" size="xs" aria-hidden /> Save current view
-                  </button>
+                  </Button>
                 )}
               </div>
             )}

@@ -69,9 +69,10 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
           wrap
         >
           {comment.reactions.map((r) => (
-            <button
+            <Button
               key={r.emoji}
-              type="button"
+              variant="ghost"
+              size="sm"
               className={
                 "ui-comment-thread__reaction" +
                 (r.byMe ? " ui-comment-thread__reaction--mine" : "")
@@ -80,20 +81,21 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
             >
               <span aria-hidden>{r.emoji}</span>
               <span>{r.count}</span>
-            </button>
+            </Button>
           ))}
         </Box>
       )}
       {onReply && (
         <div className="ui-comment-thread__actions">
           {!replying ? (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-comment-thread__reply-trigger"
               onClick={() => setReplying(true)}
             >
               Reply
-            </button>
+            </Button>
           ) : (
             <form
               className="ui-comment-thread__form"

@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Button } from "../../components/Button";
 import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./BannerAlert.css";
@@ -65,14 +66,15 @@ export const BannerAlert = forwardRef<HTMLDivElement, BannerAlertProps>(
         </Box>
         {action && <div className="ui-banner-alert__action">{action}</div>}
         {dismissible && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-banner-alert__dismiss"
             onClick={onDismiss}
             aria-label="Dismiss"
           >
             <Icon name="x" size="sm" aria-hidden />
-          </button>
+          </Button>
         )}
       </Box>
     );

@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Button } from "../../components/Button";
 import { Icon } from "../../primitives/Icon";
 import "./ExpandableRow.css";
 
@@ -24,8 +25,9 @@ export const ExpandableRow = forwardRef<HTMLTableRowElement, ExpandableRowProps>
       <>
         <tr ref={ref} className={classes} {...rest}>
           <td className="ui-expandable-row__toggle-cell">
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-expandable-row__toggle"
               onClick={onToggle}
               aria-expanded={expanded}
@@ -36,7 +38,7 @@ export const ExpandableRow = forwardRef<HTMLTableRowElement, ExpandableRowProps>
                 size="sm"
                 aria-hidden
               />
-            </button>
+            </Button>
           </td>
           {children}
         </tr>

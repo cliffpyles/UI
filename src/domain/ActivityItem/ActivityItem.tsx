@@ -6,6 +6,7 @@ import {
 } from "react";
 import { UserAvatar } from "../UserAvatar";
 import { Timestamp } from "../Timestamp";
+import { Button } from "../../components/Button";
 import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
@@ -55,19 +56,22 @@ export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
           />
           {detail && (
             <>
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="sm"
                 className="ui-activity-item__toggle"
                 onClick={() => setExpanded((v) => !v)}
                 aria-expanded={expanded}
               >
-                <Icon
-                  name={expanded ? "chevron-down" : "chevron-right"}
-                  size="xs"
-                  aria-hidden
-                />
-                {expanded ? "Hide details" : "Show details"}
-              </button>
+                <Box display="inline-flex" align="center" gap="1">
+                  <Icon
+                    name={expanded ? "chevron-down" : "chevron-right"}
+                    size="xs"
+                    aria-hidden
+                  />
+                  {expanded ? "Hide details" : "Show details"}
+                </Box>
+              </Button>
               {expanded && <div className="ui-activity-item__detail">{detail}</div>}
             </>
           )}

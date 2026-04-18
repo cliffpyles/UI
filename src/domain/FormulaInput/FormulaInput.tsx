@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
   type TextareaHTMLAttributes,
 } from "react";
+import { Button } from "../../components/Button";
 import "./FormulaInput.css";
 
 export interface FormulaSchemaField {
@@ -53,14 +54,15 @@ export const FormulaInput = forwardRef<HTMLTextAreaElement, FormulaInputProps>(
           <div className="ui-formula-input__schema">
             <span className="ui-formula-input__schema-label">Fields:</span>
             {schema.map((f) => (
-              <button
+              <Button
                 key={f.id}
-                type="button"
+                variant="ghost"
+                size="sm"
                 className="ui-formula-input__token"
                 onClick={() => onChange(value + f.id)}
               >
                 {f.label}
-              </button>
+              </Button>
             ))}
           </div>
         )}

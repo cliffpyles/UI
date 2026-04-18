@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type Ref } from "react";
+import { Button } from "../../components/Button";
 import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import { FileSize } from "../FileSize";
@@ -55,34 +56,37 @@ export const FileAttachment = forwardRef<HTMLDivElement, FileAttachmentProps>(
         </Box>
         <Box className="ui-file-attachment__actions" display="inline-flex" gap="1">
           {onPreview && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-file-attachment__action"
               onClick={onPreview}
               aria-label={`Preview ${file.name}`}
             >
               <Icon name="eye" size="xs" aria-hidden />
-            </button>
+            </Button>
           )}
           {onDownload && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-file-attachment__action"
               onClick={onDownload}
               aria-label={`Download ${file.name}`}
             >
               <Icon name="download" size="xs" aria-hidden />
-            </button>
+            </Button>
           )}
           {onRemove && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-file-attachment__action ui-file-attachment__action--destructive"
               onClick={onRemove}
               aria-label={`Remove ${file.name}`}
             >
               <Icon name="trash" size="xs" aria-hidden />
-            </button>
+            </Button>
           )}
         </Box>
       </Box>

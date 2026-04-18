@@ -1,5 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Button } from "../../components/Button";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import "./GroupedRowHeader.css";
 
 export interface GroupedRowHeaderProps extends HTMLAttributes<HTMLTableRowElement> {
@@ -23,19 +25,20 @@ export const GroupedRowHeader = forwardRef<HTMLTableRowElement, GroupedRowHeader
         <th scope="colgroup" colSpan={colSpan} className="ui-grouped-row-header__cell">
           <div className="ui-grouped-row-header__inner">
             {onToggle && (
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="sm"
                 className="ui-grouped-row-header__toggle"
                 onClick={onToggle}
                 aria-expanded={expanded}
                 aria-label={expanded ? "Collapse group" : "Expand group"}
               >
                 <Icon name={expanded ? "chevron-down" : "chevron-right"} size="sm" aria-hidden />
-              </button>
+              </Button>
             )}
-            <span className="ui-grouped-row-header__label">{group}</span>
+            <Text as="span" size="sm" weight="semibold" className="ui-grouped-row-header__label">{group}</Text>
             {count != null && (
-              <span className="ui-grouped-row-header__count">{count}</span>
+              <Text as="span" size="xs" color="tertiary" className="ui-grouped-row-header__count">{count}</Text>
             )}
             {aggregates && (
               <span className="ui-grouped-row-header__aggregates">{aggregates}</span>
