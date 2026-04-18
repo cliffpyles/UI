@@ -1,75 +1,139 @@
-import { forwardRef, type HTMLAttributes, type Ref } from "react";
+import { Fragment, forwardRef, useMemo, type HTMLAttributes, type ReactNode } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
-import { UserChip } from "../UserChip";
-import { Timestamp } from "../Timestamp";
-import type { UserData } from "../UserAvatar";
+import { Divider } from "../../primitives/Divider";
 import "./ChangeLog.css";
+
+export type FieldChangeKind = "added" | "removed" | "changed";
 
 export interface FieldChange {
   field: string;
-  before: string | number | boolean | null;
-  after: string | number | boolean | null;
+  kind?: FieldChangeKind;
+  before?: ReactNode;
+  after?: ReactNode;
 }
 
-export interface ChangeLogProps extends HTMLAttributes<HTMLDivElement> {
+export interface ChangeLogProps extends HTMLAttributes<HTMLElement> {
   changes: FieldChange[];
-  actor?: UserData;
-  timestamp?: Date | string | number;
-  title?: string;
+  groupBy?: (change: FieldChange) => string;
+  emptyLabel?: ReactNode;
 }
 
-function display(v: FieldChange["before"]): string {
-  if (v == null) return "\u2014";
-  return String(v);
+function inferKind(c: FieldChange): FieldChangeKind {
+  if (c.kind) return c.kind;
+  if (c.before == null && c.after != null) return "added";
+  if (c.before != null && c.after == null) return "removed";
+  return "changed";
 }
 
-export const ChangeLog = forwardRef<HTMLDivElement, ChangeLogProps>(
-  function ChangeLog({ changes, actor, timestamp, title, className, ...rest }, ref) {
+function displayValue(v: ReactNode): ReactNode {
+  if (v == null || v === "") return "\u2014";
+  return v;
+}
+
+function ChangeRow({ change }: { change: FieldChange }) {
+  const kind = inferKind(change);
+  return (
+    <Box
+      direction="row"
+      align="center"
+      gap="2"
+      className="ui-changelog__item"
+      aria-label={change.field}
+    >
+      <Text as="span" size="sm" color="secondary" className="ui-changelog__field">
+        {change.field}
+      </Text>
+      {kind === "added" && (
+        <>
+          <Text as="span" size="sm" color="secondary">
+            added
+          </Text>
+          <Text as="span" size="sm" color="success">
+            {displayValue(change.after)}
+          </Text>
+        </>
+      )}
+      {kind === "removed" && (
+        <>
+          <Text as="span" size="sm" color="secondary">
+            removed
+          </Text>
+          <Text as="span" size="sm" color="error">
+            {displayValue(change.before)}
+          </Text>
+        </>
+      )}
+      {kind === "changed" && (
+        <>
+          <Text as="span" size="sm" color="secondary">
+            changed from
+          </Text>
+          <Text as="span" size="sm" color="error">
+            {displayValue(change.before)}
+          </Text>
+          <Text as="span" size="sm" color="secondary">
+            to
+          </Text>
+          <Text as="span" size="sm" color="success">
+            {displayValue(change.after)}
+          </Text>
+        </>
+      )}
+    </Box>
+  );
+}
+
+export const ChangeLog = forwardRef<HTMLElement, ChangeLogProps>(
+  function ChangeLog(
+    { changes, groupBy, emptyLabel = "No changes", className, ...rest },
+    ref,
+  ) {
     const classes = ["ui-changelog", className].filter(Boolean).join(" ");
+
+    const groups = useMemo(() => {
+      if (!groupBy) return null;
+      const map = new Map<string, FieldChange[]>();
+      for (const c of changes) {
+        const key = groupBy(c);
+        if (!map.has(key)) map.set(key, []);
+        map.get(key)!.push(c);
+      }
+      return Array.from(map.entries());
+    }, [changes, groupBy]);
 
     return (
       <Box
-        ref={ref as Ref<HTMLElement>}
-        className={classes}
-        display="flex"
+        as="section"
+        ref={ref as React.Ref<HTMLElement>}
+        aria-label="Change log"
         direction="column"
         gap="2"
+        className={classes}
         {...rest}
       >
-        {(title || actor || timestamp) && (
-          <Box
-            className="ui-changelog__header"
-            display="flex"
-            align="center"
-            gap="2"
-          >
-            {actor && <UserChip user={actor} size="sm" />}
-            {title && (
-              <Text as="span" weight="medium" color="primary">
-                {title}
+        {changes.length === 0 ? (
+          <Text as="p" size="sm" color="secondary">
+            {emptyLabel}
+          </Text>
+        ) : groups ? (
+          groups.map(([label, groupChanges], i) => (
+            <Fragment key={label}>
+              {i > 0 && <Divider />}
+              <Text as="span" size="xs" weight="semibold" color="secondary">
+                {label}
               </Text>
-            )}
-            {timestamp && (
-              <Timestamp
-                date={timestamp}
-                format="auto"
-                className="ui-changelog__time"
-              />
-            )}
-          </Box>
+              {groupChanges.map((c) => (
+                <ChangeRow key={`${label}:${c.field}`} change={c} />
+              ))}
+            </Fragment>
+          ))
+        ) : (
+          changes.map((c) => <ChangeRow key={c.field} change={c} />)
         )}
-        <ul className="ui-changelog__list">
-          {changes.map((c) => (
-            <li key={c.field} className="ui-changelog__item">
-              <span className="ui-changelog__field">{c.field}</span>
-              <span className="ui-changelog__before">{display(c.before)}</span>
-              <span className="ui-changelog__arrow" aria-hidden="true">→</span>
-              <span className="ui-changelog__after">{display(c.after)}</span>
-            </li>
-          ))}
-        </ul>
       </Box>
     );
   },
 );
+
+ChangeLog.displayName = "ChangeLog";
