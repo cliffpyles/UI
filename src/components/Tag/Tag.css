@@ -3,9 +3,7 @@
    ========================================================================== */
 
 .ui-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-1);
+  display: inline-block;
   font-family: var(--font-family-sans);
   font-weight: var(--font-weight-medium);
   border-radius: var(--radius-md);
@@ -57,38 +55,16 @@
   border: 1px solid var(--color-status-error-text);
 }
 
-/* ---------- Remove button ---------- */
+/* ---------- Remove button (Button composition owns chrome) ---------- */
 
 .ui-tag__remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
-  margin: 0;
-  border: none;
-  background: transparent;
   color: inherit;
-  cursor: pointer;
-  border-radius: var(--radius-sm);
   opacity: 0.7;
-  transition: opacity var(--duration-fast) var(--easing-default);
-  position: relative;
 }
 
 .ui-tag__remove:hover {
   opacity: 1;
-}
-
-.ui-tag__remove:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 1px;
-}
-
-/* Minimum hit area for the remove button */
-.ui-tag__remove::before {
-  content: "";
-  position: absolute;
-  inset: -4px;
 }
 
 /* ---------- Density ---------- */

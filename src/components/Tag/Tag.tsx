@@ -1,4 +1,8 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Dot } from "../../primitives/Dot";
+import { Button } from "../Button";
 import "./Tag.css";
 
 type TagVariant = "neutral" | "primary" | "success" | "warning" | "error";
@@ -13,11 +17,23 @@ interface TagOwnProps {
   removable?: boolean;
   /** Called when the remove button is clicked */
   onRemove?: () => void;
+  /** Leading icon node (compose `<Icon>` at call site) */
+  leadingIcon?: ReactNode;
+  /** Render a leading `Dot` colored from the variant */
+  showDot?: boolean;
   /** Tag content */
   children?: ReactNode;
 }
 
 export type TagProps = TagOwnProps & HTMLAttributes<HTMLSpanElement>;
+
+const dotColorFor: Record<TagVariant, "neutral" | "info" | "success" | "warning" | "error"> = {
+  neutral: "neutral",
+  primary: "info",
+  success: "success",
+  warning: "warning",
+  error: "error",
+};
 
 export const Tag = forwardRef<HTMLSpanElement, TagProps>(
   function Tag(
@@ -26,6 +42,8 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(
       size = "md",
       removable = false,
       onRemove,
+      leadingIcon,
+      showDot = false,
       className,
       children,
       ...props
@@ -41,33 +59,30 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(
       .filter(Boolean)
       .join(" ");
 
+    const removeLabel = `Remove ${typeof children === "string" ? children : ""}`.trim();
+
     return (
       <span ref={ref} className={classes} {...props}>
-        <span className="ui-tag__content">{children}</span>
-        {removable && (
-          <button
-            type="button"
-            className="ui-tag__remove"
-            onClick={onRemove}
-            aria-label={`Remove ${typeof children === "string" ? children : ""}`}
-          >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        )}
+        <Box direction="row" align="center" gap="1" className="ui-tag__row">
+          {showDot && <Dot color={dotColorFor[variant]} size="sm" />}
+          {leadingIcon}
+          <Text as="span" size="caption" weight="medium" color="inherit" className="ui-tag__content">
+            {children}
+          </Text>
+          {removable && (
+            <Button
+              variant="ghost"
+              size="sm"
+              icon="x"
+              className="ui-tag__remove"
+              onClick={onRemove}
+              aria-label={removeLabel}
+            />
+          )}
+        </Box>
       </span>
     );
   },
 );
+
+Tag.displayName = "Tag";
