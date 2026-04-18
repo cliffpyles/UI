@@ -1,9 +1,12 @@
-import { forwardRef, type HTMLAttributes } from "react";
-import { Button } from "../../components/Button";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Box } from "../../primitives/Box";
-import { Icon, type IconName } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
+import { formatNumber } from "../../utils";
+import type { IconName } from "../../primitives/Icon";
 import "./BulkActionBar.css";
 
+/** Legacy action descriptor — retained for callers still passing an array. */
 export interface BulkAction {
   id: string;
   label: string;
@@ -15,52 +18,107 @@ export interface BulkAction {
 
 export interface BulkActionBarProps extends HTMLAttributes<HTMLDivElement> {
   selectedCount: number;
-  actions: BulkAction[];
-  onClear: () => void;
-  itemLabel?: string;
+  totalCount?: number;
+  onClearSelection?: () => void;
+  /** Legacy alias for `onClearSelection`. */
+  onClear?: () => void;
+  clearLabel?: string;
+  /** Action slot (ReactNode) or legacy array of {id,label,onSelect}. */
+  actions?: ReactNode | BulkAction[];
+  sticky?: boolean;
+}
+
+function isActionArray(a: unknown): a is BulkAction[] {
+  return (
+    Array.isArray(a) &&
+    a.every(
+      (x) =>
+        !!x &&
+        typeof x === "object" &&
+        "id" in x &&
+        "label" in x &&
+        "onSelect" in x,
+    )
+  );
 }
 
 export const BulkActionBar = forwardRef<HTMLDivElement, BulkActionBarProps>(
   function BulkActionBar(
-    { selectedCount, actions, onClear, itemLabel = "row", className, ...rest },
+    {
+      selectedCount,
+      totalCount,
+      onClearSelection,
+      onClear,
+      clearLabel = "Clear selection",
+      actions,
+      sticky = true,
+      className,
+      ...rest
+    },
     ref,
   ) {
-    const classes = ["ui-bulk-action-bar", className].filter(Boolean).join(" ");
     if (selectedCount <= 0) return null;
+    const clear = onClearSelection ?? onClear;
+    const classes = [
+      "ui-bulk-action-bar",
+      sticky && "ui-bulk-action-bar--sticky",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const countCopy =
+      typeof totalCount === "number"
+        ? `${formatNumber(selectedCount)} of ${formatNumber(totalCount)} selected`
+        : `${formatNumber(selectedCount)} selected`;
+
+    const renderedActions = isActionArray(actions)
+      ? actions.map((a) => (
+          <Button
+            key={a.id}
+            variant={a.destructive ? "destructive" : "secondary"}
+            size="sm"
+            icon={a.icon}
+            disabled={a.disabled}
+            onClick={a.onSelect}
+          >
+            {a.label}
+          </Button>
+        ))
+      : actions;
 
     return (
       <Box
         ref={ref as React.Ref<HTMLElement>}
-        className={classes}
-        display="flex"
-        align="center"
-        gap="3"
         role="region"
         aria-label="Bulk actions"
+        aria-live="polite"
+        direction="row"
+        align="center"
+        justify="between"
+        gap="3"
+        className={classes}
         {...rest}
       >
-        <span className="ui-bulk-action-bar__count">
-          {selectedCount} {itemLabel}
-          {selectedCount === 1 ? "" : "s"} selected
-        </span>
-        <Box className="ui-bulk-action-bar__actions" display="flex" gap="1">
-          {actions.map((a) => (
+        <Text as="span" size="body" weight="medium" className="ui-bulk-action-bar__count">
+          {countCopy}
+        </Text>
+        <Box direction="row" align="center" gap="2" className="ui-bulk-action-bar__actions">
+          {renderedActions}
+          {clear && (
             <Button
-              key={a.id}
-              variant={a.destructive ? "destructive" : "secondary"}
+              variant="ghost"
               size="sm"
-              disabled={a.disabled}
-              onClick={a.onSelect}
+              aria-label={clearLabel}
+              onClick={clear}
             >
-              {a.icon && <Icon name={a.icon} size="xs" aria-hidden />}
-              {a.label}
+              {clearLabel}
             </Button>
-          ))}
+          )}
         </Box>
-        <Button variant="ghost" size="sm" onClick={onClear}>
-          Clear
-        </Button>
       </Box>
     );
   },
 );
+
+BulkActionBar.displayName = "BulkActionBar";
