@@ -13,7 +13,25 @@ import {
   type KeyboardEvent,
 } from "react";
 import { createPortal } from "react-dom";
+import { Divider } from "../../primitives/Divider";
+import { Button } from "../Button";
 import "./Dropdown.css";
+
+/**
+ * Dropdown — trigger + action menu pattern.
+ *
+ * Composition contract (per design/components/composite/Dropdown.md):
+ *   - `Popover` would govern the floating-layer portal + positioning +
+ *     outside-click. Full `Popover` composition is deferred because `Popover`
+ *     hardcodes `role="dialog"` / `aria-haspopup="dialog"` which conflicts
+ *     with Dropdown's `role="menu"` / `aria-haspopup="menu"` contract.
+ *     Positioning and dismissal logic are reimplemented locally until
+ *     `Popover` exposes a role override.
+ *   - `Menu` provides the list + item ARIA semantics this component
+ *     reimplements locally for the same role-collision reason.
+ *   - `Button` renders the trigger (owned chrome + focus ring).
+ *   - `Divider` renders `Dropdown.Separator` (token-driven rule).
+ */
 
 // --- Context ---
 
@@ -66,7 +84,7 @@ function DropdownTrigger({ children }: DropdownTriggerProps) {
   }, [open, setOpen]);
 
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
+    (e: KeyboardEvent<HTMLButtonElement>) => {
       if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
         if (!open) {
           e.preventDefault();
@@ -78,11 +96,12 @@ function DropdownTrigger({ children }: DropdownTriggerProps) {
   );
 
   return (
-    <button
+    <Button
       ref={triggerRef}
       id={triggerId}
       className="ui-dropdown__trigger"
-      type="button"
+      variant="ghost"
+      size="md"
       aria-haspopup="menu"
       aria-expanded={open}
       aria-controls={open ? contentId : undefined}
@@ -90,7 +109,7 @@ function DropdownTrigger({ children }: DropdownTriggerProps) {
       onKeyDown={handleKeyDown}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 
@@ -114,7 +133,6 @@ const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(
       const viewportHeight = window.innerHeight;
 
       let top = rect.bottom + 4;
-      // Flip above if not enough room below
       if (top + menuHeight > viewportHeight && rect.top - menuHeight - 4 > 0) {
         top = rect.top - menuHeight - 4;
       }
@@ -227,7 +245,8 @@ const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(
 
 type DropdownItemVariant = "default" | "destructive";
 
-interface DropdownItemProps extends HTMLAttributes<HTMLDivElement> {
+interface DropdownItemProps
+  extends Omit<HTMLAttributes<HTMLButtonElement>, "onSelect"> {
   /** Called when the item is selected */
   onSelect?: () => void;
   /** Whether the item is disabled */
@@ -237,7 +256,7 @@ interface DropdownItemProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
+const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
   function DropdownItem(
     { onSelect, disabled = false, variant = "default", children, className, ...props },
     ref,
@@ -252,7 +271,7 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
     }, [disabled, onSelect, setOpen, triggerRef]);
 
     const handleKeyDown = useCallback(
-      (e: KeyboardEvent) => {
+      (e: KeyboardEvent<HTMLButtonElement>) => {
         if (disabled) return;
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -274,18 +293,21 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
       .join(" ");
 
     return (
-      <div
+      <Button
         ref={ref}
         role="menuitem"
+        variant="ghost"
+        size="sm"
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled || undefined}
+        disabled={disabled}
         className={classes}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         {...props}
       >
         {children}
-      </div>
+      </Button>
     );
   },
 );
@@ -293,10 +315,15 @@ const DropdownItem = forwardRef<HTMLDivElement, DropdownItemProps>(
 // --- Separator ---
 
 function DropdownSeparator() {
-  return <div role="separator" className="ui-dropdown__separator" />;
+  return <Divider role="separator" className="ui-dropdown__separator" spacing="1" />;
 }
 
 // --- Compound export ---
+
+DropdownTrigger.displayName = "Dropdown.Trigger";
+DropdownContent.displayName = "Dropdown.Content";
+DropdownItem.displayName = "Dropdown.Item";
+DropdownSeparator.displayName = "Dropdown.Separator";
 
 export const Dropdown = Object.assign(DropdownRoot, {
   Trigger: DropdownTrigger,
