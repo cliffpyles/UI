@@ -1,4 +1,5 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
 import "./QueryBuilderLayout.css";
 
 export interface QueryBuilderLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -24,7 +25,13 @@ export const QueryBuilderLayout = forwardRef<HTMLDivElement, QueryBuilderLayoutP
   ) {
     const classes = ["ui-query-builder", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        display="flex"
+        direction="column"
+        className={classes}
+        {...rest}
+      >
         <section
           className="ui-query-builder__expression"
           aria-label={expressionLabel}
@@ -40,9 +47,16 @@ export const QueryBuilderLayout = forwardRef<HTMLDivElement, QueryBuilderLayoutP
           </section>
         )}
         {actions && (
-          <div className="ui-query-builder__actions">{actions}</div>
+          <Box
+            display="flex"
+            justify="end"
+            gap="content"
+            className="ui-query-builder__actions"
+          >
+            {actions}
+          </Box>
         )}
-      </div>
+      </Box>
     );
   },
 );

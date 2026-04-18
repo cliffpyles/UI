@@ -3,7 +3,9 @@ import {
   useState,
   type HTMLAttributes,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { ResizablePanel } from "../ResizablePanel";
 import "./ReportBuilderLayout.css";
 
@@ -58,13 +60,26 @@ export const ReportBuilderLayout = forwardRef<
   const classes = ["ui-report-builder", className].filter(Boolean).join(" ");
 
   return (
-    <div ref={ref} className={classes} {...rest}>
+    <Box
+      ref={ref as Ref<HTMLElement>}
+      display="flex"
+      direction="column"
+      className={classes}
+      {...rest}
+    >
       {toolbar && (
-        <div className="ui-report-builder__toolbar" aria-label={toolbarLabel}>
+        <Box
+          display="flex"
+          align="center"
+          gap="content"
+          padding="content"
+          className="ui-report-builder__toolbar"
+          aria-label={toolbarLabel}
+        >
           {toolbar}
-        </div>
+        </Box>
       )}
-      <div className="ui-report-builder__body">
+      <Box display="flex" grow className="ui-report-builder__body">
         <ResizablePanel
           direction="horizontal"
           size={pWidth}
@@ -110,7 +125,7 @@ export const ReportBuilderLayout = forwardRef<
             </aside>
           </ResizablePanel>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 });

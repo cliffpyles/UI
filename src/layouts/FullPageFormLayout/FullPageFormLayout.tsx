@@ -3,6 +3,8 @@ import {
   type FormHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Grid } from "../../primitives/Grid";
 import "./FullPageFormLayout.css";
 
 export interface FullPageFormLayoutProps
@@ -43,7 +45,15 @@ export const FullPageFormLayout = forwardRef<
   return (
     <form ref={ref} className={classes} {...rest}>
       {header && (
-        <header className="ui-full-page-form__header">
+        <Box
+          as="header"
+          display="flex"
+          align="center"
+          justify="between"
+          gap="content"
+          padding="page"
+          className="ui-full-page-form__header"
+        >
           {header}
           {isDirty && (
             <span
@@ -54,20 +64,41 @@ export const FullPageFormLayout = forwardRef<
               Unsaved changes
             </span>
           )}
-        </header>
+        </Box>
       )}
-      <div className="ui-full-page-form__body">
-        <div className="ui-full-page-form__fields">{children}</div>
+      <Grid
+        gap="section"
+        columns={sidebar ? "1fr auto" : undefined}
+        className="ui-full-page-form__body"
+      >
+        <Grid
+          gap="content"
+          columns={columns === 2 ? 2 : undefined}
+          className="ui-full-page-form__fields"
+        >
+          {children}
+        </Grid>
         {sidebar && (
-          <aside
+          <Box
+            as="aside"
             className="ui-full-page-form__sidebar"
             aria-label="Form help"
           >
             {sidebar}
-          </aside>
+          </Box>
         )}
-      </div>
-      <footer className="ui-full-page-form__footer">{footer}</footer>
+      </Grid>
+      <Box
+        as="footer"
+        display="flex"
+        align="center"
+        justify="end"
+        gap="content"
+        padding="page"
+        className="ui-full-page-form__footer"
+      >
+        {footer}
+      </Box>
     </form>
   );
 });

@@ -1,16 +1,4 @@
-/* Typography for .ui-keyboard-cheat-sheet__empty comes from the Text primitive. */
-
-.ui-keyboard-cheat-sheet__groups {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-section-gap);
-}
-
-.ui-keyboard-cheat-sheet__group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-content-gap);
-}
+/* Typography for .ui-keyboard-cheat-sheet__empty and __description comes from the Text primitive. */
 
 .ui-keyboard-cheat-sheet__category {
   text-transform: uppercase;
@@ -37,11 +25,6 @@
 
 .ui-keyboard-cheat-sheet__row:last-child {
   border-bottom: none;
-}
-
-.ui-keyboard-cheat-sheet__description {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-body);
 }
 
 .ui-keyboard-cheat-sheet__combo {

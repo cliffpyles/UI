@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { Modal } from "../../components/Modal";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import { useKeyboardShortcuts } from "./useKeyboardShortcut";
 import { formatComboLabel, isMac } from "./normalizeCombo";
@@ -79,23 +80,37 @@ export function KeyboardShortcutCheatSheet({
           {emptyLabel}
         </Text>
       ) : (
-        <div className="ui-keyboard-cheat-sheet__groups">
+        <Box
+          display="flex"
+          direction="column"
+          gap="section"
+          className="ui-keyboard-cheat-sheet__groups"
+        >
           {Array.from(byCategory.entries()).map(([category, list]) => (
-            <section key={category} className="ui-keyboard-cheat-sheet__group">
+            <Box
+              as="section"
+              key={category}
+              display="flex"
+              direction="column"
+              gap="content"
+              className="ui-keyboard-cheat-sheet__group"
+            >
               <Text as="h3" size="sm" weight="semibold" color="secondary" className="ui-keyboard-cheat-sheet__category">
                 {category}
               </Text>
               <ul className="ui-keyboard-cheat-sheet__list">
                 {list.map((s) => (
                   <li key={s.id} className="ui-keyboard-cheat-sheet__row">
-                    <span className="ui-keyboard-cheat-sheet__description">{s.description}</span>
+                    <Text as="span" size="body" color="primary" className="ui-keyboard-cheat-sheet__description">
+                      {s.description}
+                    </Text>
                     <kbd className="ui-keyboard-cheat-sheet__combo">{formatComboLabel(s.combo, mac)}</kbd>
                   </li>
                 ))}
               </ul>
-            </section>
+            </Box>
           ))}
-        </div>
+        </Box>
       )}
     </Modal>
   );
