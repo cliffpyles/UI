@@ -4,6 +4,9 @@ import {
   type AnchorHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Icon, type IconName } from "../../primitives/Icon";
 import { Spinner } from "../../primitives/Spinner";
 import "./Button.css";
 
@@ -25,11 +28,25 @@ type ButtonOwnProps = {
   size?: ButtonSize;
   /** Loading state — shows spinner and disables interaction */
   loading?: boolean;
+  /** Icon name rendered before the label */
+  icon?: IconName;
   /** Content to render inside the button */
   children?: ReactNode;
 };
 
 export type ButtonProps = ButtonOwnProps & (ButtonAsButton | ButtonAsAnchor);
+
+const iconSizeFor: Record<ButtonSize, "xs" | "sm" | "md"> = {
+  sm: "xs",
+  md: "sm",
+  lg: "md",
+};
+
+const textSizeFor: Record<ButtonSize, "sm" | "base" | "lg"> = {
+  sm: "sm",
+  md: "base",
+  lg: "lg",
+};
 
 export const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
@@ -39,6 +56,7 @@ export const Button = forwardRef<
     variant = "primary",
     size = "md",
     loading = false,
+    icon,
     as = "button",
     className,
     children,
@@ -56,18 +74,34 @@ export const Button = forwardRef<
     .filter(Boolean)
     .join(" ");
 
+  const iconNode = icon ? (
+    <Icon name={icon} size={iconSizeFor[size]} aria-hidden="true" />
+  ) : null;
+
+  const labelNode =
+    children !== undefined && children !== null && children !== "" ? (
+      <Text as="span" size={textSizeFor[size]} weight="medium" color="inherit">
+        {children}
+      </Text>
+    ) : null;
+
   const content = (
     <>
+      <Box
+        className={loading ? "ui-button__content ui-button__content--hidden" : "ui-button__content"}
+        direction="row"
+        align="center"
+        justify="center"
+        gap="2"
+      >
+        {iconNode}
+        {labelNode}
+      </Box>
       {loading && (
         <span className="ui-button__spinner">
           <Spinner size="sm" />
         </span>
       )}
-      <span
-        className={`ui-button__label${loading ? " ui-button__label--hidden" : ""}`}
-      >
-        {children}
-      </span>
     </>
   );
 
@@ -97,3 +131,5 @@ export const Button = forwardRef<
     </button>
   );
 });
+
+Button.displayName = "Button";

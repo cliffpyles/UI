@@ -4,12 +4,8 @@
 
 .ui-button {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-2);
+  display: inline-block;
   font-family: var(--font-family-sans);
-  font-weight: var(--font-weight-medium);
   line-height: var(--font-line-height-normal);
   border: 1px solid transparent;
   border-radius: var(--radius-md);
@@ -26,17 +22,14 @@
 
 .ui-button--sm {
   padding: var(--spacing-1-5) var(--spacing-3);
-  font-size: var(--font-size-sm);
 }
 
 .ui-button--md {
   padding: var(--spacing-2) var(--spacing-4);
-  font-size: var(--font-size-base);
 }
 
 .ui-button--lg {
   padding: var(--spacing-2-5) var(--spacing-5);
-  font-size: var(--font-size-lg);
 }
 
 /* Minimum 44px hit area per accessibility spec */
@@ -116,30 +109,28 @@
   cursor: wait;
 }
 
+.ui-button__content--hidden {
+  visibility: hidden;
+}
+
 .ui-button__spinner {
   position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.ui-button__label--hidden {
-  visibility: hidden;
 }
 
 /* ---------- Density ---------- */
 
 [data-density="compact"] .ui-button--sm {
   padding: var(--spacing-1) var(--spacing-2);
-  font-size: var(--font-size-xs);
 }
 
 [data-density="compact"] .ui-button--md {
   padding: var(--spacing-1-5) var(--spacing-3);
-  font-size: var(--font-size-sm);
 }
 
 [data-density="compact"] .ui-button--lg {
   padding: var(--spacing-2) var(--spacing-4);
-  font-size: var(--font-size-base);
 }
