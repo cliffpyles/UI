@@ -109,10 +109,24 @@ describe("Avatar", () => {
 
   // --- Ref forwarding ---
 
-  it("forwards ref to the span element", () => {
-    const ref = createRef<HTMLSpanElement>();
+  it("forwards ref to the root element", () => {
+    const ref = createRef<HTMLDivElement>();
     render(<Avatar ref={ref} alt="Test" />);
-    expect(ref.current).toBeInstanceOf(HTMLSpanElement);
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it("renders presence Dot when presence is set", () => {
+    const { container } = render(
+      <Avatar alt="Test" name="Jane Doe" presence="online" />,
+    );
+    const dot = container.querySelector(".ui-avatar__presence");
+    expect(dot).toBeInTheDocument();
+    expect(dot).toHaveClass("ui-dot--success");
+  });
+
+  it("does not render a Dot when presence is absent", () => {
+    const { container } = render(<Avatar alt="Test" name="Jane Doe" />);
+    expect(container.querySelector(".ui-avatar__presence")).not.toBeInTheDocument();
   });
 
   // --- className merging ---

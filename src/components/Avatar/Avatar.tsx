@@ -1,24 +1,30 @@
 import { forwardRef, useState, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Icon } from "../../primitives/Icon";
+import { Dot } from "../../primitives/Dot";
 import "./Avatar.css";
 
 type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarShape = "circle" | "square";
+type AvatarPresence = "online" | "away" | "offline";
 
 interface AvatarOwnProps {
   /** Image source URL */
   src?: string;
-  /** Alt text for the avatar image (required for accessibility) */
+  /** Alt text — carried by the container as its accessible label. Required. */
   alt: string;
-  /** User's name — used to generate initials fallback */
+  /** User's name — used to derive initials fallback */
   name?: string;
   /** Size of the avatar */
   size?: AvatarSize;
   /** Shape of the avatar */
   shape?: AvatarShape;
+  /** Presence indicator — renders a Dot in the bottom-right corner */
+  presence?: AvatarPresence;
 }
 
-export type AvatarProps = AvatarOwnProps & HTMLAttributes<HTMLSpanElement>;
+export type AvatarProps = AvatarOwnProps & HTMLAttributes<HTMLDivElement>;
 
 function getInitials(name: string): string {
   const parts = name.trim().split(/\s+/);
@@ -27,14 +33,28 @@ function getInitials(name: string): string {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
-  function Avatar(
+const iconSizeFor: Record<AvatarSize, "sm" | "md" | "lg"> = {
+  sm: "sm",
+  md: "sm",
+  lg: "md",
+  xl: "lg",
+};
+
+const presenceColor: Record<AvatarPresence, "success" | "warning" | "neutral"> = {
+  online: "success",
+  away: "warning",
+  offline: "neutral",
+};
+
+export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
+  function AvatarImpl(
     {
       src,
       alt,
       name,
       size = "md",
       shape = "circle",
+      presence,
       className,
       ...props
     },
@@ -56,7 +76,15 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
       .join(" ");
 
     return (
-      <span ref={ref} className={classes} role="img" aria-label={alt} {...props}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        className={classes}
+        align="center"
+        justify="center"
+        role="img"
+        aria-label={alt}
+        {...props}
+      >
         {showImage && (
           <img
             className="ui-avatar__image"
@@ -66,14 +94,29 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
           />
         )}
         {showInitials && (
-          <span className="ui-avatar__initials" aria-hidden="true">
+          <Text
+            as="span"
+            size="caption"
+            weight="semibold"
+            color="inherit"
+            aria-hidden="true"
+          >
             {getInitials(name)}
-          </span>
+          </Text>
         )}
         {showIcon && (
-          <Icon name="user" size={size === "xl" ? "lg" : size === "lg" ? "md" : "sm"} aria-hidden="true" />
+          <Icon name="user" size={iconSizeFor[size]} aria-hidden="true" />
         )}
-      </span>
+        {presence && (
+          <Dot
+            className="ui-avatar__presence"
+            color={presenceColor[presence]}
+            size={size === "sm" ? "sm" : "md"}
+          />
+        )}
+      </Box>
     );
   },
 );
+
+Avatar.displayName = "Avatar";

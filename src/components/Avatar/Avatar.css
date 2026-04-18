@@ -3,9 +3,7 @@
    ========================================================================== */
 
 .ui-avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   flex-shrink: 0;
   overflow: hidden;
   background: var(--color-background-surface-raised);
@@ -59,9 +57,10 @@
   object-fit: cover;
 }
 
-/* ---------- Initials ---------- */
+/* ---------- Presence ---------- */
 
-.ui-avatar__initials {
-  line-height: 1;
-  user-select: none;
+.ui-avatar__presence {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
 }
