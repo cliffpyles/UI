@@ -53,6 +53,9 @@ export type {
 export { Tabs } from "./Tabs";
 export type { TabsProps, TabsListProps, TabProps, TabPanelProps } from "./Tabs";
 
+export { Popover } from "./Popover";
+export type { PopoverProps, PopoverContentProps, PopoverPlacement } from "./Popover";
+
 export { Accordion } from "./Accordion";
 export type {
   AccordionProps,
