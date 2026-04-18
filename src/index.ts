@@ -320,7 +320,7 @@ export type {
   RowActionsMenuProps,
   ActionDef,
   ColumnPickerProps,
-  ColumnDef,
+  ColumnDescriptor,
   BulkActionBarProps,
   BulkAction,
   DataTableToolbarProps,

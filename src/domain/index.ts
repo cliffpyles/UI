@@ -149,7 +149,7 @@ export { RowActionsMenu } from "./RowActionsMenu";
 export type { RowActionsMenuProps, ActionDef } from "./RowActionsMenu";
 
 export { ColumnPicker } from "./ColumnPicker";
-export type { ColumnPickerProps, ColumnDef } from "./ColumnPicker";
+export type { ColumnPickerProps, ColumnDescriptor } from "./ColumnPicker";
 
 export { BulkActionBar } from "./BulkActionBar";
 export type { BulkActionBarProps, BulkAction } from "./BulkActionBar";

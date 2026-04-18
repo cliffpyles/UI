@@ -1,2 +1,2 @@
 export { ColumnPicker } from "./ColumnPicker";
-export type { ColumnPickerProps, ColumnDef } from "./ColumnPicker";
+export type { ColumnPickerProps, ColumnDescriptor } from "./ColumnPicker";
