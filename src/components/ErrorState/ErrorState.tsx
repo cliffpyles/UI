@@ -1,4 +1,5 @@
 import { forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
 import { Button } from "../Button";
@@ -34,10 +35,19 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
     const classes = ["ui-error-state", className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} role="alert" className={classes} {...props}>
-        <div className="ui-error-state__icon">
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        role="alert"
+        direction="column"
+        align="center"
+        justify="center"
+        gap="3"
+        className={classes}
+        {...props}
+      >
+        <Box align="center" justify="center" className="ui-error-state__icon">
           <Icon name="alert-circle" size="xl" color="error" />
-        </div>
+        </Box>
         <Text as="h3" size="lg" weight="semibold" color="primary" className="ui-error-state__title">
           {title}
         </Text>
@@ -47,7 +57,7 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
           </Text>
         )}
         {onRetry && (
-          <div className="ui-error-state__action">
+          <Box className="ui-error-state__action">
             <Button
               variant="secondary"
               size="sm"
@@ -56,10 +66,10 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
             >
               Retry
             </Button>
-          </div>
+          </Box>
         )}
         {details && (
-          <div className="ui-error-state__details">
+          <Box direction="column" className="ui-error-state__details">
             <Button
               variant="ghost"
               size="sm"
@@ -70,11 +80,17 @@ export const ErrorState = forwardRef<HTMLDivElement, ErrorStateProps>(
               {detailsOpen ? "Hide details" : "Show details"}
             </Button>
             {detailsOpen && (
-              <pre className="ui-error-state__details-content">{details}</pre>
+              <Box className="ui-error-state__details-content">
+                <Text as="p" size="xs" color="secondary" family="mono">
+                  {details}
+                </Text>
+              </Box>
             )}
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
     );
   },
 );
+
+ErrorState.displayName = "ErrorState";
