@@ -12,7 +12,11 @@ import {
   type KeyboardEvent,
 } from "react";
 import { Box } from "../../primitives/Box";
+import { Button } from "../Button";
 import "./Tabs.css";
+
+// Button automatically wraps its children in the Text primitive, so tab
+// labels render through Text per the Tabs spec without extra markup here.
 
 // --- Context ---
 
@@ -69,9 +73,14 @@ const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <TabsContext.Provider value={{ value: currentValue, onSelect: handleSelect, baseId }}>
-        <div ref={ref} className={classes} {...props}>
+        <Box
+          ref={ref as React.Ref<HTMLElement>}
+          direction="column"
+          className={classes}
+          {...props}
+        >
           {children}
-        </div>
+        </Box>
       </TabsContext.Provider>
     );
   },
@@ -178,8 +187,10 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
       .join(" ");
 
     return (
-      <button
+      <Button
         ref={ref}
+        variant="ghost"
+        size="md"
         role="tab"
         type="button"
         id={`${baseId}-tab-${value}`}
@@ -192,7 +203,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
         {...props}
       >
         {children}
-      </button>
+      </Button>
     );
   },
 );
@@ -217,8 +228,8 @@ const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
     const classes = ["ui-tabs__panel", className].filter(Boolean).join(" ");
 
     return (
-      <div
-        ref={ref}
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
         role="tabpanel"
         id={`${baseId}-panel-${value}`}
         aria-labelledby={`${baseId}-tab-${value}`}
@@ -227,12 +238,17 @@ const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(
         {...props}
       >
         {children}
-      </div>
+      </Box>
     );
   },
 );
 
 // --- Compound export ---
+
+TabsRoot.displayName = "Tabs";
+TabsList.displayName = "Tabs.List";
+Tab.displayName = "Tabs.Tab";
+TabPanel.displayName = "Tabs.Panel";
 
 export const Tabs = Object.assign(TabsRoot, {
   List: TabsList,
