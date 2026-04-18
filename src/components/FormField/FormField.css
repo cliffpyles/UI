@@ -1,57 +1,17 @@
 /* ==========================================================================
    FormField — Composite Component
+
+   Layout comes from Box (direction, gap); typography comes from Text
+   (size, weight, color). Only density overrides and component-specific
+   tweaks live here.
    ========================================================================== */
 
 .ui-form-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
   font-family: var(--font-family-sans);
-}
-
-/* ---------- Label ---------- */
-
-.ui-form-field__label {
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  line-height: var(--font-line-height-normal);
-}
-
-/* ---------- Control ---------- */
-
-.ui-form-field__control {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ---------- Error ---------- */
-
-.ui-form-field__error {
-  font-size: var(--font-size-sm);
-  color: var(--color-status-error-text);
-  line-height: var(--font-line-height-normal);
-}
-
-/* ---------- Hint ---------- */
-
-.ui-form-field__hint {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--font-line-height-normal);
 }
 
 /* ---------- Density ---------- */
 
 [data-density="compact"] .ui-form-field {
   gap: var(--spacing-0-5);
-}
-
-[data-density="compact"] .ui-form-field__label {
-  font-size: var(--font-size-xs);
-}
-
-[data-density="compact"] .ui-form-field__error,
-[data-density="compact"] .ui-form-field__hint {
-  font-size: var(--font-size-xs);
 }

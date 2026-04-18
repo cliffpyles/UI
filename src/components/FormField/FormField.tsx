@@ -7,6 +7,7 @@ import {
   type ReactNode,
   type HTMLAttributes,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import "./FormField.css";
 
@@ -58,6 +59,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         id: fieldId,
         "aria-describedby": describedBy,
         "aria-invalid": error ? true : undefined,
+        "aria-required": required ? true : undefined,
       });
     })();
 
@@ -70,25 +72,55 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
       .join(" ");
 
     return (
-      <div ref={ref} className={classes} {...props}>
-        <label className="ui-form-field__label" htmlFor={fieldId}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        direction="column"
+        gap="1"
+        className={classes}
+        {...props}
+      >
+        <Text
+          as="label"
+          size="label"
+          weight="medium"
+          color="primary"
+          className="ui-form-field__label"
+          {...({ htmlFor: fieldId } as { htmlFor: string })}
+        >
           {label}
           {required && (
             <Text as="span" size="xs" weight="normal" color="secondary"> (required)</Text>
           )}
-        </label>
-        <div className="ui-form-field__control">{enhancedChild}</div>
+        </Text>
+        <Box direction="column" className="ui-form-field__control">
+          {enhancedChild}
+        </Box>
         {error && (
-          <div id={errorId} className="ui-form-field__error" role="alert">
+          <Text
+            as="p"
+            id={errorId}
+            role="alert"
+            size="sm"
+            color="error"
+            className="ui-form-field__error"
+          >
             {error}
-          </div>
+          </Text>
         )}
         {hint && !error && (
-          <div id={hintId} className="ui-form-field__hint">
+          <Text
+            as="p"
+            id={hintId}
+            size="sm"
+            color="secondary"
+            className="ui-form-field__hint"
+          >
             {hint}
-          </div>
+          </Text>
         )}
-      </div>
+      </Box>
     );
   },
 );
+
+FormField.displayName = "FormField";
