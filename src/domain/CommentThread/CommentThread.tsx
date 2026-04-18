@@ -8,6 +8,7 @@ import {
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
+import { Textarea } from "../../components/Textarea";
 import { UserAvatar, type UserData } from "../UserAvatar";
 import { Timestamp } from "../Timestamp";
 import "./CommentThread.css";
@@ -108,7 +109,7 @@ function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
                 }
               }}
             >
-              <textarea
+              <Textarea
                 aria-label={`Reply to ${comment.author.name}`}
                 value={reply}
                 onChange={(e) => setReply(e.target.value)}
@@ -181,7 +182,7 @@ export const CommentThread = forwardRef<HTMLDivElement, CommentThreadProps>(
               }
             }}
           >
-            <textarea
+            <Textarea
               aria-label="Add comment"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}

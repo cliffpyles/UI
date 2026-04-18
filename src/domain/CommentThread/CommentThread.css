@@ -62,18 +62,5 @@
 }
 
 .ui-comment-thread__textarea {
-  width: 100%;
   min-height: 64px;
-  padding: var(--spacing-2);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  font: inherit;
-  color: var(--color-text-primary);
-  background: var(--color-background-surface);
-  resize: vertical;
-}
-
-.ui-comment-thread__textarea:focus-visible {
-  outline: 2px solid var(--color-action-primary);
-  outline-offset: -1px;
 }

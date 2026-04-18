@@ -5,6 +5,7 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import { Button } from "../../components/Button";
+import { Textarea } from "../../components/Textarea";
 import "./FormulaInput.css";
 
 export interface FormulaSchemaField {
@@ -35,7 +36,7 @@ export const FormulaInput = forwardRef<HTMLTextAreaElement, FormulaInputProps>(
 
     return (
       <div className={classes}>
-        <textarea
+        <Textarea
           ref={ref}
           className="ui-formula-input__field"
           value={value}
@@ -45,7 +46,7 @@ export const FormulaInput = forwardRef<HTMLTextAreaElement, FormulaInputProps>(
           }}
           placeholder={placeholder}
           aria-label="Formula"
-          aria-invalid={error ? true : undefined}
+          error={!!error}
           aria-describedby={error ? "formula-error" : undefined}
           spellCheck={false}
           {...rest}

@@ -1,0 +1,92 @@
+.ui-textarea {
+  display: block;
+  width: 100%;
+  font-family: var(--font-family-sans);
+  color: var(--color-text-primary);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default);
+}
+
+.ui-textarea::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.ui-textarea--sm {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-textarea--md {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-base);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-textarea--lg {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-normal);
+}
+
+.ui-textarea--resize-none {
+  resize: none;
+}
+
+.ui-textarea--resize-vertical {
+  resize: vertical;
+}
+
+.ui-textarea--resize-horizontal {
+  resize: horizontal;
+}
+
+.ui-textarea--resize-both {
+  resize: both;
+}
+
+.ui-textarea:hover:not(:disabled):not(.ui-textarea--disabled) {
+  border-color: var(--color-text-tertiary);
+}
+
+.ui-textarea:focus {
+  border-color: var(--color-action-primary);
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.ui-textarea--error {
+  border-color: var(--color-status-error-icon);
+}
+
+.ui-textarea--error:focus {
+  border-color: var(--color-status-error-icon);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+.ui-textarea:disabled,
+.ui-textarea--disabled {
+  background: var(--color-background-surface-raised);
+  border-color: var(--color-border-default);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+[data-density="compact"] .ui-textarea--sm {
+  padding: var(--spacing-0-5) var(--spacing-1-5);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-textarea--md {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-sm);
+}
+
+[data-density="compact"] .ui-textarea--lg {
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-base);
+}
