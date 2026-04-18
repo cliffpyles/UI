@@ -1,4 +1,6 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./AlertFeedLayout.css";
 
 export type AlertSeverity = "critical" | "warning" | "info";
@@ -46,11 +48,21 @@ export const AlertFeedLayout = forwardRef<HTMLDivElement, AlertFeedLayoutProps>(
         : alerts;
 
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        direction="column"
+        className={classes}
+        {...rest}
+      >
         {toolbar && (
-          <div className="ui-alert-feed__toolbar" role="toolbar">
+          <Box
+            align="center"
+            gap="2"
+            className="ui-alert-feed__toolbar"
+            role="toolbar"
+          >
             {toolbar}
-          </div>
+          </Box>
         )}
         <section className="ui-alert-feed__feed" aria-label={feedLabel}>
           <ul className="ui-alert-feed__list" role="list">
@@ -61,22 +73,28 @@ export const AlertFeedLayout = forwardRef<HTMLDivElement, AlertFeedLayoutProps>(
                   alert.acknowledged ? " ui-alert-feed__item--acknowledged" : ""
                 }`}
               >
-                <div className="ui-alert-feed__item-header">
+                <Box align="center" gap="2" className="ui-alert-feed__item-header">
                   <span
                     className={`ui-alert-feed__badge ui-alert-feed__badge--${alert.severity}`}
                   >
                     {SEVERITY_LABEL[alert.severity]}
                   </span>
-                  <span className="ui-alert-feed__item-title">
+                  <Text
+                    as="span"
+                    size="sm"
+                    weight="semibold"
+                    color="primary"
+                    className="ui-alert-feed__item-title"
+                  >
                     {alert.title}
-                  </span>
+                  </Text>
                   <time className="ui-alert-feed__timestamp">
                     {alert.timestamp}
                   </time>
-                </div>
+                </Box>
                 <div className="ui-alert-feed__item-body">{alert.content}</div>
                 {onAcknowledge && (
-                  <div className="ui-alert-feed__item-actions">
+                  <Box display="flex" gap="2" className="ui-alert-feed__item-actions">
                     <button
                       type="button"
                       className="ui-alert-feed__ack"
@@ -85,13 +103,13 @@ export const AlertFeedLayout = forwardRef<HTMLDivElement, AlertFeedLayoutProps>(
                     >
                       {alert.acknowledged ? "Acknowledged" : "Acknowledge"}
                     </button>
-                  </div>
+                  </Box>
                 )}
               </li>
             ))}
           </ul>
         </section>
-      </div>
+      </Box>
     );
   },
 );

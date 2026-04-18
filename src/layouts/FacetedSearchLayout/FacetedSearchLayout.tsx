@@ -3,7 +3,9 @@ import {
   useState,
   type HTMLAttributes,
   type ReactNode,
+  type Ref,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { ResizablePanel } from "../ResizablePanel";
 import "./FacetedSearchLayout.css";
 
@@ -40,7 +42,12 @@ export const FacetedSearchLayout = forwardRef<HTMLDivElement, FacetedSearchLayou
     const [width, setWidth] = useState(facetsWidth);
     const classes = ["ui-faceted-search", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...rest}>
+      <Box
+        ref={ref as Ref<HTMLElement>}
+        display="flex"
+        className={classes}
+        {...rest}
+      >
         <ResizablePanel
           direction="horizontal"
           size={width}
@@ -60,7 +67,11 @@ export const FacetedSearchLayout = forwardRef<HTMLDivElement, FacetedSearchLayou
             {facets}
           </aside>
         </ResizablePanel>
-        <main
+        <Box
+          as="main"
+          direction="column"
+          grow
+          minWidth={0}
           className="ui-faceted-search__results"
           aria-label={resultsLabel}
         >
@@ -70,8 +81,8 @@ export const FacetedSearchLayout = forwardRef<HTMLDivElement, FacetedSearchLayou
             </header>
           )}
           <div className="ui-faceted-search__results-body">{results}</div>
-        </main>
-      </div>
+        </Box>
+      </Box>
     );
   },
 );
