@@ -5,6 +5,18 @@ export const iconPaths = {
   "chevron-right": <polyline points="9 18 15 12 9 6" />,
   "chevron-up": <polyline points="18 15 12 9 6 15" />,
   "chevron-left": <polyline points="15 18 9 12 15 6" />,
+  "chevrons-right": (
+    <>
+      <polyline points="13 17 18 12 13 7" />
+      <polyline points="6 17 11 12 6 7" />
+    </>
+  ),
+  "chevrons-left": (
+    <>
+      <polyline points="11 17 6 12 11 7" />
+      <polyline points="18 17 13 12 18 7" />
+    </>
+  ),
   x: (
     <>
       <line x1="18" y1="6" x2="6" y2="18" />

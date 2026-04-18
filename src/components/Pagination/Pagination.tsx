@@ -1,5 +1,12 @@
-import { forwardRef, useCallback, type HTMLAttributes } from "react";
+import { forwardRef, useCallback, useId, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Button } from "../Button";
+import { Select } from "../Select";
 import "./Pagination.css";
+
+// Icon names (chevron-left/right/chevrons-left/chevrons-right) are passed as
+// the `icon` prop to Button, which composes Icon internally per its spec.
 
 interface PaginationOwnProps {
   /** Current page (1-based) */
@@ -36,6 +43,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     },
     ref,
   ) {
+    const sizeLabelId = useId();
     const isFirstPage = page <= 1;
     const isLastPage = page >= totalPages;
 
@@ -56,13 +64,13 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     }, [isLastPage, onPageChange, totalPages]);
 
     const handlePageSizeChange = useCallback(
-      (e: React.ChangeEvent<HTMLSelectElement>) => {
-        onPageSizeChange?.(Number(e.target.value));
+      (value: string) => {
+        onPageSizeChange?.(Number(value));
       },
       [onPageSizeChange],
     );
 
-    // Calculate "Showing X-Y of Z"
+    // Calculate "Showing X–Y of Z" using en-dash per spec
     const showingLabel = (() => {
       if (totalItems === undefined || pageSize === undefined) return null;
       const start = (page - 1) * pageSize + 1;
@@ -73,84 +81,93 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     const classes = ["ui-pagination", className].filter(Boolean).join(" ");
 
     return (
-      <nav ref={ref} aria-label="Pagination" className={classes} {...props}>
+      <Box
+        as="nav"
+        ref={ref as React.Ref<HTMLElement>}
+        align="center"
+        justify="between"
+        gap="4"
+        aria-label="Pagination"
+        className={classes}
+        {...props}
+      >
         {showingLabel && (
-          <span className="ui-pagination__info">{showingLabel}</span>
+          <Text as="span" size="sm" color="secondary" className="ui-pagination__info">
+            {showingLabel}
+          </Text>
         )}
 
         {pageSize !== undefined && onPageSizeChange && (
-          <div className="ui-pagination__page-size">
-            <label className="ui-pagination__page-size-label">
+          <Box align="center" gap="1" className="ui-pagination__page-size">
+            <Text
+              as="label"
+              id={sizeLabelId}
+              size="sm"
+              color="secondary"
+              className="ui-pagination__page-size-label"
+            >
               Rows per page:
-              <select
-                className="ui-pagination__page-size-select"
-                value={pageSize}
-                onChange={handlePageSizeChange}
-              >
-                {pageSizeOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+            </Text>
+            <Select
+              size="sm"
+              value={String(pageSize)}
+              onChange={handlePageSizeChange}
+              aria-labelledby={sizeLabelId}
+              options={pageSizeOptions.map((opt) => ({
+                value: String(opt),
+                label: String(opt),
+              }))}
+            />
+          </Box>
         )}
 
-        <div className="ui-pagination__controls">
-          <button
-            type="button"
-            className="ui-pagination__button"
+        <Box align="center" gap="1" className="ui-pagination__controls">
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="chevrons-left"
             onClick={goFirst}
             disabled={isFirstPage}
             aria-label="First page"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="11 17 6 12 11 7" />
-              <polyline points="18 17 13 12 18 7" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            className="ui-pagination__button"
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="chevron-left"
             onClick={goPrev}
             disabled={isFirstPage}
             aria-label="Previous page"
+          />
+          <Text
+            as="span"
+            size="sm"
+            color="secondary"
+            tabularNums
+            className="ui-pagination__page-indicator"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-
-          <span className="ui-pagination__page-indicator">
             Page {page} of {totalPages}
-          </span>
-
-          <button
-            type="button"
-            className="ui-pagination__button"
+          </Text>
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="chevron-right"
             onClick={goNext}
             disabled={isLastPage}
             aria-label="Next page"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            className="ui-pagination__button"
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="chevrons-right"
+
             onClick={goLast}
             disabled={isLastPage}
             aria-label="Last page"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="13 17 18 12 13 7" />
-              <polyline points="6 17 11 12 6 7" />
-            </svg>
-          </button>
-        </div>
-      </nav>
+          />
+        </Box>
+      </Box>
     );
   },
 );
+
+Pagination.displayName = "Pagination";
