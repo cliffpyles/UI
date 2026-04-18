@@ -2,7 +2,11 @@
 import { forwardRef, type ReactNode, type HTMLAttributes } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Divider } from "../../primitives/Divider";
 import "./Card.css";
+
+// Divider is available for consumers composing separated sections within a Card.
+export { Divider as CardDivider };
 
 // --- Card Root ---
 
@@ -16,9 +20,14 @@ const CardRoot = forwardRef<HTMLDivElement, CardProps>(
   function Card({ children, className, ...props }, ref) {
     const classes = ["ui-card", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...props}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        direction="column"
+        className={classes}
+        {...props}
+      >
         {children}
-      </div>
+      </Box>
     );
   },
 );
@@ -100,9 +109,14 @@ const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   function CardBody({ children, className, ...props }, ref) {
     const classes = ["ui-card__body", className].filter(Boolean).join(" ");
     return (
-      <div ref={ref} className={classes} {...props}>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        direction="column"
+        className={classes}
+        {...props}
+      >
         {children}
-      </div>
+      </Box>
     );
   },
 );
@@ -129,6 +143,13 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
 );
 
 // --- Compound export ---
+
+CardRoot.displayName = "Card";
+CardHeader.displayName = "Card.Header";
+CardTitle.displayName = "Card.Title";
+CardActions.displayName = "Card.Actions";
+CardBody.displayName = "Card.Body";
+CardFooter.displayName = "Card.Footer";
 
 export const Card = Object.assign(CardRoot, {
   Header: CardHeader,
