@@ -8,7 +8,14 @@ import {
   type ReactNode,
   type HTMLAttributes,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./Tooltip.css";
+
+// NOTE: spec references Popover for the floating layer, but Popover hardcodes
+// role="dialog" / aria-haspopup="dialog" which conflicts with role="tooltip" +
+// aria-describedby. Tooltip keeps its own lightweight positioning until Popover
+// exposes a non-dialog mode; internal content layout still composes Box + Text.
 
 type TooltipSide = "top" | "bottom" | "left" | "right";
 
@@ -133,18 +140,29 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
           {children}
         </span>
         {isVisible && (
-          <div
-            ref={tooltipRefCallback}
+          <Box
+            ref={tooltipRefCallback as React.Ref<HTMLElement>}
             id={tooltipId}
             role="tooltip"
+            direction="row"
+            align="center"
+            gap="1.5"
             className={`ui-tooltip ui-tooltip--${flippedSide}`}
             style={{ maxWidth: `${maxWidth}px` }}
             {...props}
           >
-            {content}
-          </div>
+            {typeof content === "string" ? (
+              <Text as="span" size="caption" color="inherit">
+                {content}
+              </Text>
+            ) : (
+              content
+            )}
+          </Box>
         )}
       </>
     );
   },
 );
+
+Tooltip.displayName = "Tooltip";
