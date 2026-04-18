@@ -14,7 +14,7 @@ interface DotOwnProps {
 export type DotProps = DotOwnProps &
   Omit<HTMLAttributes<HTMLSpanElement>, 'color'>;
 
-export const Dot = forwardRef<HTMLSpanElement, DotProps>(function Dot(
+export const Dot = forwardRef<HTMLSpanElement, DotProps>(function DotImpl(
   { color = 'neutral', size = 'sm', label, className, ...rest },
   ref,
 ) {
@@ -38,3 +38,5 @@ export const Dot = forwardRef<HTMLSpanElement, DotProps>(function Dot(
     />
   );
 });
+
+Dot.displayName = 'Dot';
