@@ -1,82 +1,97 @@
-import {
-  forwardRef,
-  useState,
-  type HTMLAttributes,
-  type ReactNode,
-} from "react";
-import { UserAvatar } from "../UserAvatar";
-import { Timestamp } from "../Timestamp";
-import { Button } from "../../components/Button";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { Box } from "../../primitives/Box";
-import { Icon } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
+import { UserChip } from "../UserChip";
+import { Timestamp } from "../Timestamp";
 import type { UserData } from "../UserAvatar";
 import "./ActivityItem.css";
 
-export interface ActivityItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface ActivityItemAction {
+  label: string;
+  onSelect: () => void;
+}
+
+export interface ActivityItemProps extends HTMLAttributes<HTMLElement> {
   actor: UserData;
   action: ReactNode;
   target?: ReactNode;
-  timestamp: Date | string | number;
-  detail?: ReactNode;
+  occurredAt: Date | string | number;
+  actions?: ActivityItemAction[];
 }
 
-export const ActivityItem = forwardRef<HTMLDivElement, ActivityItemProps>(
+function plainText(node: ReactNode): string {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(plainText).join(" ");
+  if (typeof node === "object" && "props" in node) {
+    return plainText((node as { props: { children?: ReactNode } }).props.children);
+  }
+  return "";
+}
+
+export const ActivityItem = forwardRef<HTMLElement, ActivityItemProps>(
   function ActivityItem(
-    { actor, action, target, timestamp, detail, className, ...rest },
+    { actor, action, target, occurredAt, actions, className, ...rest },
     ref,
   ) {
-    const [expanded, setExpanded] = useState(false);
     const classes = ["ui-activity-item", className].filter(Boolean).join(" ");
+    const label = [actor.name, plainText(action), plainText(target)]
+      .filter(Boolean)
+      .join(" ");
 
     return (
       <Box
+        as="article"
         ref={ref as React.Ref<HTMLElement>}
-        className={classes}
-        display="flex"
+        aria-label={label}
+        direction="row"
+        align="start"
         gap="3"
+        className={classes}
         {...rest}
       >
-        <UserAvatar user={actor} size="sm" />
-        <Box className="ui-activity-item__body" grow minWidth={0}>
-          <div className="ui-activity-item__summary">
-            <Text as="span" size="sm" weight="semibold">{actor.name}</Text>{" "}
-            <Text as="span" size="sm" color="secondary">{action}</Text>
-            {target && (
-              <>
-                {" "}
-                <Text as="span" size="sm" weight="medium">{target}</Text>
-              </>
-            )}
-          </div>
+        <UserChip user={actor} size="sm" />
+        <Box
+          direction="column"
+          gap="1"
+          grow
+          minWidth={0}
+          className="ui-activity-item__body"
+        >
+          <Text as="span" size="sm" color="secondary">
+            {action}
+            {target ? " " : null}
+            {target}
+          </Text>
           <Timestamp
-            date={timestamp}
+            date={occurredAt}
             format="auto"
             className="ui-activity-item__time"
           />
-          {detail && (
-            <>
+        </Box>
+        {actions && actions.length > 0 && (
+          <Box
+            direction="row"
+            gap="1"
+            align="center"
+            className="ui-activity-item__actions"
+          >
+            {actions.map((a) => (
               <Button
+                key={a.label}
                 variant="ghost"
                 size="sm"
-                className="ui-activity-item__toggle"
-                onClick={() => setExpanded((v) => !v)}
-                aria-expanded={expanded}
+                onClick={a.onSelect}
               >
-                <Box display="inline-flex" align="center" gap="1">
-                  <Icon
-                    name={expanded ? "chevron-down" : "chevron-right"}
-                    size="xs"
-                    aria-hidden
-                  />
-                  {expanded ? "Hide details" : "Show details"}
-                </Box>
+                {a.label}
               </Button>
-              {expanded && <div className="ui-activity-item__detail">{detail}</div>}
-            </>
-          )}
-        </Box>
+            ))}
+          </Box>
+        )}
       </Box>
     );
   },
 );
+
+ActivityItem.displayName = "ActivityItem";

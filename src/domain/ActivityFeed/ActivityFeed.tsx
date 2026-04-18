@@ -8,10 +8,8 @@ import { Pagination } from "../../components/Pagination";
 import { ActivityItem, type ActivityItemProps } from "../ActivityItem";
 import "./ActivityFeed.css";
 
-export interface ActivityEvent
-  extends Omit<ActivityItemProps, "timestamp" | "children"> {
+export interface ActivityEvent extends Omit<ActivityItemProps, "children"> {
   id: string;
-  occurredAt: Date | string | number;
 }
 
 export interface ActivityFeedProps extends HTMLAttributes<HTMLDivElement> {
@@ -127,13 +125,8 @@ export const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
                   direction="column"
                   gap="2"
                 >
-                  {groupEvents.map(({ id, occurredAt, ...itemProps }) => (
-                    <ActivityItem
-                      key={id}
-                      role="article"
-                      timestamp={occurredAt}
-                      {...itemProps}
-                    />
+                  {groupEvents.map(({ id, ...itemProps }) => (
+                    <ActivityItem key={id} role="article" {...itemProps} />
                   ))}
                 </Box>
               </Box>
