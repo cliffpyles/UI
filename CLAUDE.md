@@ -13,6 +13,16 @@ Key documents to read before building components:
 - [API Design](./design/standards/api-design.md) — component API conventions
 - [Testing](./design/standards/testing.md) — testing strategy and edge cases
 
+### Per-component specs (source of truth)
+
+Every component has a spec at `design/components/<tier>/<ComponentName>.md`. **Before creating, modifying, or refactoring any component, read its spec.** The spec defines composition (what the component must be built from), API contract, required states, accessibility, permitted tokens, and forbidden patterns. These decisions are already made — do not re-derive them.
+
+- Inventory and inverse index: [design/components/INDEX.md](./design/components/INDEX.md) (regenerate with `node scripts/generate-component-index.mjs`)
+- Authoring conventions: [design/components/README.md](./design/components/README.md)
+- Template: [design/components/_template.md](./design/components/_template.md)
+
+If the spec does not exist, **author it before writing component code**. Filling the template forces the composition decision before any line of `.tsx`. If the spec and code disagree, the spec wins — update the code, or update the spec first if the contract has legitimately changed.
+
 ## Implementation Roadmap
 
 The `plans/` directory contains the phased build plan. See [plans/ROADMAP.md](./plans/ROADMAP.md) for the overview and phase dependency graph.
@@ -26,6 +36,8 @@ npm run typecheck    # TypeScript only
 npm run lint         # ESLint
 npm test             # Vitest (single run)
 npm run test:watch   # Vitest (watch mode)
+
+node scripts/generate-component-index.mjs   # Regenerate design/components/INDEX.md
 ```
 
 ## Project Structure
@@ -119,7 +131,8 @@ All hooks live in `.claude/hooks/` and are configured in `.claude/settings.json`
 | `typecheck.sh` | PostToolUse (Write/Edit) | Runs `tsc -b` on .ts/.tsx edits. Type errors are fed back to Claude. |
 | `lint.sh` | PostToolUse (Write/Edit) | Runs ESLint on the changed .ts/.tsx file. Lint errors are fed back to Claude. |
 | `test-changed.sh` | PostToolUse (Write/Edit) | Runs Vitest on the changed file when it's a `.test.tsx` file. Failures are fed back to Claude. |
-| `composition-check.sh` | PostToolUse (Write/Edit) | Flags raw typographic tags (`h1-h6`, `p`, `label`, `legend`) in `components/`, `domain/`, `layouts/`, `features/`. Violations are fed back to Claude so it switches to the `Text` primitive. |
+| `composition-check.sh` | PostToolUse (Write/Edit) | Universal composition rules: raw typographic tags (must use `Text`), raw interactive controls (`<button>`, `<input>`, `<select>`, `<textarea>`, `<dialog>` outside their owner component), `onClick` on `<div>`/`<span>`, inline number formatting (`Intl.NumberFormat`/`toLocaleString`), inline trend glyphs (▲▼↑↓), hardcoded colors and dimensions in CSS. Hard fail. |
+| `spec-check.sh` | PostToolUse (Write/Edit) | Reads `design/components/<tier>/<Name>.md` for the edited component and verifies every entry in the spec's `uses:` frontmatter is imported and rendered. Hard fail when spec exists; warn-only when spec is missing. |
 
 Git pre-commit hook (`.githooks/pre-commit`) runs typecheck + lint + test as a final gate.
 
