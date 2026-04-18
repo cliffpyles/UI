@@ -201,6 +201,9 @@ export const iconPaths = {
       <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
     </>
   ),
+  "square-filled": (
+    <rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor" stroke="none" />
+  ),
 } as const satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof iconPaths;

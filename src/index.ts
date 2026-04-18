@@ -393,7 +393,7 @@ export type {
   ChartTooltipProps,
   ChartTooltipRow,
   ChartLegendProps,
-  LegendSeries,
+  ChartLegendItem,
   ChartHeaderProps,
   TimeSeriesChartProps,
   TimeSeriesSeries,

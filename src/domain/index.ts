@@ -292,7 +292,7 @@ export { ChartTooltip } from "./ChartTooltip";
 export type { ChartTooltipProps, ChartTooltipRow } from "./ChartTooltip";
 
 export { ChartLegend } from "./ChartLegend";
-export type { ChartLegendProps, LegendSeries } from "./ChartLegend";
+export type { ChartLegendProps, ChartLegendItem } from "./ChartLegend";
 
 export { ChartHeader } from "./ChartHeader";
 export type { ChartHeaderProps } from "./ChartHeader";

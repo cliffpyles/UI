@@ -174,7 +174,7 @@ export default function Domain() {
       <Demo title="Chart & Visualization" description="Time series, category, funnel, heatmap, and legend.">
         <Box display="flex" direction="column" gap="3" style={{ maxWidth: "600px" }}>
           <TimeSeriesChart series={series} height={180} />
-          <ChartLegend series={[{ id: "revenue", label: "Revenue", color: "#3b82f6" }]} />
+          <ChartLegend items={[{ id: "revenue", label: "Revenue", color: "#3b82f6" }]} />
           <CategoryChart
             data={[
               { category: "Jan", value: 20 },

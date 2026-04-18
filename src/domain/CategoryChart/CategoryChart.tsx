@@ -2,7 +2,7 @@ import { forwardRef, useState, type HTMLAttributes } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import { EmptyChart } from "../EmptyChart";
-import { ChartLegend, type LegendSeries } from "../ChartLegend";
+import { ChartLegend, type ChartLegendItem } from "../ChartLegend";
 import { ChartTooltip } from "../ChartTooltip";
 import "./CategoryChart.css";
 
@@ -73,7 +73,7 @@ export const CategoryChart = forwardRef<HTMLDivElement, CategoryChartProps>(
     const max = Math.max(...data.map((d) => d.value), 1);
     const chartW = width - padding * 2;
     const chartH = height - padding * 2;
-    const legendSeries: LegendSeries[] = [
+    const legendSeries: ChartLegendItem[] = [
       { id: "primary", label: seriesLabel, color: defaultColor },
     ];
 
@@ -174,7 +174,7 @@ export const CategoryChart = forwardRef<HTMLDivElement, CategoryChartProps>(
           <Text as="span" size="xs" color="secondary">
             {data.length} categor{data.length === 1 ? "y" : "ies"}
           </Text>
-          <ChartLegend series={legendSeries} />
+          <ChartLegend items={legendSeries} />
         </Box>
       </Box>
     );
