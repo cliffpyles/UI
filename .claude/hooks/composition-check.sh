@@ -47,8 +47,10 @@ $MATCHES
   esac
 
   # Styled-span heuristic — typography-bearing className on <span>.
+  # Carveouts: Text owns typography; Spinner's spec authorizes an internal
+  # visually-hidden label span (design/components/primitive/Spinner.md).
   case "$FILE_PATH" in
-    */primitives/Text/*) ;;
+    */primitives/Text/*|*/primitives/Spinner/*) ;;
     *)
       SPAN_MATCHES=$(grep -nE '<span[^>]*className="[^"]*ui-[^"]*__(title|label|name|value|text|desc|description|subtitle|unit|number|actor|action|target)' "$FILE_PATH" || true)
       if [ -n "$SPAN_MATCHES" ]; then

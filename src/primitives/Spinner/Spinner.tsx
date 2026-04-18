@@ -42,3 +42,5 @@ export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
     );
   },
 );
+
+Spinner.displayName = "Spinner";
