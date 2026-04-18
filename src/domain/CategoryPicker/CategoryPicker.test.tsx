@@ -2,9 +2,9 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
-import { CategoryPicker } from "./CategoryPicker";
+import { CategoryPicker, type CategoryNode } from "./CategoryPicker";
 
-const CATS = [
+const OPTIONS: CategoryNode[] = [
   {
     id: "food",
     label: "Food",
@@ -17,32 +17,71 @@ const CATS = [
 ];
 
 describe("CategoryPicker", () => {
-  it("renders tree", () => {
-    render(<CategoryPicker categories={CATS} value={null} onChange={() => {}} />);
-    expect(screen.getByText("Food")).toBeInTheDocument();
-  });
-
-  it("selects single", async () => {
-    const user = userEvent.setup();
-    const fn = vi.fn();
-    render(<CategoryPicker categories={CATS} value={null} onChange={fn} />);
-    await user.click(screen.getByLabelText("Other"));
-    expect(fn).toHaveBeenCalledWith("other");
-  });
-
-  it("selects multiple", async () => {
-    const user = userEvent.setup();
-    const fn = vi.fn();
+  it("renders the placeholder when no value is selected", () => {
     render(
-      <CategoryPicker categories={CATS} value={[]} onChange={fn} multiple />,
+      <CategoryPicker options={OPTIONS} value={null} onChange={() => {}} />,
     );
-    await user.click(screen.getByLabelText("Other"));
-    expect(fn).toHaveBeenCalledWith(["other"]);
+    expect(screen.getByText("Select category")).toBeInTheDocument();
   });
 
-  it("no a11y violations", async () => {
+  it("renders the resolved path when a leaf is selected", () => {
+    render(
+      <CategoryPicker options={OPTIONS} value="fruit" onChange={() => {}} />,
+    );
+    expect(screen.getByText("Food / Fruit")).toBeInTheDocument();
+  });
+
+  it("drills into a branch and selects a leaf, calling onChange with id + path", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <CategoryPicker options={OPTIONS} value={null} onChange={onChange} />,
+    );
+    await user.click(screen.getByRole("button", { name: /Select category/ }));
+    await user.click(screen.getByRole("menuitem", { name: /Food/ }));
+    await user.click(screen.getByRole("menuitem", { name: /Fruit/ }));
+    expect(onChange).toHaveBeenCalledWith(
+      "fruit",
+      expect.arrayContaining([
+        expect.objectContaining({ id: "food" }),
+        expect.objectContaining({ id: "fruit" }),
+      ]),
+    );
+  });
+
+  it("allowBranchSelection selects branches directly", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <CategoryPicker
+        options={OPTIONS}
+        value={null}
+        onChange={onChange}
+        allowBranchSelection
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: /Select category/ }));
+    await user.click(screen.getByRole("menuitem", { name: /Food/ }));
+    expect(onChange).toHaveBeenCalledWith("food", expect.any(Array));
+  });
+
+  it("disabled prevents interaction", async () => {
+    const user = userEvent.setup();
+    render(
+      <CategoryPicker
+        options={OPTIONS}
+        value={null}
+        onChange={() => {}}
+        disabled
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: /Select category/ }));
+    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+  });
+
+  it("has no a11y violations", async () => {
     const { container } = render(
-      <CategoryPicker categories={CATS} value={null} onChange={() => {}} />,
+      <CategoryPicker options={OPTIONS} value={null} onChange={() => {}} />,
     );
     expect(await axe(container)).toHaveNoViolations();
   });

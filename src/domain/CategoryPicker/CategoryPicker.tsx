@@ -1,8 +1,14 @@
-import { forwardRef, useState, type HTMLAttributes } from "react";
+import {
+  forwardRef,
+  useMemo,
+  useRef,
+  useState,
+  type HTMLAttributes,
+} from "react";
 import { Box } from "../../primitives/Box";
-import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
-import { Checkbox } from "../../components/Checkbox";
+import { Menu } from "../../components/Menu";
 import "./CategoryPicker.css";
 
 export interface CategoryNode {
@@ -11,131 +17,153 @@ export interface CategoryNode {
   children?: CategoryNode[];
 }
 
-export interface CategoryPickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  categories: CategoryNode[];
-  value: string[] | string | null;
-  onChange: (value: string[] | string | null) => void;
-  multiple?: boolean;
-  defaultExpanded?: boolean;
+export interface CategoryPickerProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  options: CategoryNode[];
+  value: string | null;
+  onChange: (id: string, path: CategoryNode[]) => void;
+  placeholder?: string;
+  allowBranchSelection?: boolean;
+  disabled?: boolean;
 }
 
-interface NodeRowProps {
-  node: CategoryNode;
-  selected: Set<string>;
-  multiple: boolean;
-  depth: number;
-  onToggle: (id: string) => void;
-  defaultExpanded: boolean;
-}
-
-function NodeRow({
-  node,
-  selected,
-  multiple,
-  depth,
-  onToggle,
-  defaultExpanded,
-}: NodeRowProps) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
-  const hasChildren = !!node.children?.length;
-  const isSelected = selected.has(node.id);
-
-  return (
-    <li className="ui-category-picker__item" style={{ paddingLeft: `${depth * 16}px` }}>
-      <Box className="ui-category-picker__row" align="center" gap="1">
-        {hasChildren ? (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="ui-category-picker__chevron"
-            onClick={() => setExpanded((v) => !v)}
-            aria-expanded={expanded}
-            aria-label={expanded ? "Collapse" : "Expand"}
-          >
-            <Icon name={expanded ? "chevron-down" : "chevron-right"} size="xs" aria-hidden />
-          </Button>
-        ) : (
-          <span className="ui-category-picker__spacer" aria-hidden="true" />
-        )}
-        <label className="ui-category-picker__label">
-          {multiple ? (
-            <Checkbox checked={isSelected} onChange={() => onToggle(node.id)} />
-          ) : (
-            <input
-              type="radio"
-              checked={isSelected}
-              onChange={() => onToggle(node.id)}
-            />
-          )}
-          <span>{node.label}</span>
-        </label>
-      </Box>
-      {hasChildren && expanded && (
-        <ul className="ui-category-picker__children">
-          {node.children!.map((child) => (
-            <NodeRow
-              key={child.id}
-              node={child}
-              selected={selected}
-              multiple={multiple}
-              depth={depth + 1}
-              onToggle={onToggle}
-              defaultExpanded={defaultExpanded}
-            />
-          ))}
-        </ul>
-      )}
-    </li>
-  );
+function findPath(
+  options: CategoryNode[],
+  id: string,
+): CategoryNode[] | null {
+  for (const node of options) {
+    if (node.id === id) return [node];
+    if (node.children) {
+      const sub = findPath(node.children, id);
+      if (sub) return [node, ...sub];
+    }
+  }
+  return null;
 }
 
 export const CategoryPicker = forwardRef<HTMLDivElement, CategoryPickerProps>(
   function CategoryPicker(
     {
-      categories,
+      options,
       value,
       onChange,
-      multiple = false,
-      defaultExpanded = false,
+      placeholder = "Select category",
+      allowBranchSelection = false,
+      disabled = false,
       className,
       ...rest
     },
     ref,
   ) {
+    const [drill, setDrill] = useState<CategoryNode[]>([]);
+    const [open, setOpen] = useState(false);
+    const forceOpenRef = useRef(false);
     const classes = ["ui-category-picker", className].filter(Boolean).join(" ");
-
-    const selected = new Set(
-      Array.isArray(value) ? value : value ? [value] : [],
+    const selectedPath = useMemo(
+      () => (value ? findPath(options, value) : null),
+      [options, value],
     );
+    const currentLevel =
+      drill.length === 0
+        ? options
+        : (drill[drill.length - 1].children ?? []);
 
-    const toggle = (id: string) => {
-      if (multiple) {
-        const arr = Array.isArray(value) ? value : [];
-        const set = new Set(arr);
-        if (set.has(id)) set.delete(id);
-        else set.add(id);
-        onChange(Array.from(set));
-      } else {
-        onChange(selected.has(id) ? null : id);
+    function handleOpenChange(next: boolean) {
+      if (!next && forceOpenRef.current) {
+        forceOpenRef.current = false;
+        return;
       }
-    };
+      setOpen(next);
+      if (!next) setDrill([]);
+    }
+
+    function handleSelect(node: CategoryNode) {
+      const isLeaf = !node.children || node.children.length === 0;
+      if (!isLeaf && !allowBranchSelection) {
+        forceOpenRef.current = true;
+        setDrill((prev) => [...prev, node]);
+        return;
+      }
+      const fullPath = [...drill, node];
+      onChange(node.id, fullPath);
+      setOpen(false);
+      setDrill([]);
+    }
+
+    function handleBack() {
+      forceOpenRef.current = true;
+      setDrill((prev) => prev.slice(0, -1));
+    }
+
+    const triggerLabel = selectedPath
+      ? selectedPath.map((n) => n.label).join(" / ")
+      : placeholder;
 
     return (
-      <div ref={ref} className={classes} role="group" {...rest}>
-        <ul className="ui-category-picker__children">
-          {categories.map((cat) => (
-            <NodeRow
-              key={cat.id}
-              node={cat}
-              selected={selected}
-              multiple={multiple}
-              depth={0}
-              onToggle={toggle}
-              defaultExpanded={defaultExpanded}
-            />
-          ))}
-        </ul>
-      </div>
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        direction="row"
+        align="center"
+        gap="2"
+        className={classes}
+        {...rest}
+      >
+        <Menu open={open} onOpenChange={handleOpenChange}>
+          <Menu.Trigger asChild>
+            <Button variant="secondary" size="md" disabled={disabled}>
+              <Text
+                as="span"
+                size="sm"
+                color={selectedPath ? "primary" : "secondary"}
+              >
+                {triggerLabel}
+              </Text>
+            </Button>
+          </Menu.Trigger>
+          <Menu.List>
+            {drill.length > 0 && (
+              <>
+                <Menu.Item onSelect={handleBack}>
+                  <Text as="span" size="sm" color="secondary">
+                    ← {drill[drill.length - 1].label}
+                  </Text>
+                </Menu.Item>
+                <Menu.Separator />
+              </>
+            )}
+            {currentLevel.length === 0 ? (
+              <Menu.Item aria-disabled>
+                <Text as="span" size="sm" color="secondary">
+                  Empty
+                </Text>
+              </Menu.Item>
+            ) : (
+              currentLevel.map((node) => {
+                const hasChildren = !!node.children?.length;
+                return (
+                  <Menu.Item
+                    key={node.id}
+                    onSelect={() => handleSelect(node)}
+                  >
+                    <Box direction="row" align="center" justify="between" gap="3">
+                      <Text as="span" size="sm">
+                        {node.label}
+                      </Text>
+                      {hasChildren && (
+                        <Text as="span" size="xs" color="secondary">
+                          ›
+                        </Text>
+                      )}
+                    </Box>
+                  </Menu.Item>
+                );
+              })
+            )}
+          </Menu.List>
+        </Menu>
+      </Box>
     );
   },
 );
+
+CategoryPicker.displayName = "CategoryPicker";
