@@ -1,16 +1,26 @@
 .ui-access-indicator {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
+}
+
+.ui-access-indicator:focus-visible {
+  outline: var(--spacing-0-5) solid var(--color-focus-ring);
+  outline-offset: var(--spacing-0-5);
   border-radius: var(--radius-full);
 }
 
-.ui-access-indicator--allowed {
-  color: var(--color-status-success-icon);
+/* Per-status icon color tokens */
+.ui-access-indicator--locked {
+  color: var(--color-text-tertiary);
 }
 
 .ui-access-indicator--restricted {
-  color: var(--color-text-tertiary);
+  color: var(--color-status-warning-icon);
+}
+
+.ui-access-indicator--open {
+  color: var(--color-status-success-icon);
+}
+
+.ui-access-indicator--shared {
+  color: var(--color-text-secondary);
 }

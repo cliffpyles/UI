@@ -1,39 +1,65 @@
-import { forwardRef, type HTMLAttributes } from "react";
-import { Icon } from "../../primitives/Icon";
+import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
+import { Icon, type IconName } from "../../primitives/Icon";
 import { Tooltip } from "../../components/Tooltip";
 import "./AccessIndicator.css";
 
-export interface AccessIndicatorProps extends HTMLAttributes<HTMLSpanElement> {
-  hasAccess: boolean;
-  reason?: string;
-  label?: string;
+export type AccessStatus = "locked" | "restricted" | "open" | "shared";
+
+export interface AccessIndicatorProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
+  /** Access status for the referenced record. */
+  status: AccessStatus;
+  /** Optional tooltip copy override. Falls back to the default per-status label. */
+  label?: ReactNode;
 }
 
+const statusIcon: Record<AccessStatus, IconName> = {
+  locked: "lock",
+  restricted: "lock",
+  open: "globe",
+  shared: "users",
+};
+
+const statusLabel: Record<AccessStatus, string> = {
+  locked: "Locked",
+  restricted: "Restricted access",
+  open: "Open access",
+  shared: "Shared",
+};
+
 export const AccessIndicator = forwardRef<HTMLSpanElement, AccessIndicatorProps>(
-  function AccessIndicator({ hasAccess, reason, label, className, ...rest }, ref) {
+  function AccessIndicator({ status, label, className, ...rest }, ref) {
     const classes = [
       "ui-access-indicator",
-      hasAccess ? "ui-access-indicator--allowed" : "ui-access-indicator--restricted",
+      `ui-access-indicator--${status}`,
       className,
     ]
       .filter(Boolean)
       .join(" ");
 
-    const content = (
-      <span
-        ref={ref}
-        className={classes}
-        role="img"
-        aria-label={label ?? (hasAccess ? "Access granted" : "Access restricted")}
-        {...rest}
-      >
-        <Icon name={hasAccess ? "eye" : "eye-off"} size="xs" aria-hidden />
-      </span>
-    );
+    const accessibleLabel =
+      typeof label === "string" && label.length > 0
+        ? label
+        : statusLabel[status];
 
-    if (reason) {
-      return <Tooltip content={reason}>{content}</Tooltip>;
-    }
-    return content;
+    return (
+      <Tooltip content={label ?? statusLabel[status]}>
+        <span
+          ref={ref}
+          role="img"
+          aria-label={accessibleLabel}
+          tabIndex={0}
+          className={classes}
+          {...rest}
+        >
+          <Box align="center" justify="center" className="ui-access-indicator__inner">
+            <Icon name={statusIcon[status]} size="sm" aria-hidden />
+          </Box>
+        </span>
+      </Tooltip>
+    );
   },
 );
+
+AccessIndicator.displayName = "AccessIndicator";
