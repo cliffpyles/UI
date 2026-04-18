@@ -5,16 +5,7 @@
   width: 100%;
 }
 
-.ui-ratio-bar__header {
-  display: flex;
-  justify-content: space-between;
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-}
-
-.ui-ratio-bar__value {
-  font-variant-numeric: tabular-nums;
-}
+/* Layout for .ui-ratio-bar__header comes from the Box primitive. */
 
 .ui-ratio-bar__track {
   width: 100%;

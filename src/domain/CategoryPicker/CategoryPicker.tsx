@@ -1,4 +1,5 @@
 import { forwardRef, useState, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
 import { Icon } from "../../primitives/Icon";
 import { Checkbox } from "../../components/Checkbox";
 import "./CategoryPicker.css";
@@ -40,7 +41,7 @@ function NodeRow({
 
   return (
     <li className="ui-category-picker__item" style={{ paddingLeft: `${depth * 16}px` }}>
-      <div className="ui-category-picker__row">
+      <Box className="ui-category-picker__row" align="center" gap="1">
         {hasChildren ? (
           <button
             type="button"
@@ -66,7 +67,7 @@ function NodeRow({
           )}
           <span>{node.label}</span>
         </label>
-      </div>
+      </Box>
       {hasChildren && expanded && (
         <ul className="ui-category-picker__children">
           {node.children!.map((child) => (

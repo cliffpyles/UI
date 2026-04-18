@@ -13,9 +13,6 @@
 }
 
 .ui-query-expression__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: var(--spacing-2);
 }
 
@@ -29,7 +26,5 @@
 }
 
 .ui-query-expression__actions {
-  display: flex;
-  gap: var(--spacing-1);
   margin-top: var(--spacing-2);
 }

@@ -19,9 +19,6 @@
 }
 
 .ui-category-picker__row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-1);
   padding: var(--spacing-1);
   border-radius: var(--radius-sm);
 }

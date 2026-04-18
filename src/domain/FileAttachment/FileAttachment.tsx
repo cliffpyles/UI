@@ -48,10 +48,10 @@ export const FileAttachment = forwardRef<HTMLDivElement, FileAttachmentProps>(
           <div className="ui-file-attachment__name" title={file.name}>
             {file.name}
           </div>
-          <div className="ui-file-attachment__meta">
+          <Box className="ui-file-attachment__meta" display="flex" gap="1">
             <FileSize bytes={file.size} />
             {file.type && <span> · {file.type}</span>}
-          </div>
+          </Box>
         </Box>
         <Box className="ui-file-attachment__actions" display="inline-flex" gap="1">
           {onPreview && (

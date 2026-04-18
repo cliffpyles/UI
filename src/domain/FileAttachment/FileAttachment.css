@@ -29,8 +29,6 @@
 .ui-file-attachment__meta {
   font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
-  display: flex;
-  gap: var(--spacing-1);
 }
 
 

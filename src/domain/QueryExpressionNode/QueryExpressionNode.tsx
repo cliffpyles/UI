@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
 import { Button } from "../../components/Button";
 import { Icon } from "../../primitives/Icon";
 import { Select } from "../../components/Select";
@@ -99,7 +100,7 @@ function NodeRenderer({
     <div
       className={`ui-query-expression__group ui-query-expression__group--depth-${Math.min(depth, maxDepth)}`}
     >
-      <div className="ui-query-expression__header">
+      <Box className="ui-query-expression__header" align="center" justify="between">
         <Select
           aria-label="Combinator"
           options={[
@@ -115,7 +116,7 @@ function NodeRenderer({
             <Icon name="x" size="xs" aria-hidden />
           </Button>
         )}
-      </div>
+      </Box>
       <ul className="ui-query-expression__children">
         {node.children.map((child, i) => (
           <li key={child.id}>
@@ -130,7 +131,7 @@ function NodeRenderer({
           </li>
         ))}
       </ul>
-      <div className="ui-query-expression__actions">
+      <Box className="ui-query-expression__actions" display="flex" gap="1">
         <Button variant="ghost" size="sm" onClick={addLeaf}>
           <Icon name="plus" size="xs" aria-hidden /> Add condition
         </Button>
@@ -139,7 +140,7 @@ function NodeRenderer({
             <Icon name="plus" size="xs" aria-hidden /> Add group
           </Button>
         )}
-      </div>
+      </Box>
     </div>
   );
 }

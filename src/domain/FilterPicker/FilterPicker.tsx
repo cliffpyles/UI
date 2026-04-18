@@ -5,6 +5,7 @@ import {
   useState,
   type HTMLAttributes,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Icon } from "../../primitives/Icon";
@@ -76,7 +77,7 @@ export const FilterPicker = forwardRef<HTMLDivElement, FilterPickerProps>(
               placeholder="Search fields…"
               size="sm"
             />
-            <div className="ui-filter-picker__list" role="listbox">
+            <Box className="ui-filter-picker__list" display="flex" direction="column" role="listbox">
               {Array.from(groups.entries()).map(([group, items]) => (
                 <div key={group || "__ungrouped"} className="ui-filter-picker__group">
                   {group && <div className="ui-filter-picker__group-label">{group}</div>}
@@ -100,7 +101,7 @@ export const FilterPicker = forwardRef<HTMLDivElement, FilterPickerProps>(
               {filtered.length === 0 && (
                 <div className="ui-filter-picker__empty">No fields match</div>
               )}
-            </div>
+            </Box>
           </div>
         )}
       </div>

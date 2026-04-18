@@ -1,4 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import "./RatioBar.css";
 
 export type RatioBarVariant = "default" | "success" | "warning" | "error";
@@ -33,14 +35,24 @@ export const RatioBar = forwardRef<HTMLDivElement, RatioBarProps>(
     return (
       <div ref={ref} className={classes} {...rest}>
         {(label || showLabel) && (
-          <div className="ui-ratio-bar__header">
-            {label && <span className="ui-ratio-bar__label">{label}</span>}
-            {showLabel && (
-              <span className="ui-ratio-bar__value">
-                {safe} / {max}
-              </span>
+          <Box className="ui-ratio-bar__header" display="flex" justify="between">
+            {label && (
+              <Text as="span" size="xs" color="secondary" className="ui-ratio-bar__label">
+                {label}
+              </Text>
             )}
-          </div>
+            {showLabel && (
+              <Text
+                as="span"
+                size="xs"
+                color="secondary"
+                tabularNums
+                className="ui-ratio-bar__value"
+              >
+                {safe} / {max}
+              </Text>
+            )}
+          </Box>
         )}
         <div
           className="ui-ratio-bar__track"
