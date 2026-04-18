@@ -374,7 +374,7 @@ export type {
   ChangeLogProps,
   FieldChange,
   ActivityFeedProps,
-  ActivityFeedItem,
+  ActivityEvent,
   CommentThreadProps,
   Comment,
   VersionHistoryProps,
