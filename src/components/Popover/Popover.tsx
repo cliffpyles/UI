@@ -15,6 +15,7 @@ import {
   type HTMLAttributes,
   type MouseEvent as ReactMouseEvent,
 } from "react";
+import { Box } from "../../primitives/Box";
 import "./Popover.css";
 
 // --- Types ---
@@ -231,27 +232,35 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
       .join(" ");
 
     return (
-      <div
+      <Box
         ref={(node) => {
-          contentRef.current = node;
-          if (typeof ref === "function") ref(node);
+          contentRef.current = node as HTMLDivElement | null;
+          if (typeof ref === "function") ref(node as HTMLDivElement | null);
           else if (ref)
-            (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            (ref as React.MutableRefObject<HTMLDivElement | null>).current =
+              node as HTMLDivElement | null;
         }}
         id={contentId}
         role="dialog"
         aria-labelledby={triggerId}
         tabIndex={-1}
         className={classes}
+        background="raised"
+        radius="md"
+        shadow="md"
+        padding="2"
         {...props}
       >
         {children}
-      </div>
+      </Box>
     );
   },
 );
 
 // --- Compound export ---
+
+PopoverRoot.displayName = "Popover";
+PopoverContent.displayName = "Popover.Content";
 
 export const Popover = Object.assign(PopoverRoot, {
   Trigger: PopoverTrigger,

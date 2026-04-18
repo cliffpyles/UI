@@ -25,11 +25,7 @@
 .ui-popover__content {
   position: absolute;
   min-width: 12rem;
-  padding: var(--spacing-2);
-  background: var(--color-background-surface);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
   color: var(--color-text-primary);
   font-size: var(--font-size-sm);
   line-height: var(--font-line-height-normal);
@@ -85,6 +81,5 @@
 /* ---------- Density ---------- */
 
 [data-density="compact"] .ui-popover__content {
-  padding: var(--spacing-1-5);
   font-size: var(--font-size-xs);
 }
