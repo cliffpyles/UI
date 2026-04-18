@@ -100,6 +100,25 @@ describe("Grid", () => {
     );
   });
 
+  it("applies padding as inline style", () => {
+    render(<Grid padding="4" data-testid="grid" />);
+    expect(screen.getByTestId("grid").style.padding).toBe("var(--spacing-4)");
+  });
+
+  it("applies paddingX/paddingY independently", () => {
+    render(<Grid paddingX="2" paddingY="3" data-testid="grid" />);
+    const el = screen.getByTestId("grid");
+    expect(el.style.paddingInline).toBe("var(--spacing-2)");
+    expect(el.style.paddingBlock).toBe("var(--spacing-3)");
+  });
+
+  it("resolves semantic padding `page` to --spacing-page-padding", () => {
+    render(<Grid padding="page" data-testid="grid" />);
+    expect(screen.getByTestId("grid").style.padding).toBe(
+      "var(--spacing-page-padding)",
+    );
+  });
+
   it("forwards ref to DOM element", () => {
     const ref = createRef<HTMLElement>();
     render(<Grid ref={ref}>Content</Grid>);

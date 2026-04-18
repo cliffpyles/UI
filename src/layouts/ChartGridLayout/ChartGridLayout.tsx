@@ -25,6 +25,7 @@ export const ChartGridLayout = forwardRef<HTMLDivElement, ChartGridLayoutProps>(
       <Grid
         ref={ref as Ref<HTMLElement>}
         gap="content"
+        padding="page"
         className={classes}
         role="region"
         aria-label={label}

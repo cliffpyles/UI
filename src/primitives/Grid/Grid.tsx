@@ -61,6 +61,12 @@ export interface GridProps extends HTMLAttributes<HTMLElement> {
   autoFlow?: GridAutoFlow;
   /** `grid-template-areas`. Pass an array of rows or a raw string. */
   templateAreas?: string | string[];
+  /** All-sides padding. Primitive tokens (`"0"`–`"32"`) are fixed; semantic tokens (`"page"`, `"content"`, `"section"`, `"inline"`) track the active density container. */
+  padding?: SpacingToken;
+  /** Horizontal padding */
+  paddingX?: SpacingToken;
+  /** Vertical padding */
+  paddingY?: SpacingToken;
 }
 
 const semanticSpacingMap: Record<"content" | "section" | "inline" | "page", string> = {
@@ -92,6 +98,9 @@ export const Grid = forwardRef<HTMLElement, GridProps>(
       rowGap,
       autoFlow,
       templateAreas,
+      padding,
+      paddingX,
+      paddingY,
       className,
       style,
       ...props
@@ -109,6 +118,9 @@ export const Grid = forwardRef<HTMLElement, GridProps>(
     if (rowGap) inlineStyle.rowGap = spacingVar(rowGap);
     if (autoFlow) inlineStyle.gridAutoFlow = autoFlow;
     if (templateAreas !== undefined) inlineStyle.gridTemplateAreas = areas(templateAreas);
+    if (padding) inlineStyle.padding = spacingVar(padding);
+    if (paddingX) inlineStyle.paddingInline = spacingVar(paddingX);
+    if (paddingY) inlineStyle.paddingBlock = spacingVar(paddingY);
 
     return (
       <Component

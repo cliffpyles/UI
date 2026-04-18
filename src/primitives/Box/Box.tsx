@@ -58,7 +58,7 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   paddingY?: SpacingToken;
   /** Flex/grid gap. Accepts the same primitive + semantic spacing tokens as `padding`. */
   gap?: SpacingToken;
-  /** Display mode */
+  /** Display mode. Defaults to `"flex"` when any of `direction`/`align`/`justify`/`wrap` is set. */
   display?: BoxDisplay;
   /** Flex direction */
   direction?: BoxDirection;
@@ -158,7 +158,10 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       inlineStyle.paddingBlock = spacingVar(paddingY);
     }
     if (gap) inlineStyle.gap = spacingVar(gap);
-    if (display) inlineStyle.display = display;
+    const resolvedDisplay =
+      display ??
+      (direction || align || justify || wrap ? "flex" : undefined);
+    if (resolvedDisplay) inlineStyle.display = resolvedDisplay;
     if (direction) inlineStyle.flexDirection = direction;
     if (align) inlineStyle.alignItems = alignMap[align];
     if (justify) inlineStyle.justifyContent = justifyMap[justify];

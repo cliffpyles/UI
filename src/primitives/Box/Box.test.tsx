@@ -77,6 +77,31 @@ describe("Box", () => {
     expect(screen.getByTestId("box")).toHaveStyle({ display: "flex" });
   });
 
+  it.each([
+    ["direction", { direction: "column" }],
+    ["align", { align: "center" }],
+    ["justify", { justify: "between" }],
+    ["wrap", { wrap: true }],
+  ] as const)(
+    "defaults display to flex when %s is set",
+    (_label, props) => {
+      render(<Box {...props} data-testid="box" />);
+      expect(screen.getByTestId("box")).toHaveStyle({ display: "flex" });
+    },
+  );
+
+  it("does not default display when only padding/gap/background are set", () => {
+    render(<Box padding="2" gap="2" background="surface" data-testid="box" />);
+    expect(screen.getByTestId("box").style.display).toBe("");
+  });
+
+  it("respects an explicit display when flex props are also set", () => {
+    render(
+      <Box display="inline-flex" align="center" data-testid="box" />,
+    );
+    expect(screen.getByTestId("box")).toHaveStyle({ display: "inline-flex" });
+  });
+
   it("applies flex direction", () => {
     render(<Box display="flex" direction="column" data-testid="box" />);
     expect(screen.getByTestId("box")).toHaveStyle({ "flex-direction": "column" });
