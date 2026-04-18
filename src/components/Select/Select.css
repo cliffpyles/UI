@@ -4,8 +4,6 @@
 
 .ui-select {
   position: relative;
-  display: inline-flex;
-  align-items: center;
   width: 100%;
   font-family: var(--font-family-sans);
 }
@@ -77,7 +75,7 @@
 
 .ui-select--error .ui-select__native:focus {
   border-color: var(--color-status-error-icon);
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 0 var(--spacing-0-5) var(--color-status-error-bg);
 }
 
 /* Disabled */

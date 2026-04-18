@@ -3,6 +3,8 @@ import {
   useState,
   type SelectHTMLAttributes,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Icon } from "../../primitives/Icon";
 import "./Select.css";
 
 type SelectSize = "sm" | "md" | "lg";
@@ -77,7 +79,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       .join(" ");
 
     return (
-      <div className={wrapperClasses}>
+      <Box className={wrapperClasses} align="center">
         <select
           ref={ref}
           className="ui-select__native"
@@ -99,20 +101,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ))}
         </select>
         <span className="ui-select__arrow" aria-hidden="true">
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
+          <Icon name="chevron-down" size="xs" aria-hidden="true" />
         </span>
-      </div>
+      </Box>
     );
   },
 );
+
+Select.displayName = "Select";
