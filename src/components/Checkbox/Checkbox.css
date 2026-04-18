@@ -3,11 +3,8 @@
    ========================================================================== */
 
 .ui-checkbox {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: var(--spacing-2);
+  display: inline-block;
   cursor: pointer;
-  font-family: var(--font-family-sans);
   position: relative;
 }
 
@@ -15,10 +12,10 @@
 
 .ui-checkbox__input {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: var(--spacing-px);
+  height: var(--spacing-px);
   padding: 0;
-  margin: -1px;
+  margin: 0;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -34,7 +31,7 @@
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
-  margin-top: 0.125rem;
+  margin-top: var(--spacing-0-5);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   background: var(--color-background-surface);
@@ -44,8 +41,6 @@
 }
 
 .ui-checkbox__icon {
-  width: 0.75rem;
-  height: 0.75rem;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--easing-default);
 }
@@ -91,16 +86,6 @@
   border-color: var(--color-border-strong);
 }
 
-/* ---------- Content (label + description) ---------- */
-
-.ui-checkbox__content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-}
-
-/* Typography for .ui-checkbox__label and .ui-checkbox__description comes from the Text primitive. */
-
 /* ---------- Minimum hit area ---------- */
 
 .ui-checkbox::before {
@@ -111,16 +96,7 @@
 
 /* ---------- Density ---------- */
 
-[data-density="compact"] .ui-checkbox {
-  gap: var(--spacing-1-5);
-}
-
 [data-density="compact"] .ui-checkbox__control {
   width: 0.875rem;
   height: 0.875rem;
-}
-
-[data-density="compact"] .ui-checkbox__icon {
-  width: 0.625rem;
-  height: 0.625rem;
 }

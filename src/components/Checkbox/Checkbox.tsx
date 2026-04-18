@@ -5,7 +5,9 @@ import {
   type InputHTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Icon } from "../../primitives/Icon";
 import "./Checkbox.css";
 
 interface CheckboxOwnProps {
@@ -42,14 +44,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       label,
       description,
       className,
-      id,
       ...props
     },
     forwardedRef,
   ) {
     const internalRef = useRef<HTMLInputElement>(null);
 
-    // Sync indeterminate property (not an HTML attribute, must be set via JS)
     useEffect(() => {
       const el = internalRef.current;
       if (el) {
@@ -61,7 +61,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       onChange?.(e.target.checked);
     };
 
-    // Merge forwarded ref with internal ref
     const setRef = (el: HTMLInputElement | null) => {
       (internalRef as React.MutableRefObject<HTMLInputElement | null>).current = el;
       if (typeof forwardedRef === "function") {
@@ -79,54 +78,46 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       .filter(Boolean)
       .join(" ");
 
-    const checkboxId = id || props["aria-label"] ? id : undefined;
-
     return (
       <label className={wrapperClasses}>
-        <input
-          ref={setRef}
-          type="checkbox"
-          className="ui-checkbox__input"
-          checked={checked}
-          defaultChecked={defaultChecked}
-          onChange={handleChange}
-          disabled={disabled}
-          aria-checked={indeterminate ? "mixed" : undefined}
-          id={checkboxId}
-          {...props}
-        />
-        <span className="ui-checkbox__control" aria-hidden="true">
-          <svg
-            className="ui-checkbox__icon"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            {indeterminate ? (
-              <line x1="4" y1="8" x2="12" y2="8" />
-            ) : (
-              <polyline points="3.5 8 6.5 11 12.5 5" />
-            )}
-          </svg>
-        </span>
-        {(label || description) && (
-          <span className="ui-checkbox__content">
-            {label && (
-              <Text as="span" size="body" color="primary" className="ui-checkbox__label">
-                {label}
-              </Text>
-            )}
-            {description && (
-              <Text as="span" size="caption" color="secondary" className="ui-checkbox__description">
-                {description}
-              </Text>
-            )}
+        <Box direction="row" align="start" gap="2" className="ui-checkbox__row">
+          <input
+            ref={setRef}
+            type="checkbox"
+            className="ui-checkbox__input"
+            checked={checked}
+            defaultChecked={defaultChecked}
+            onChange={handleChange}
+            disabled={disabled}
+            aria-checked={indeterminate ? "mixed" : undefined}
+            {...props}
+          />
+          <span className="ui-checkbox__control" aria-hidden="true">
+            <Icon
+              name={indeterminate ? "minus" : "check"}
+              size="xs"
+              className="ui-checkbox__icon"
+              aria-hidden="true"
+            />
           </span>
-        )}
+          {(label || description) && (
+            <Box direction="column" gap="0.5" className="ui-checkbox__content">
+              {label && (
+                <Text as="span" size="body" color="primary" className="ui-checkbox__label">
+                  {label}
+                </Text>
+              )}
+              {description && (
+                <Text as="span" size="caption" color="secondary" className="ui-checkbox__description">
+                  {description}
+                </Text>
+              )}
+            </Box>
+          )}
+        </Box>
       </label>
     );
   },
 );
+
+Checkbox.displayName = "Checkbox";
