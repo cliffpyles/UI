@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Menu — Base Component
+   ========================================================================== */
+
+.ui-menu {
+  display: inline-flex;
+  position: relative;
+}
+
+.ui-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- List ---------- */
+
+.ui-menu__list {
+  position: absolute;
+  top: calc(100% + var(--spacing-1));
+  left: 0;
+  z-index: var(--z-dropdown);
+  min-width: 160px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--spacing-1) 0;
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-family-sans);
+}
+
+/* ---------- Item ---------- */
+
+.ui-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-1-5) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  outline: none;
+  line-height: var(--font-line-height-normal);
+  transition: background-color var(--duration-fast) var(--easing-default);
+}
+
+.ui-menu__item:hover,
+.ui-menu__item:focus {
+  background: var(--color-background-surface-sunken);
+}
+
+.ui-menu__item:focus-visible {
+  background: var(--color-action-primary-bg);
+}
+
+.ui-menu__item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ui-menu__item--disabled:hover,
+.ui-menu__item--disabled:focus {
+  background: transparent;
+}
+
+/* ---------- Separator ---------- */
+
+.ui-menu__separator {
+  height: 1px;
+  margin: var(--spacing-1) 0;
+  background: var(--color-border-default);
+}
+
+/* ---------- Density ---------- */
+
+[data-density="compact"] .ui-menu__item {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+}
+
+[data-density="compact"] .ui-menu__list {
+  min-width: 140px;
+}

@@ -1,10 +1,5 @@
-import {
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-  type HTMLAttributes,
-} from "react";
+import { forwardRef, type HTMLAttributes } from "react";
+import { Menu } from "../../components/Menu";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./RowActionsMenu.css";
 
@@ -28,62 +23,31 @@ function RowActionsMenuInner<T>(
   { actions, row, label = "Row actions", className, ...rest }: RowActionsMenuProps<T>,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const classes = ["ui-row-actions-menu", className].filter(Boolean).join(" ");
 
-  useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (!containerRef.current?.contains(e.target as Node)) setOpen(false);
-    }
-    if (open) document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
-
   return (
-    <div
-      ref={(node) => {
-        containerRef.current = node;
-        if (typeof ref === "function") ref(node);
-        else if (ref)
-          (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      }}
-      className={classes}
-      {...rest}
-    >
-      <button
-        type="button"
-        className="ui-row-actions-menu__trigger"
-        onClick={() => setOpen((v) => !v)}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        aria-label={label}
-      >
-        <Icon name="more-horizontal" size="sm" aria-hidden />
-      </button>
-      {open && (
-        <div className="ui-row-actions-menu__menu" role="menu">
+    <div ref={ref} className={classes} {...rest}>
+      <Menu>
+        <Menu.Trigger className="ui-row-actions-menu__trigger" aria-label={label}>
+          <Icon name="more-horizontal" size="sm" aria-hidden />
+        </Menu.Trigger>
+        <Menu.List className="ui-row-actions-menu__menu">
           {actions.map((a) => (
-            <button
+            <Menu.Item
               key={a.id}
-              type="button"
-              role="menuitem"
               disabled={a.disabled}
               className={
                 "ui-row-actions-menu__item" +
                 (a.destructive ? " ui-row-actions-menu__item--destructive" : "")
               }
-              onClick={() => {
-                a.onSelect(row);
-                setOpen(false);
-              }}
+              onSelect={() => a.onSelect(row)}
             >
               {a.icon && <Icon name={a.icon} size="xs" aria-hidden />}
               {a.label}
-            </button>
+            </Menu.Item>
           ))}
-        </div>
-      )}
+        </Menu.List>
+      </Menu>
     </div>
   );
 }
