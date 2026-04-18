@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [help-and-onboarding]
-uses: [Text, Popover]
+uses: [Box, Text, Popover]
 replaces-raw: ["<div role=\"tooltip\">"]
 ---
 
@@ -30,6 +30,7 @@ Tooltip provides supplementary, non-essential context on demand. It owns the hov
 ## Composition (required)
 | Concern          | Use                                | Never                              |
 |------------------|------------------------------------|------------------------------------|
+| Internal layout  | `Box direction="row" align="center" gap="1.5"` for the bubble content (text and any optional inline icon) | hand-rolled `display: flex` / `gap` / `padding` in `Tooltip.css` |
 | Floating layer   | `Popover` (positioning + portal + flip) | hand-rolled `getBoundingClientRect` math |
 | Content text     | `Text size="caption" color="inverse">` | raw styled `<span>` or `<div>` |
 | Trigger wrapper  | An unstyled `<span>` (or the child via `asChild`) | wrapping in a `<div>` that breaks inline flow |

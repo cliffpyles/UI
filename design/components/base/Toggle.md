@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-entry]
-uses: [Text]
+uses: [Box, Text]
 replaces-raw: ["<input type=\"checkbox\" role=\"switch\">"]
 ---
 
@@ -28,6 +28,7 @@ Toggle is a checkbox semantically (`<input type="checkbox" role="switch">`) but 
 ## Composition (required)
 | Concern          | Use                                  | Never                              |
 |------------------|--------------------------------------|------------------------------------|
+| Internal layout  | `Box direction="row" align="center" gap="2"` for the switch + label row | hand-rolled `display: flex` / `gap` / `padding` in `Toggle.css` |
 | Native control   | Owns raw `<input type="checkbox" role="switch">` | a `<div role="switch">` shim |
 | Label text       | `Text size="body">`                  | raw styled `<span>`                |
 

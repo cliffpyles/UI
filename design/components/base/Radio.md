@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-entry]
-uses: [Text]
+uses: [Box, Text]
 replaces-raw: ["<input type=\"radio\">", "<div role=\"radiogroup\">"]
 ---
 
@@ -29,6 +29,7 @@ Radio + RadioGroup own single-choice selection. The group manages controlled/unc
 ## Composition (required)
 | Concern          | Use                                | Never                              |
 |------------------|------------------------------------|------------------------------------|
+| Internal layout  | `Box direction="row" align="start" gap="2"` for the input + label/description column on each Radio; group container uses `Box direction={orientation === "horizontal" ? "row" : "column"} gap="3"` | hand-rolled `display: flex` / `gap` / `padding` in `Radio.css` |
 | Native control   | Owns raw `<input type="radio">`    | a `<div role="radio">` shim        |
 | Group container  | Owns raw `<div role="radiogroup">` | hand-rolled focus management       |
 | Label text       | `Text size="body">`                | raw styled `<span>`                |

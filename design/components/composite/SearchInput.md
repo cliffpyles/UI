@@ -5,7 +5,7 @@ level: 4
 status: stable
 since: 0.4.0
 patterns: [filtering-and-search, data-entry]
-uses: [Input, Icon, Button, Spinner]
+uses: [Box, Input, Icon, Button, Spinner]
 replaces-raw: ["<input type=\"search\">"]
 ---
 
@@ -30,6 +30,7 @@ SearchInput is the canonical "search this list" control. It owns the leading ico
 ## Composition (required)
 | Concern        | Use                                | Never                                  |
 |----------------|------------------------------------|----------------------------------------|
+| Internal layout | `Box direction="row" align="center" gap="2"` wrapping `Input` with leading/trailing adornments | hand-rolled `display: flex` / `gap` / positioning in `SearchInput.css` |
 | Text field     | `Input type="search">` (focus ring, sizing, disabled) | raw `<input type="search">` |
 | Leading icon   | `Icon name="search">`              | inline `<svg>`                         |
 | Loading swap   | `Spinner size="sm">` replaces the icon | hand-rolled CSS animation          |

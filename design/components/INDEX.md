@@ -20,20 +20,20 @@ Total specs: **34**
 
 ### base (14)
 
-- [Avatar](base/Avatar.md) _[data-display]_ — uses: Text, Icon, Dot
-- [Button](base/Button.md) — uses: Text, Icon, Spinner
-- [Checkbox](base/Checkbox.md) _[data-entry]_ — uses: Text, Icon
-- [Input](base/Input.md) _[data-entry]_ — uses: Icon
-- [Menu](base/Menu.md) — uses: Popover, Text, Divider
+- [Avatar](base/Avatar.md) _[data-display]_ — uses: Box, Text, Icon, Dot
+- [Button](base/Button.md) — uses: Box, Text, Icon, Spinner
+- [Checkbox](base/Checkbox.md) _[data-entry]_ — uses: Box, Text, Icon
+- [Input](base/Input.md) _[data-entry]_ — uses: Box, Icon
+- [Menu](base/Menu.md) — uses: Box, Popover, Text, Divider
 - [Popover](base/Popover.md) — uses: Box
 - [ProgressBar](base/ProgressBar.md) _[states]_ — uses: Box, Text
-- [Radio](base/Radio.md) _[data-entry]_ — uses: Text
-- [Select](base/Select.md) _[data-entry]_ — uses: Icon
+- [Radio](base/Radio.md) _[data-entry]_ — uses: Box, Text
+- [Select](base/Select.md) _[data-entry]_ — uses: Box, Icon
 - [Skeleton](base/Skeleton.md) _[states]_ — uses: Box
-- [Tag](base/Tag.md) _[data-display]_ — uses: Text, Icon, Dot
+- [Tag](base/Tag.md) _[data-display]_ — uses: Box, Text, Icon, Dot
 - [Textarea](base/Textarea.md) _[data-entry]_
-- [Toggle](base/Toggle.md) _[data-entry]_ — uses: Text
-- [Tooltip](base/Tooltip.md) _[help-and-onboarding]_ — uses: Text, Popover
+- [Toggle](base/Toggle.md) _[data-entry]_ — uses: Box, Text
+- [Tooltip](base/Tooltip.md) _[help-and-onboarding]_ — uses: Box, Text, Popover
 
 ### composite (11)
 
@@ -45,13 +45,13 @@ Total specs: **34**
 - [FormField](composite/FormField.md) _[data-entry]_ — uses: Box, Text
 - [Modal](composite/Modal.md) — uses: Box, Button, Icon, Text, VisuallyHidden
 - [Pagination](composite/Pagination.md) _[navigation-and-hierarchy]_ — uses: Box, Button, Icon, Text, Select
-- [SearchInput](composite/SearchInput.md) _[filtering-and-search, data-entry]_ — uses: Input, Icon, Button, Spinner
+- [SearchInput](composite/SearchInput.md) _[filtering-and-search, data-entry]_ — uses: Box, Input, Icon, Button, Spinner
 - [Table](composite/Table.md) _[data-display]_ — uses: Box, Text, Icon, Checkbox
 - [Tabs](composite/Tabs.md) _[navigation-and-hierarchy]_ — uses: Box, Text, Button
 
 ## Inverse index (used-by)
 
-- **Box** ← Accordion, Card, EmptyState, ErrorState, FormField, Modal, Pagination, Popover, ProgressBar, Skeleton, Table, Tabs
+- **Box** ← Accordion, Avatar, Button, Card, Checkbox, EmptyState, ErrorState, FormField, Input, Menu, Modal, Pagination, Popover, ProgressBar, Radio, SearchInput, Select, Skeleton, Table, Tabs, Tag, Toggle, Tooltip
 - **Button** ← Accordion, Dropdown, EmptyState, ErrorState, Modal, Pagination, SearchInput, Tabs
 - **Checkbox** ← Table
 - **Divider** ← Card, Menu

@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.4.0
 patterns: []
-uses: [Popover, Text, Divider]
+uses: [Box, Popover, Text, Divider]
 replaces-raw: ["<div role=\"menu\">", "<div role=\"menuitem\">"]
 ---
 
@@ -30,6 +30,7 @@ Menu owns the ARIA menu pattern: trigger → menu list → items, with focus man
 ## Composition (required)
 | Concern          | Use                                | Never                              |
 |------------------|------------------------------------|------------------------------------|
+| Internal layout  | `Box direction="row" align="center" gap="2"` for each `Menu.Item`'s icon + label + shortcut row | hand-rolled `display: flex` / `gap` / `padding` in `Menu.css` |
 | Floating layer   | `Popover` for positioning + portal + outside-click | hand-rolled positioning math |
 | Trigger          | Consumer-provided via `asChild` (typically a `Button`) | raw `<button>` styled in Menu.css |
 | Item label       | `Text size="body">`                | raw styled `<span>`                |

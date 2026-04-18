@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-entry]
-uses: [Icon]
+uses: [Box, Icon]
 replaces-raw: ["<input>"]
 ---
 
@@ -30,7 +30,7 @@ Input owns the visual chrome of a text field — border, padding, focus ring, er
 | Concern           | Use                                  | Never                                |
 |-------------------|--------------------------------------|--------------------------------------|
 | Native control    | Owns raw `<input>`                   | a `<div contentEditable>` shim       |
-| Wrapper layout    | `Box` (or scoped wrapper element)    | bespoke flex CSS in `.css`           |
+| Internal layout   | `Box direction="row" align="center" gap="2"` for the leading-addon + input + trailing-addon row | hand-rolled `display: flex` / `gap` / `padding` in `Input.css` |
 | Leading/trailing icon | `Icon`                            | inline `<svg>`                       |
 | Addon text        | `Text` for any styled string content | raw `<span>` with font CSS           |
 

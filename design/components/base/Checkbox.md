@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-entry]
-uses: [Text, Icon]
+uses: [Box, Text, Icon]
 replaces-raw: ["<input type=\"checkbox\">"]
 ---
 
@@ -29,6 +29,7 @@ Checkbox wraps the native `<input type="checkbox">` so every checkmark in the sy
 ## Composition (required)
 | Concern             | Use                                | Never                              |
 |---------------------|------------------------------------|------------------------------------|
+| Internal layout     | `Box direction="row" align="start" gap="2"` for input + label/description column | hand-rolled `display: flex` / `gap` / `padding` in `Checkbox.css` |
 | Native control      | Owns raw `<input type="checkbox">` | a `<div role="checkbox">` shim     |
 | Label text          | `Text size="body">`                | raw styled `<span>`                |
 | Description text    | `Text size="caption" color="secondary">` | raw styled `<span>`           |

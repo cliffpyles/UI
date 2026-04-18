@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-display]
-uses: [Text, Icon, Dot]
+uses: [Box, Text, Icon, Dot]
 replaces-raw: []
 ---
 
@@ -30,6 +30,7 @@ Tag is the canonical chip for inline classification — surfacing labels, status
 ## Composition (required)
 | Concern         | Use                                | Never                              |
 |-----------------|------------------------------------|------------------------------------|
+| Internal layout | `Box direction="row" align="center" gap="1"` for the dot/icon/label/dismiss row | hand-rolled `display: flex` / `gap` / `padding` in `Tag.css` |
 | Label text      | `Text size="caption" weight="medium">` | raw styled `<span>`            |
 | Leading icon    | `Icon`                             | inline `<svg>`                     |
 | Status dot      | `Dot variant={tagVariant}>`        | `::before` pseudo-element with bg  |

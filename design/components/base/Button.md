@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: []
-uses: [Text, Icon, Spinner]
+uses: [Box, Text, Icon, Spinner]
 replaces-raw: ["<button>", "<a> rendered as a button"]
 ---
 
@@ -29,6 +29,7 @@ Button is the only path to a clickable, styleable control in the system. It owns
 ## Composition (required)
 | Concern         | Use                                       | Never                                     |
 |-----------------|-------------------------------------------|-------------------------------------------|
+| Internal layout | `Box direction="row" align="center" gap="2"` for the icon + label + icon row | hand-rolled `display: flex` / `gap` / `padding` in `Button.css` |
 | Root tag        | Owns raw `<button>` / `<a>`               | `onClick` on a `<div>` or `<span>`        |
 | Label text      | `Text as="span">` (or `children` string)  | inline-styled `<span>` for the label      |
 | Leading/trailing icon | `Icon`                              | inline `<svg>`                            |

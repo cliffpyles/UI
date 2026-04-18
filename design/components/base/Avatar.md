@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-display]
-uses: [Text, Icon, Dot]
+uses: [Box, Text, Icon, Dot]
 replaces-raw: ["<img> used as a profile picture"]
 ---
 
@@ -29,6 +29,7 @@ Avatar guarantees that every user-image surface in the product handles missing/b
 ## Composition (required)
 | Concern             | Use                                | Never                              |
 |---------------------|------------------------------------|------------------------------------|
+| Internal layout     | `Box align="center" justify="center"` as the positioned container for image/initials/icon; presence `Dot` overlaid via absolute positioning | hand-rolled `display: flex` / centering / sizing in `Avatar.css` |
 | Image element       | Owns raw `<img>`                   | bg-image on a `<div>`              |
 | Initials fallback   | `Text size="caption" weight="semibold">` | raw styled `<span>`           |
 | Icon fallback       | `Icon name="user">`                | inline `<svg>`                     |

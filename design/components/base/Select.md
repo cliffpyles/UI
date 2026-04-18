@@ -5,7 +5,7 @@ level: 3
 status: stable
 since: 0.3.0
 patterns: [data-entry]
-uses: [Icon]
+uses: [Box, Icon]
 replaces-raw: ["<select>"]
 ---
 
@@ -29,6 +29,7 @@ Select wraps the native `<select>` so a styled chevron, focus ring, and error vi
 ## Composition (required)
 | Concern        | Use                                | Never                              |
 |----------------|------------------------------------|------------------------------------|
+| Internal layout | `Box` wrapping the native `<select>` with the chevron `Icon` overlaid (positioned via Box props) | hand-rolled `display: flex` / positioning CSS in `Select.css` |
 | Native control | Owns raw `<select>` + `<option>`s  | a `<div role="combobox">` shim     |
 | Chevron        | `Icon name="chevron-down"`         | inline `<svg>`                     |
 
