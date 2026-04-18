@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Button } from "../../components/Button";
 import "./ExplorationNotebookLayout.css";
 
 export interface NotebookCell {
@@ -45,14 +46,15 @@ export const ExplorationNotebookLayout = forwardRef<
   const renderAdd = (index: number) =>
     onAddCell ? (
       <div className="ui-notebook__add-slot">
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           className="ui-notebook__add"
           onClick={() => onAddCell(index)}
           aria-label={`${addCellLabel} at position ${index + 1}`}
         >
           {addCellLabel}
-        </button>
+        </Button>
       </div>
     ) : null;
 
@@ -88,14 +90,15 @@ export const ExplorationNotebookLayout = forwardRef<
                       {cell.content}
                     </div>
                     {onRemoveCell && (
-                      <button
-                        type="button"
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         className="ui-notebook__remove"
                         onClick={handlers.onRemove}
                         aria-label="Remove cell"
                       >
                         Remove
-                      </button>
+                      </Button>
                     )}
                   </>
                 )}

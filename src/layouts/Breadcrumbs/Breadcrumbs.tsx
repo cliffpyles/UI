@@ -1,4 +1,5 @@
 import { forwardRef, Fragment, type HTMLAttributes, type ReactNode } from "react";
+import { Button } from "../../components/Button";
 import "./Breadcrumbs.css";
 
 export interface BreadcrumbItem {
@@ -63,13 +64,14 @@ export const Breadcrumbs = forwardRef<HTMLElement, BreadcrumbsProps>(
                       {entry.label}
                     </a>
                   ) : (
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       className="ui-breadcrumbs__link"
                       onClick={entry.onClick}
                     >
                       {entry.label}
-                    </button>
+                    </Button>
                   )}
                 </li>
                 {!isLast && (

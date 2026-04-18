@@ -4,6 +4,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import { Button } from "../../components/Button";
 import "./InlineEditLayout.css";
 
 export interface InlineEditLayoutProps
@@ -60,14 +61,15 @@ export const InlineEditLayout = forwardRef<
       {isEditing ? (
         <div className="ui-inline-edit__editor">{editor}</div>
       ) : (
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           className="ui-inline-edit__display"
           onClick={onEdit}
           aria-label={displayLabel}
         >
           {value}
-        </button>
+        </Button>
       )}
     </div>
   );

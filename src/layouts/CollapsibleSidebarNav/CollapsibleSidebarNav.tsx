@@ -3,6 +3,7 @@ import { Box } from "../../primitives/Box";
 import { Icon, type IconName } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
 import { Tooltip } from "../../components/Tooltip";
+import { Button } from "../../components/Button";
 import "./CollapsibleSidebarNav.css";
 
 export interface SidebarNavItem {
@@ -96,8 +97,9 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
           {inner}
         </a>
       ) : (
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           className={[
             "ui-sidebar-nav__item",
             item.active && "ui-sidebar-nav__item--active",
@@ -113,7 +115,7 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
           style={{ paddingLeft: `calc(var(--spacing-3) + ${depth * 16}px)` }}
         >
           {inner}
-        </button>
+        </Button>
       );
 
       const wrapped = collapsed ? (
@@ -154,8 +156,9 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
         </div>
         <Box direction="column" gap="2" className="ui-sidebar-nav__footer">
           {footer}
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-sidebar-nav__toggle"
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             aria-expanded={!collapsed}
@@ -165,7 +168,7 @@ export const CollapsibleSidebarNav = forwardRef<HTMLElement, CollapsibleSidebarN
               name={collapsed ? "chevron-right" : "chevron-left"}
               size="sm"
             />
-          </button>
+          </Button>
         </Box>
       </nav>
     );

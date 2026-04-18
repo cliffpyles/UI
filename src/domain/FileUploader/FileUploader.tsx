@@ -6,6 +6,9 @@ import {
   type HTMLAttributes,
 } from "react";
 import { Icon } from "../../primitives/Icon";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import { ProgressBar } from "../../components/ProgressBar";
 import { formatBytes } from "../../utils";
 import "./FileUploader.css";
@@ -94,22 +97,27 @@ export const FileUploader = forwardRef<HTMLDivElement, FileUploaderProps>(
         onDrop={handleDrop}
         {...rest}
       >
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           className="ui-file-uploader__button"
           onClick={() => inputRef.current?.click()}
           disabled={disabled}
         >
-          <Icon name="upload" size="lg" aria-hidden />
-          <span className="ui-file-uploader__label">{label}</span>
-          {(accept || maxSize) && (
-            <span className="ui-file-uploader__hint">
-              {accept && <>{accept}</>}
-              {accept && maxSize && " · "}
-              {maxSize && <>max {formatBytes(maxSize)}</>}
-            </span>
-          )}
-        </button>
+          <Box display="inline-flex" align="center" gap="1">
+            <Icon name="upload" size="lg" aria-hidden />
+            <Text as="span" className="ui-file-uploader__label">
+              {label}
+            </Text>
+            {(accept || maxSize) && (
+              <Text as="span" className="ui-file-uploader__hint">
+                {accept && <>{accept}</>}
+                {accept && maxSize && " · "}
+                {maxSize && <>max {formatBytes(maxSize)}</>}
+              </Text>
+            )}
+          </Box>
+        </Button>
         <input
           ref={inputRef}
           type="file"

@@ -6,6 +6,8 @@ import {
   type KeyboardEvent,
 } from "react";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./TabPersistenceLayout.css";
 
 export interface PersistentTab {
@@ -101,31 +103,33 @@ export const TabPersistenceLayout = forwardRef<HTMLDivElement, TabPersistenceLay
                     {tab.unsaved && (
                       <span className="ui-tab-persist__dot" aria-hidden="true" />
                     )}
-                    <span className="ui-tab-persist__title">{tab.title}</span>
+                    <Text as="span" className="ui-tab-persist__title">{tab.title}</Text>
                   </button>
                   {tab.closable !== false && onClose && (
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       className="ui-tab-persist__close"
                       aria-label={`Close ${tab.title}`}
                       onClick={() => onClose(tab.id)}
                     >
                       <Icon name="x" size="xs" />
-                    </button>
+                    </Button>
                   )}
                 </div>
               );
             })}
           </div>
           {onAddTab && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-tab-persist__add"
               aria-label="New tab"
               onClick={onAddTab}
             >
               <Icon name="plus" size="sm" />
-            </button>
+            </Button>
           )}
         </div>
         {active && (

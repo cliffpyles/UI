@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./AlertFeedLayout.css";
 
 export type AlertSeverity = "critical" | "warning" | "info";
@@ -95,14 +96,15 @@ export const AlertFeedLayout = forwardRef<HTMLDivElement, AlertFeedLayoutProps>(
                 <div className="ui-alert-feed__item-body">{alert.content}</div>
                 {onAcknowledge && (
                   <Box display="flex" gap="2" className="ui-alert-feed__item-actions">
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       className="ui-alert-feed__ack"
                       onClick={() => onAcknowledge(alert.id)}
                       disabled={alert.acknowledged}
                     >
                       {alert.acknowledged ? "Acknowledged" : "Acknowledge"}
-                    </button>
+                    </Button>
                   </Box>
                 )}
               </li>

@@ -5,6 +5,7 @@ import {
 } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./OnboardingChecklistLayout.css";
 
 export interface ChecklistTask {
@@ -58,14 +59,15 @@ export const OnboardingChecklistLayout = forwardRef<
           {title}
         </Text>
         {dismissible && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-onboarding-checklist__dismiss"
             onClick={onDismiss}
             aria-label="Dismiss checklist"
           >
             Dismiss
-          </button>
+          </Button>
         )}
       </Box>
       <div className="ui-onboarding-checklist__progress">

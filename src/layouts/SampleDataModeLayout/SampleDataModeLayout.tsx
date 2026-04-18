@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Button } from "../../components/Button";
 import "./SampleDataModeLayout.css";
 
 export interface SampleDataModeLayoutProps
@@ -38,13 +39,14 @@ export const SampleDataModeLayout = forwardRef<
       <div className="ui-sample-data-mode__banner" role="status">
         <span className="ui-sample-data-mode__banner-text">{banner}</span>
         {onSwitchToReal && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-sample-data-mode__cta"
             onClick={onSwitchToReal}
           >
             {ctaLabel}
-          </button>
+          </Button>
         )}
       </div>
       <div className="ui-sample-data-mode__content">{children}</div>

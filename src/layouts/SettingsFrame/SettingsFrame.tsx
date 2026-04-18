@@ -3,6 +3,9 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./SettingsFrame.css";
 
 export interface SettingsCategory {
@@ -36,8 +39,9 @@ export const SettingsFrame = forwardRef<HTMLDivElement, SettingsFrameProps>(
               const active = c.id === activeId;
               return (
                 <li key={c.id}>
-                  <button
-                    type="button"
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     disabled={c.disabled}
                     aria-current={active ? "page" : undefined}
                     className={[
@@ -48,13 +52,15 @@ export const SettingsFrame = forwardRef<HTMLDivElement, SettingsFrameProps>(
                       .join(" ")}
                     onClick={() => onChange(c.id)}
                   >
-                    <span className="ui-settings-frame__item-label">{c.label}</span>
-                    {c.description && (
-                      <span className="ui-settings-frame__item-desc">
-                        {c.description}
-                      </span>
-                    )}
-                  </button>
+                    <Box display="inline-flex" direction="column" gap="1">
+                      <Text as="span" className="ui-settings-frame__item-label">{c.label}</Text>
+                      {c.description && (
+                        <Text as="span" size="xs" color="tertiary" className="ui-settings-frame__item-desc">
+                          {c.description}
+                        </Text>
+                      )}
+                    </Box>
+                  </Button>
                 </li>
               );
             })}

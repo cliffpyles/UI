@@ -8,6 +8,8 @@ import {
 } from "react";
 import { Grid } from "../../primitives/Grid";
 import { Icon } from "../../primitives/Icon";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./HierarchicalTreeLayout.css";
 
 export interface TreeNode {
@@ -153,8 +155,9 @@ export const HierarchicalTreeLayout = forwardRef<HTMLDivElement, HierarchicalTre
                   style={{ paddingLeft: `calc(var(--spacing-3) + ${depth * 16}px)` }}
                 >
                   {hasChildren ? (
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       aria-label={isOpen ? `Collapse ${node.label}` : `Expand ${node.label}`}
                       className="ui-hierarchy-tree__toggle"
                       onClick={(e) => {
@@ -163,11 +166,11 @@ export const HierarchicalTreeLayout = forwardRef<HTMLDivElement, HierarchicalTre
                       }}
                     >
                       <Icon name={isOpen ? "chevron-down" : "chevron-right"} size="xs" />
-                    </button>
+                    </Button>
                   ) : (
                     <span className="ui-hierarchy-tree__leaf-dot" aria-hidden="true" />
                   )}
-                  <span className="ui-hierarchy-tree__label">{node.label}</span>
+                  <Text as="span" className="ui-hierarchy-tree__label">{node.label}</Text>
                 </div>
               );
             })}

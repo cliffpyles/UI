@@ -6,6 +6,7 @@ import {
 } from "react";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./IntegrationHubLayout.css";
 
 export type IntegrationStatus = "connected" | "disconnected" | "error";
@@ -93,8 +94,9 @@ export const IntegrationHubLayout = forwardRef<
         >
           <ul className="ui-integration-hub__cat-list">
             <li>
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="sm"
                 className={[
                   "ui-integration-hub__cat",
                   active === "all" && "ui-integration-hub__cat--active",
@@ -105,12 +107,13 @@ export const IntegrationHubLayout = forwardRef<
                 onClick={() => setActive("all")}
               >
                 All
-              </button>
+              </Button>
             </li>
             {categories.map((c) => (
               <li key={c.id}>
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className={[
                     "ui-integration-hub__cat",
                     active === c.id && "ui-integration-hub__cat--active",
@@ -121,7 +124,7 @@ export const IntegrationHubLayout = forwardRef<
                   onClick={() => setActive(c.id)}
                 >
                   {c.label}
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
@@ -129,35 +132,38 @@ export const IntegrationHubLayout = forwardRef<
         <ul className="ui-integration-hub__grid">
           {filtered.map((i) => (
             <li key={i.id} className="ui-integration-hub__item">
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="sm"
                 className="ui-integration-hub__card"
                 onClick={() => onSelect?.(i.id)}
               >
-                <div className="ui-integration-hub__card-head">
-                  {i.icon && (
+                <Box display="inline-flex" direction="column" gap="2">
+                  <div className="ui-integration-hub__card-head">
+                    {i.icon && (
+                      <span
+                        className="ui-integration-hub__icon"
+                        aria-hidden="true"
+                      >
+                        {i.icon}
+                      </span>
+                    )}
+                    <Text as="span" size="label" weight="semibold" className="ui-integration-hub__name">
+                      {i.name}
+                    </Text>
                     <span
-                      className="ui-integration-hub__icon"
-                      aria-hidden="true"
+                      className={`ui-integration-hub__status ui-integration-hub__status--${i.status}`}
                     >
-                      {i.icon}
+                      {statusLabel[i.status]}
                     </span>
+                  </div>
+                  {i.description && (
+                    <Text as="p" size="xs" color="secondary" className="ui-integration-hub__desc">
+                      {i.description}
+                    </Text>
                   )}
-                  <Text as="span" size="label" weight="semibold" className="ui-integration-hub__name">
-                    {i.name}
-                  </Text>
-                  <span
-                    className={`ui-integration-hub__status ui-integration-hub__status--${i.status}`}
-                  >
-                    {statusLabel[i.status]}
-                  </span>
-                </div>
-                {i.description && (
-                  <Text as="p" size="xs" color="secondary" className="ui-integration-hub__desc">
-                    {i.description}
-                  </Text>
-                )}
-              </button>
+                </Box>
+              </Button>
             </li>
           ))}
         </ul>

@@ -5,6 +5,7 @@ import {
   type Ref,
 } from "react";
 import { Box } from "../../primitives/Box";
+import { Button } from "../../components/Button";
 import "./FilterBarLayout.css";
 
 export interface FilterBarLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -63,13 +64,14 @@ export const FilterBarLayout = forwardRef<HTMLDivElement, FilterBarLayoutProps>(
         </Box>
         <Box display="flex" align="center" gap="content" shrink={0}>
           {showClearAll && onClearAll && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-filter-bar__clear"
               onClick={onClearAll}
             >
               {clearAllLabel}
-            </button>
+            </Button>
           )}
           {actions && (
             <Box display="flex" align="center" gap="content">

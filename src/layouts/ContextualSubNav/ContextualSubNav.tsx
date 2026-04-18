@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode, type Ref } from "react";
 import { Box } from "../../primitives/Box";
+import { Button } from "../../components/Button";
 import "./ContextualSubNav.css";
 
 export interface SubNavItem {
@@ -83,15 +84,16 @@ export const ContextualSubNav = forwardRef<HTMLElement, ContextualSubNavProps>(
                     {content}
                   </a>
                 ) : (
-                  <button
-                    type="button"
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className={itemClass}
                     aria-current={item.active ? "page" : undefined}
                     disabled={item.disabled}
                     onClick={item.onClick}
                   >
                     {content}
-                  </button>
+                  </Button>
                 )}
               </li>
             );

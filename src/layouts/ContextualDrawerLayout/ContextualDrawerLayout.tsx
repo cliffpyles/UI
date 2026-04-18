@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Icon } from "../../primitives/Icon";
 import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./ContextualDrawerLayout.css";
 
 export type DrawerMode = "overlay" | "push";
@@ -102,14 +103,15 @@ export const ContextualDrawerLayout = forwardRef<HTMLDivElement, ContextualDrawe
             >
               {title}
             </Text>
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-drawer-layout__close"
               aria-label="Close drawer"
               onClick={onClose}
             >
               <Icon name="x" size="sm" />
-            </button>
+            </Button>
           </header>
           <div className="ui-drawer-layout__drawer-body">{drawer}</div>
         </div>

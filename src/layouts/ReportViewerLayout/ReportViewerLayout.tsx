@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Button } from "../../components/Button";
 import "./ReportViewerLayout.css";
 
 export interface ReportViewerLayoutProps
@@ -39,27 +40,29 @@ export const ReportViewerLayout = forwardRef<HTMLDivElement, ReportViewerLayoutP
             className="ui-report-viewer__pager"
             aria-label="Report pagination"
           >
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-report-viewer__page-btn"
               onClick={() => onPageChange?.(currentPage! - 1)}
               disabled={!canPrev}
               aria-label="Previous page"
             >
               Previous
-            </button>
+            </Button>
             <span className="ui-report-viewer__page-status" aria-live="polite">
               Page {currentPage} of {totalPages}
             </span>
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-report-viewer__page-btn"
               onClick={() => onPageChange?.(currentPage! + 1)}
               disabled={!canNext}
               aria-label="Next page"
             >
               Next
-            </button>
+            </Button>
           </nav>
         )}
         <section

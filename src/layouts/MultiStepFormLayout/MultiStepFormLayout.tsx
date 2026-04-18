@@ -5,6 +5,8 @@ import {
   type Ref,
 } from "react";
 import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./MultiStepFormLayout.css";
 
 export interface FormStep {
@@ -89,17 +91,22 @@ export const MultiStepFormLayout = forwardRef<
                 .join(" ")}
               aria-current={active ? "step" : undefined}
             >
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="sm"
                 className="ui-multi-step-form__step-button"
                 onClick={() => goTo(idx)}
                 disabled={idx > currentStep}
               >
-                <span className="ui-multi-step-form__step-index" aria-hidden="true">
-                  {idx + 1}
-                </span>
-                <span className="ui-multi-step-form__step-label">{s.label}</span>
-              </button>
+                <Box display="inline-flex" align="center" gap="1">
+                  <span className="ui-multi-step-form__step-index" aria-hidden="true">
+                    {idx + 1}
+                  </span>
+                  <Text as="span" className="ui-multi-step-form__step-label">
+                    {s.label}
+                  </Text>
+                </Box>
+              </Button>
             </li>
           );
         })}
@@ -120,22 +127,24 @@ export const MultiStepFormLayout = forwardRef<
       >
         {footer ?? (
           <>
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-multi-step-form__nav"
               onClick={onBack}
               disabled={currentStep === 0}
             >
               Back
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
               className="ui-multi-step-form__nav"
               onClick={handleNext}
               disabled={currentStep >= total - 1}
             >
               Next
-            </button>
+            </Button>
           </>
         )}
       </Box>

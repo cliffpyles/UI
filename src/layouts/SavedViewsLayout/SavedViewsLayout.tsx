@@ -1,4 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
+import { Button } from "../../components/Button";
 import "./SavedViewsLayout.css";
 
 export interface SavedView {
@@ -58,13 +61,14 @@ export const SavedViewsLayout = forwardRef<HTMLDivElement, SavedViewsLayoutProps
         <header className="ui-saved-views__header">
           <div className="ui-saved-views__header-content">{header}</div>
           {onCreate && (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               className="ui-saved-views__create"
               onClick={onCreate}
             >
               {createLabel}
-            </button>
+            </Button>
           )}
         </header>
         {views.length === 0 && empty ? (
@@ -84,18 +88,23 @@ export const SavedViewsLayout = forwardRef<HTMLDivElement, SavedViewsLayoutProps
                   {renderView ? (
                     renderView(v, handlers)
                   ) : (
-                    <button
-                      type="button"
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       className="ui-saved-views__default"
                       onClick={handlers.onSelect}
                     >
-                      <span className="ui-saved-views__name">{v.name}</span>
-                      {v.description && (
-                        <span className="ui-saved-views__description">
-                          {v.description}
-                        </span>
-                      )}
-                    </button>
+                      <Box direction="column" gap="0.5">
+                        <Text as="span" weight="semibold" className="ui-saved-views__name">
+                          {v.name}
+                        </Text>
+                        {v.description && (
+                          <Text as="span" color="secondary" className="ui-saved-views__description">
+                            {v.description}
+                          </Text>
+                        )}
+                      </Box>
+                    </Button>
                   )}
                 </li>
               );

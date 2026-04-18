@@ -5,6 +5,7 @@ import {
   type ReactNode,
 } from "react";
 import { Box } from "../../primitives/Box";
+import { Button } from "../../components/Button";
 import "./SharedLinkLayout.css";
 
 export interface SharedLinkLayoutProps
@@ -54,13 +55,14 @@ export const SharedLinkLayout = forwardRef<HTMLDivElement, SharedLinkLayoutProps
               readOnly
             />
           </label>
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="sm"
             className="ui-shared-link__copy"
             onClick={handleCopy}
           >
             {copyLabel}
-          </button>
+          </Button>
         </Box>
         {preview && (
           <section
