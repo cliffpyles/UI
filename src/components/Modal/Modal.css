@@ -77,34 +77,7 @@
 /* Typography for .ui-modal__title comes from the Text primitive.
    Only density-specific size overrides live here. */
 
-/* ---------- Close button ---------- */
-
-.ui-modal__close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: var(--spacing-8);
-  height: var(--spacing-8);
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: background-color var(--duration-fast) var(--easing-default),
-    color var(--duration-fast) var(--easing-default);
-}
-
-.ui-modal__close:hover {
-  background: var(--color-background-surface-sunken);
-  color: var(--color-text-primary);
-}
-
-.ui-modal__close:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 2px;
-}
+/* ---------- Close button chrome comes from Button (variant="ghost"). ---------- */
 
 /* ---------- Description ---------- */
 

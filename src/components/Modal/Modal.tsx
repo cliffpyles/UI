@@ -10,6 +10,9 @@ import {
 import { createPortal } from "react-dom";
 import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
+import { VisuallyHidden } from "../../primitives/VisuallyHidden";
+import { Button } from "../Button";
+// Close button uses `Button icon="x"` — Button composes Icon internally.
 import "./Modal.css";
 
 type ModalSize = "sm" | "md" | "lg";
@@ -156,17 +159,20 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       .join(" ");
 
     const modal = (
-      <div
+      <Box
+        align="center"
+        justify="center"
         className="ui-modal-overlay"
         onClick={handleOverlayClick}
         onKeyDown={handleKeyDown}
       >
-        <div
+        <Box
           ref={(node) => {
-            (dialogRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-            if (typeof ref === "function") ref(node);
-            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            (dialogRef as React.MutableRefObject<HTMLDivElement | null>).current = node as HTMLDivElement | null;
+            if (typeof ref === "function") ref(node as HTMLDivElement | null);
+            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node as HTMLDivElement | null;
           }}
+          direction="column"
           role="dialog"
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}
@@ -175,14 +181,13 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           tabIndex={-1}
           {...props}
         >
-          {title && (
-            <Box
-              display="flex"
-              align="center"
-              justify="between"
-              gap="3"
-              className="ui-modal__header"
-            >
+          <Box
+            align="center"
+            justify="between"
+            gap="3"
+            className="ui-modal__header"
+          >
+            {title ? (
               <Text
                 as="h2"
                 id={titleId}
@@ -193,29 +198,22 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               >
                 {title}
               </Text>
-              <button
-                type="button"
-                className="ui-modal__close"
-                onClick={onClose}
-                aria-label="Close"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </Box>
-          )}
+            ) : (
+              <VisuallyHidden>
+                <Text as="h2" id={titleId} size="lg">
+                  Dialog
+                </Text>
+              </VisuallyHidden>
+            )}
+            <Button
+              variant="ghost"
+              size="sm"
+              icon="x"
+              className="ui-modal__close"
+              onClick={onClose}
+              aria-label="Close"
+            />
+          </Box>
           {description && (
             <Text
               as="p"
@@ -227,10 +225,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               {description}
             </Text>
           )}
-          <Box grow className="ui-modal__body">{children}</Box>
+          <Box direction="column" grow className="ui-modal__body">
+            {children}
+          </Box>
           {footer && (
             <Box
-              display="flex"
               align="center"
               justify="end"
               className="ui-modal__footer"
@@ -238,10 +237,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               {footer}
             </Box>
           )}
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
 
     return createPortal(modal, document.body);
   },
 );
+
+Modal.displayName = "Modal";
