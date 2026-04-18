@@ -158,11 +158,22 @@ export const CategoryChart = forwardRef<HTMLDivElement, CategoryChartProps>(
                 })}
           </svg>
           {hover && (
-            <ChartTooltip
-              title={hover.category}
-              rows={[{ label: seriesLabel, value: formatValue(hover.value) }]}
-              position={{ x: hover.x, y: hover.y }}
-            />
+            <Box
+              className="ui-category-chart__tooltip"
+              style={{ transform: `translate(${hover.x}px, ${hover.y}px)` }}
+            >
+              <ChartTooltip
+                header={hover.category}
+                rows={[
+                  {
+                    id: "primary",
+                    label: seriesLabel,
+                    value: formatValue(hover.value),
+                    color: defaultColor,
+                  },
+                ]}
+              />
+            </Box>
           )}
         </Box>
         <Box

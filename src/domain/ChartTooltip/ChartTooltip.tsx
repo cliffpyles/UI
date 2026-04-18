@@ -4,74 +4,79 @@ import { Text } from "../../primitives/Text";
 import "./ChartTooltip.css";
 
 export interface ChartTooltipRow {
-  label: ReactNode;
-  value: ReactNode;
-  color?: string;
+  id: string;
+  label: string;
+  value: string;
+  color: string;
+  emphasized?: boolean;
 }
 
-export interface ChartTooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
-  title?: ReactNode;
+export interface ChartTooltipProps extends HTMLAttributes<HTMLDivElement> {
+  header?: string;
   rows: ChartTooltipRow[];
-  position?: { x: number; y: number };
+  footer?: ReactNode;
 }
 
 export const ChartTooltip = forwardRef<HTMLDivElement, ChartTooltipProps>(
-  function ChartTooltip({ title, rows, position, className, style, ...rest }, ref) {
+  function ChartTooltip({ header, rows, footer, className, ...rest }, ref) {
     const classes = ["ui-chart-tooltip", className].filter(Boolean).join(" ");
-    const mergedStyle = {
-      ...style,
-      ...(position
-        ? { transform: `translate(${position.x}px, ${position.y}px)` }
-        : {}),
-    };
 
     return (
-      <div ref={ref} className={classes} role="tooltip" style={mergedStyle} {...rest}>
-        {title && (
-          <Text
-            as="span"
-            weight="semibold"
-            color="primary"
-            className="ui-chart-tooltip__title"
-          >
-            {title}
+      <Box
+        ref={ref as React.Ref<HTMLElement>}
+        role="tooltip"
+        aria-live="polite"
+        direction="column"
+        gap="1"
+        className={classes}
+        {...rest}
+      >
+        {header && (
+          <Text as="span" size="xs" weight="semibold" color="primary">
+            {header}
           </Text>
         )}
-        <Box
-          className="ui-chart-tooltip__rows"
-          display="flex"
-          direction="column"
-          gap="0.5"
-        >
-          {rows.map((r, i) => (
-            <Box
-              key={i}
-              className="ui-chart-tooltip__row"
-              display="flex"
-              align="center"
-              gap="2"
-            >
-              {r.color && (
-                <span
-                  className="ui-chart-tooltip__swatch"
-                  style={{ background: r.color }}
-                  aria-hidden="true"
-                />
-              )}
-              <Text
-                as="span"
-                color="secondary"
-                className="ui-chart-tooltip__label"
+        {rows.length > 0 && (
+          <Box direction="column" gap="1" className="ui-chart-tooltip__rows">
+            {rows.map((row) => (
+              <Box
+                key={row.id}
+                direction="row"
+                align="center"
+                gap="2"
+                className="ui-chart-tooltip__row"
               >
-                {r.label}
-              </Text>
-              <Text as="span" weight="medium" color="primary" tabularNums>
-                {r.value}
-              </Text>
-            </Box>
-          ))}
-        </Box>
-      </div>
+                <Box
+                  aria-hidden="true"
+                  className="ui-chart-tooltip__swatch"
+                  style={{ background: row.color }}
+                />
+                <Text
+                  as="span"
+                  size="xs"
+                  color="secondary"
+                  weight={row.emphasized ? "semibold" : "normal"}
+                  className="ui-chart-tooltip__label"
+                >
+                  {row.label}
+                </Text>
+                <Text
+                  as="span"
+                  size="xs"
+                  color="primary"
+                  weight={row.emphasized ? "semibold" : "medium"}
+                  className="ui-chart-tooltip__value"
+                >
+                  {row.value}
+                </Text>
+              </Box>
+            ))}
+          </Box>
+        )}
+        {footer && <Box className="ui-chart-tooltip__footer">{footer}</Box>}
+      </Box>
     );
   },
 );
+
+ChartTooltip.displayName = "ChartTooltip";
