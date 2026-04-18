@@ -377,7 +377,7 @@ export type {
   ActivityFeedProps,
   ActivityEvent,
   CommentThreadProps,
-  Comment,
+  CommentNode,
   VersionHistoryProps,
   Version,
   DueDateIndicatorProps,

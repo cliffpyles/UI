@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  useId,
   useState,
   type HTMLAttributes,
   type ReactNode,
@@ -9,145 +10,151 @@ import { Box } from "../../primitives/Box";
 import { Text } from "../../primitives/Text";
 import { Button } from "../../components/Button";
 import { Textarea } from "../../components/Textarea";
+import { UserChip } from "../UserChip";
 import { UserAvatar, type UserData } from "../UserAvatar";
 import { Timestamp } from "../Timestamp";
 import "./CommentThread.css";
 
-export interface Comment {
+export interface CommentNode {
   id: string;
   author: UserData;
   body: ReactNode;
-  timestamp: Date | string | number;
-  replies?: Comment[];
-  reactions?: { emoji: string; count: number; byMe?: boolean }[];
+  createdAt: Date | string | number;
+  reactions?: { emoji: string; count: number; reactedByMe?: boolean }[];
+  replies?: CommentNode[];
 }
 
-export interface CommentThreadProps extends HTMLAttributes<HTMLDivElement> {
-  comments: Comment[];
-  onAdd?: (body: string) => void;
-  onReply?: (parentId: string, body: string) => void;
-  onReact?: (id: string, emoji: string) => void;
-  placeholder?: string;
+export interface CommentThreadProps extends Omit<HTMLAttributes<HTMLElement>, "onSubmit"> {
+  comments: CommentNode[];
+  currentUser?: UserData;
+  onSubmit?: (body: string, parentId: string | null) => void;
+  onReact?: (commentId: string, emoji: string) => void;
+  maxDepth?: number;
+  loading?: boolean;
 }
 
 interface CommentViewProps {
-  comment: Comment;
-  onReply?: (parentId: string, body: string) => void;
-  onReact?: (id: string, emoji: string) => void;
+  comment: CommentNode;
   depth: number;
+  maxDepth: number;
+  onSubmit?: (body: string, parentId: string | null) => void;
+  onReact?: (commentId: string, emoji: string) => void;
 }
 
-function CommentView({ comment, onReply, onReact, depth }: CommentViewProps) {
+function CommentView({ comment, depth, maxDepth, onSubmit, onReact }: CommentViewProps) {
   const [replying, setReplying] = useState(false);
   const [reply, setReply] = useState("");
+  const headerId = useId();
+  const clampedDepth = Math.min(depth, maxDepth);
 
   return (
     <Box
+      as="article"
+      role="article"
+      aria-labelledby={headerId}
       className="ui-comment-thread__comment"
-      display="flex"
       direction="column"
       gap="1"
-      style={{ paddingLeft: `${depth * 24}px` }}
+      style={{ paddingInlineStart: `calc(var(--comment-thread-indent-step) * ${clampedDepth})` }}
     >
-      <Box
-        className="ui-comment-thread__header"
-        display="flex"
-        align="center"
-        gap="2"
-      >
-        <UserAvatar user={comment.author} size="sm" />
-        <Text as="span" weight="semibold" color="primary">
-          {comment.author.name}
-        </Text>
-        <Timestamp date={comment.timestamp} format="auto" className="ui-comment-thread__time" />
+      <Box direction="row" align="center" gap="2" className="ui-comment-thread__header">
+        <UserChip user={comment.author} id={headerId} />
+        <Timestamp date={comment.createdAt} format="auto" className="ui-comment-thread__time" />
       </Box>
-      <div className="ui-comment-thread__body">{comment.body}</div>
+      <Text as="p" size="sm" className="ui-comment-thread__body">
+        {comment.body}
+      </Text>
       {comment.reactions && comment.reactions.length > 0 && (
-        <Box
-          className="ui-comment-thread__reactions"
-          display="inline-flex"
-          gap="1"
-          wrap
-        >
+        <Box direction="row" gap="1" wrap className="ui-comment-thread__reactions">
           {comment.reactions.map((r) => (
             <Button
               key={r.emoji}
               variant="ghost"
               size="sm"
-              className={
-                "ui-comment-thread__reaction" +
-                (r.byMe ? " ui-comment-thread__reaction--mine" : "")
-              }
+              aria-pressed={!!r.reactedByMe}
+              aria-label={`React ${r.emoji}`}
+              className="ui-comment-thread__reaction"
               onClick={() => onReact?.(comment.id, r.emoji)}
             >
-              <span aria-hidden>{r.emoji}</span>
-              <span>{r.count}</span>
+              <Text as="span" aria-hidden>{r.emoji}</Text>
+              <Text as="span">{r.count}</Text>
             </Button>
           ))}
         </Box>
       )}
-      {onReply && (
-        <div className="ui-comment-thread__actions">
+      {onSubmit && (
+        <Box direction="column" gap="1" className="ui-comment-thread__actions">
           {!replying ? (
             <Button
               variant="ghost"
               size="sm"
-              className="ui-comment-thread__reply-trigger"
               onClick={() => setReplying(true)}
             >
               Reply
             </Button>
           ) : (
-            <form
-              className="ui-comment-thread__form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (reply.trim()) {
-                  onReply(comment.id, reply.trim());
-                  setReply("");
-                  setReplying(false);
-                }
-              }}
-            >
+            <Box as="section" direction="column" gap="1" className="ui-comment-thread__form">
               <Textarea
                 aria-label={`Reply to ${comment.author.name}`}
                 value={reply}
                 onChange={(e) => setReply(e.target.value)}
                 className="ui-comment-thread__textarea"
               />
-              <Box
-                className="ui-comment-thread__form-actions"
-                display="inline-flex"
-                gap="1"
-                justify="end"
-              >
-                <Button variant="ghost" size="sm" onClick={() => setReplying(false)} type="button">
+              <Box direction="row" gap="1" justify="end">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setReplying(false);
+                    setReply("");
+                  }}
+                >
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" type="submit">
-                  Reply
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => {
+                    if (reply.trim()) {
+                      onSubmit(reply.trim(), comment.id);
+                      setReply("");
+                      setReplying(false);
+                    }
+                  }}
+                >
+                  Post reply
                 </Button>
               </Box>
-            </form>
+            </Box>
           )}
-        </div>
+        </Box>
       )}
       {comment.replies?.map((r) => (
         <CommentView
           key={r.id}
           comment={r}
-          onReply={onReply}
+          depth={clampedDepth + 1}
+          maxDepth={maxDepth}
+          onSubmit={onSubmit}
           onReact={onReact}
-          depth={depth + 1}
         />
       ))}
     </Box>
   );
 }
 
-export const CommentThread = forwardRef<HTMLDivElement, CommentThreadProps>(
+export const CommentThread = forwardRef<HTMLElement, CommentThreadProps>(
   function CommentThread(
-    { comments, onAdd, onReply, onReact, placeholder = "Add comment…", className, ...rest },
+    {
+      comments,
+      currentUser,
+      onSubmit,
+      onReact,
+      maxDepth = 3,
+      loading = false,
+      className,
+      ...rest
+    },
     ref,
   ) {
     const [draft, setDraft] = useState("");
@@ -155,44 +162,55 @@ export const CommentThread = forwardRef<HTMLDivElement, CommentThreadProps>(
 
     return (
       <Box
+        as="section"
         ref={ref as Ref<HTMLElement>}
+        aria-label="Comments"
+        aria-busy={loading || undefined}
         className={classes}
-        display="flex"
         direction="column"
         gap="3"
         {...rest}
       >
-        {comments.map((c) => (
-          <CommentView
-            key={c.id}
-            comment={c}
-            onReply={onReply}
-            onReact={onReact}
-            depth={0}
-          />
-        ))}
-        {onAdd && (
-          <form
-            className="ui-comment-thread__form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (draft.trim()) {
-                onAdd(draft.trim());
-                setDraft("");
-              }
-            }}
-          >
+        {loading && (
+          <Box direction="column" gap="2" aria-hidden className="ui-comment-thread__skeletons">
+            <Box className="ui-comment-thread__skeleton" />
+            <Box className="ui-comment-thread__skeleton" />
+            <Box className="ui-comment-thread__skeleton" />
+          </Box>
+        )}
+        {!loading &&
+          comments.map((c) => (
+            <CommentView
+              key={c.id}
+              comment={c}
+              depth={0}
+              maxDepth={maxDepth}
+              onSubmit={onSubmit}
+              onReact={onReact}
+            />
+          ))}
+        {onSubmit && (
+          <Box as="section" direction="column" gap="1" className="ui-comment-thread__composer">
+            {currentUser && <UserAvatar user={currentUser} size="sm" />}
             <Textarea
-              aria-label="Add comment"
+              aria-label="New comment"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder={placeholder}
               className="ui-comment-thread__textarea"
             />
-            <Button variant="primary" size="sm" type="submit">
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => {
+                if (draft.trim()) {
+                  onSubmit(draft.trim(), null);
+                  setDraft("");
+                }
+              }}
+            >
               Comment
             </Button>
-          </form>
+          </Box>
         )}
       </Box>
     );

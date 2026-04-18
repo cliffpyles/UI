@@ -262,7 +262,7 @@ export { ActivityFeed } from "./ActivityFeed";
 export type { ActivityFeedProps, ActivityEvent } from "./ActivityFeed";
 
 export { CommentThread } from "./CommentThread";
-export type { CommentThreadProps, Comment } from "./CommentThread";
+export type { CommentThreadProps, CommentNode } from "./CommentThread";
 
 export { VersionHistory } from "./VersionHistory";
 export type { VersionHistoryProps, Version } from "./VersionHistory";
