@@ -1,0 +1,8 @@
+.ui-currency {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.ui-currency__inner {
+  align-items: baseline;
+}

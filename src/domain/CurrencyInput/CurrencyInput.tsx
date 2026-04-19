@@ -1,49 +1,103 @@
-import { forwardRef, type InputHTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Input } from "../../components/Input";
+import { Select } from "../../components/Select";
+import { formatCurrencyParts } from "../../utils";
+import "./CurrencyInput.css";
 
-export interface CurrencyInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type" | "size"> {
-  value: number | null;
-  onChange: (value: number | null) => void;
-  currency?: string;
-  locale?: string;
-  size?: "sm" | "md" | "lg";
+export interface MoneyValue {
+  amount: number | null;
+  currency: string;
 }
 
-function getSymbol(currency: string, locale?: string): string {
+export interface CurrencyInputProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+  value: MoneyValue;
+  onChange: (next: MoneyValue) => void;
+  currencies?: string[];
+  locale?: string;
+  min?: number;
+  max?: number;
+  precision?: number;
+  disabled?: boolean;
+  error?: boolean;
+  readOnly?: boolean;
+}
+
+function currencySymbol(currency: string, locale?: string): string {
   try {
-    const parts = new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency,
-    }).formatToParts(0);
-    return parts.find((p) => p.type === "currency")?.value ?? currency;
+    return formatCurrencyParts(0, currency, { locale }).symbol || currency;
   } catch {
     return currency;
   }
 }
 
-export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
+export const CurrencyInput = forwardRef<HTMLDivElement, CurrencyInputProps>(
   function CurrencyInput(
-    { value, onChange, currency = "USD", locale, size, ...rest },
+    {
+      value,
+      onChange,
+      currencies = ["USD"],
+      locale,
+      min,
+      max,
+      precision = 2,
+      disabled = false,
+      error = false,
+      readOnly = false,
+      className,
+      ...rest
+    },
     ref,
   ) {
-    const symbol = getSymbol(currency, locale);
+    const classes = ["ui-currency-input", className].filter(Boolean).join(" ");
+    const symbol = currencySymbol(value.currency, locale);
+    const step = precision > 0 ? `0.${"0".repeat(precision - 1)}1` : "1";
 
     return (
-      <Input
+      <Box
+        as="div"
         ref={ref}
-        type="number"
-        inputMode="decimal"
-        step="0.01"
-        value={value == null ? "" : value}
-        onChange={(e) => {
-          const v = e.target.value;
-          onChange(v === "" ? null : Number(v));
-        }}
-        leadingAddon={<span aria-hidden="true">{symbol}</span>}
-        size={size}
+        direction="row"
+        gap="1"
+        className={classes}
         {...rest}
-      />
+      >
+        <Input
+          aria-label="Amount"
+          aria-invalid={error || undefined}
+          aria-readonly={readOnly || undefined}
+          type="number"
+          inputMode="decimal"
+          step={step}
+          min={min}
+          max={max}
+          value={value.amount == null ? "" : value.amount}
+          onChange={(e) => {
+            const v = e.target.value;
+            onChange({
+              ...value,
+              amount: v === "" ? null : Number(v),
+            });
+          }}
+          leadingAddon={
+            <Text as="span" aria-hidden className="ui-currency-input__symbol">
+              {symbol}
+            </Text>
+          }
+          disabled={disabled}
+          readOnly={readOnly}
+          error={error}
+        />
+        <Select
+          aria-label="Currency"
+          options={currencies.map((c) => ({ value: c, label: c }))}
+          value={value.currency}
+          onChange={(c) => onChange({ ...value, currency: c })}
+          disabled={disabled || readOnly}
+        />
+      </Box>
     );
   },
 );

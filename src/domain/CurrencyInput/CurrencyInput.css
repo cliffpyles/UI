@@ -1,0 +1,3 @@
+.ui-currency-input {
+  gap: var(--currency-input-gap, var(--spacing-1));
+}

@@ -4,8 +4,8 @@ export type { FormatNumberOptions } from "./number";
 export { formatCompact } from "./compact";
 export type { FormatCompactOptions } from "./compact";
 
-export { formatCurrency } from "./currency";
-export type { FormatCurrencyOptions } from "./currency";
+export { formatCurrency, formatCurrencyParts } from "./currency";
+export type { FormatCurrencyOptions, CurrencyParts } from "./currency";
 
 export { formatPercent } from "./percent";
 export type { FormatPercentOptions } from "./percent";
