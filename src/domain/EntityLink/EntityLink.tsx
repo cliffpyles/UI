@@ -1,52 +1,108 @@
-import { forwardRef, type AnchorHTMLAttributes } from "react";
+import {
+  forwardRef,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from "react";
+import { Box } from "../../primitives/Box";
+import { Text } from "../../primitives/Text";
 import { Icon, type IconName } from "../../primitives/Icon";
 import "./EntityLink.css";
 
-export interface EntityData {
-  type: string;
-  id: string | number;
+export type EntityType =
+  | "issue"
+  | "project"
+  | "user"
+  | "team"
+  | "document"
+  | "commit"
+  | "release"
+  | "custom";
+
+export interface EntityLinkProps
+  extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  type: EntityType;
+  identifier?: string;
   label: string;
-  icon?: IconName;
+  href: string;
+  iconOverride?: ReactNode;
+  truncate?: boolean;
+  disabled?: boolean;
 }
 
-export interface EntityLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  entity: EntityData;
-  showType?: boolean;
-  external?: boolean;
-}
-
-const TYPE_ICON: Record<string, IconName> = {
-  user: "user",
-  file: "download",
+const TYPE_ICON: Record<Exclude<EntityType, "custom">, IconName> = {
+  issue: "alert-circle",
   project: "filter",
-  task: "edit",
+  user: "user",
+  team: "users",
+  document: "edit",
+  commit: "settings",
+  release: "download",
 };
 
 export const EntityLink = forwardRef<HTMLAnchorElement, EntityLinkProps>(
   function EntityLink(
-    { entity, showType, external, className, children, href, ...rest },
+    {
+      type,
+      identifier,
+      label,
+      href,
+      iconOverride,
+      truncate = true,
+      disabled = false,
+      className,
+      children,
+      ...rest
+    },
     ref,
   ) {
-    const classes = ["ui-entity-link", className].filter(Boolean).join(" ");
-    const iconName = entity.icon ?? TYPE_ICON[entity.type];
+    const classes = [
+      "ui-entity-link",
+      `ui-entity-link--${type}`,
+      disabled && "ui-entity-link--disabled",
+      truncate && "ui-entity-link--truncate",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const fullText = identifier ? `${identifier} ${label}` : label;
+    const icon =
+      type === "custom"
+        ? iconOverride
+        : <Icon
+            name={TYPE_ICON[type]}
+            size="sm"
+            aria-hidden
+            className="ui-entity-link__icon"
+          />;
 
     return (
       <a
         ref={ref}
         className={classes}
-        href={href ?? "#"}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
+        href={disabled ? undefined : href}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
+        title={fullText}
+        aria-label={fullText}
         {...rest}
       >
-        {iconName && (
-          <Icon name={iconName} size="xs" className="ui-entity-link__icon" aria-hidden />
-        )}
-        <span className="ui-entity-link__label">{children ?? entity.label}</span>
-        {showType && <span className="ui-entity-link__type">{entity.type}</span>}
-        {external && (
-          <Icon name="external-link" size="xs" className="ui-entity-link__external" aria-hidden />
-        )}
+        <Box display="inline-flex" align="center" gap="0.5">
+          {icon}
+          {identifier && (
+            <Text as="span" weight="medium" color="inherit">
+              {identifier}
+            </Text>
+          )}
+          <Text
+            as="span"
+            color="inherit"
+            truncate={truncate}
+            className="ui-entity-link__label"
+          >
+            {children ?? label}
+          </Text>
+        </Box>
       </a>
     );
   },

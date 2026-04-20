@@ -49,7 +49,7 @@ export { ProgressPill } from "./ProgressPill";
 export type { ProgressPillProps, ProgressPillVariant } from "./ProgressPill";
 
 export { EnvironmentTag } from "./EnvironmentTag";
-export type { EnvironmentTagProps, Environment, EnvironmentTagVariant } from "./EnvironmentTag";
+export type { EnvironmentTagProps, Environment } from "./EnvironmentTag";
 
 export { LiveIndicator } from "./LiveIndicator";
 export type { LiveIndicatorProps } from "./LiveIndicator";
@@ -97,10 +97,14 @@ export { TeamBadge } from "./TeamBadge";
 export type { TeamBadgeProps, TeamBadgeSize, TeamData } from "./TeamBadge";
 
 export { EntityLink } from "./EntityLink";
-export type { EntityLinkProps, EntityData } from "./EntityLink";
+export type { EntityLinkProps, EntityType } from "./EntityLink";
 
 export { MentionToken } from "./MentionToken";
-export type { MentionTokenProps, MentionVariant } from "./MentionToken";
+export type {
+  MentionTokenProps,
+  MentionKind,
+  MentionTone,
+} from "./MentionToken";
 
 export { UserPicker } from "./UserPicker";
 export type { UserPickerProps } from "./UserPicker";

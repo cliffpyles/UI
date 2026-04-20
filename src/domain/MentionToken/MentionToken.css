@@ -1,22 +1,15 @@
 .ui-mention-token {
   display: inline-flex;
   align-items: baseline;
-  padding: 0 var(--spacing-1);
-  border-radius: var(--radius-sm);
-  background: var(--color-status-info-bg);
-  color: var(--color-status-info-text);
-  font-weight: var(--font-weight-medium);
-  font-size: inherit;
-  line-height: inherit;
 }
 
-.ui-mention-token--team {
-  background: var(--color-action-primary-bg);
-  color: var(--color-action-primary);
+.ui-mention-token__link {
+  color: inherit;
+  text-decoration: none;
 }
 
-.ui-mention-token--channel,
-.ui-mention-token--entity {
-  background: var(--color-background-surface-sunken);
-  color: var(--color-text-primary);
+.ui-mention-token__link:hover .ui-mention-token__tag,
+.ui-mention-token__link:focus-visible .ui-mention-token__tag {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: 1px;
 }

@@ -120,8 +120,8 @@ export default function Domain() {
           <UserChip user={jane} />
           <UserChip user={bob} removable onRemove={() => {}} />
           <TeamBadge team={{ name: "Platform Team", color: "#6366f1" }} />
-          <EntityLink entity={{ type: "user", id: "1", label: "Jane Doe" }} href="#" />
-          <MentionToken entity={{ type: "user", label: "jane" }} />
+          <EntityLink type="user" label="Jane Doe" href="#" />
+          <MentionToken kind="user" handle="jane" />
         </Box>
       </Demo>
 

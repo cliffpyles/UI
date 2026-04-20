@@ -1,37 +1,4 @@
 .ui-environment-tag {
   display: inline-flex;
-  align-items: center;
-  padding: var(--spacing-0-5) var(--spacing-2);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1;
-  border: 1px solid transparent;
-}
-
-.ui-environment-tag--solid.ui-environment-tag--production {
-  background: var(--color-status-error-bg);
-  color: var(--color-status-error-text);
-}
-.ui-environment-tag--solid.ui-environment-tag--staging {
-  background: var(--color-status-warning-bg);
-  color: var(--color-status-warning-text);
-}
-.ui-environment-tag--solid.ui-environment-tag--development,
-.ui-environment-tag--solid.ui-environment-tag--preview,
-.ui-environment-tag--solid.ui-environment-tag--test {
-  background: var(--color-status-info-bg);
-  color: var(--color-status-info-text);
-}
-
-.ui-environment-tag--outline {
-  background: transparent;
-  border-color: var(--color-border-default);
-  color: var(--color-text-secondary);
-}
-.ui-environment-tag--outline.ui-environment-tag--production {
-  border-color: var(--color-status-error-icon);
-  color: var(--color-status-error-text);
+  letter-spacing: 0.04em;
 }
