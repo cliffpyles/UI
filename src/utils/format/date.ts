@@ -85,6 +85,59 @@ export function formatDate(
   return formatAbsolute(date, now, locale);
 }
 
+export interface FormatDateRangePartsOptions {
+  locale?: string;
+  format?: "short" | "medium" | "long";
+  collapse?: boolean;
+}
+
+export interface DateRangeParts {
+  start: string;
+  end: string;
+  ariaLabel: string;
+}
+
+export function formatDateRangeParts(
+  start: Date,
+  end: Date,
+  { locale, format = "medium", collapse = true }: FormatDateRangePartsOptions = {},
+): DateRangeParts {
+  const monthStyle: "short" | "long" =
+    format === "long" ? "long" : format === "short" ? "short" : "short";
+
+  const sameYear = start.getFullYear() === end.getFullYear();
+  const sameMonth = sameYear && start.getMonth() === end.getMonth();
+
+  const startFmt = new Intl.DateTimeFormat(locale, {
+    month: monthStyle,
+    day: "numeric",
+    year: collapse && sameYear ? undefined : "numeric",
+  }).format(start);
+
+  const endFmt = new Intl.DateTimeFormat(locale, {
+    month: collapse && sameMonth ? undefined : monthStyle,
+    day: "numeric",
+    year: "numeric",
+  }).format(end);
+
+  const spelledStart = new Intl.DateTimeFormat(locale, {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(start);
+  const spelledEnd = new Intl.DateTimeFormat(locale, {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(end);
+
+  return {
+    start: startFmt,
+    end: endFmt,
+    ariaLabel: `${spelledStart} to ${spelledEnd}`,
+  };
+}
+
 function formatAbsolute(date: Date, now: Date, locale?: string): string {
   const sameYear = date.getFullYear() === now.getFullYear();
 

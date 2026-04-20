@@ -10,8 +10,13 @@ export type { FormatCurrencyOptions, CurrencyParts } from "./currency";
 export { formatPercent } from "./percent";
 export type { FormatPercentOptions } from "./percent";
 
-export { formatDate } from "./date";
-export type { FormatDateOptions, DateFormatStyle } from "./date";
+export { formatDate, formatDateRangeParts } from "./date";
+export type {
+  FormatDateOptions,
+  DateFormatStyle,
+  FormatDateRangePartsOptions,
+  DateRangeParts,
+} from "./date";
 
 export { formatDuration } from "./duration";
 export type { FormatDurationOptions, DurationStyle } from "./duration";
