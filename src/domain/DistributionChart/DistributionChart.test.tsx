@@ -51,7 +51,7 @@ describe("DistributionChart", () => {
 
   it("renders EmptyChart when values is empty and no buckets given", () => {
     render(<DistributionChart values={[]} />);
-    expect(screen.getByText(/No data/i)).toBeInTheDocument();
+    expect(screen.getByText("No data to display")).toBeInTheDocument();
   });
 
   it("renders Skeleton when loading", () => {
