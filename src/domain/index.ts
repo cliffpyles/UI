@@ -27,7 +27,7 @@ export { TrendIndicator } from "./TrendIndicator";
 export type { TrendIndicatorProps, TrendDirection } from "./TrendIndicator";
 
 export { Delta } from "./Delta";
-export type { DeltaProps, DeltaFormat } from "./Delta";
+export type { DeltaProps, DeltaDisplay, DeltaPolarity } from "./Delta";
 
 export { Sparkline } from "./Sparkline";
 export type { SparklineProps } from "./Sparkline";

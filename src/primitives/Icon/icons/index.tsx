@@ -1,6 +1,18 @@
 import type { ReactNode } from "react";
 
 export const iconPaths = {
+  "arrow-up": (
+    <>
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </>
+  ),
+  "arrow-down": (
+    <>
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <polyline points="19 12 12 19 5 12" />
+    </>
+  ),
   "chevron-down": <polyline points="6 9 12 15 18 9" />,
   "chevron-right": <polyline points="9 18 15 12 9 6" />,
   "chevron-up": <polyline points="18 15 12 9 6 15" />,
