@@ -2,10 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 
 export type SortDirection = "asc" | "desc";
 
-export interface SortState {
-  column: string;
-  direction: SortDirection;
-}
+export type SortState = { column: string; direction: SortDirection } | null;
 
 export interface PaginationState {
   page: number;

@@ -1,74 +1,71 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { Box } from "../../primitives/Box";
 import { Table } from "../../components/Table";
 import { Checkbox } from "../../components/Checkbox";
 import { Skeleton } from "../../components/Skeleton";
 import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { Pagination } from "../../components/Pagination";
-import { Box } from "../../primitives/Box";
-import type {
-  DataTableStateProps,
-  SortState,
-} from "./useDataTableState";
+import type { SortState } from "./useDataTableState";
 import "./DataTable.css";
+
+export type { SortState };
 
 export interface DataTableColumn<T> {
   id: string;
   header: ReactNode;
-  accessor?: keyof T | ((row: T) => ReactNode);
-  render?: (row: T) => ReactNode;
+  accessor: (row: T) => ReactNode;
   sortable?: boolean;
   numeric?: boolean;
   width?: string | number;
 }
 
+export interface DataTablePagination {
+  page: number;
+  pageSize: number;
+  total: number;
+  onPageChange: (page: number) => void;
+}
+
 export interface DataTableProps<T>
   extends Omit<HTMLAttributes<HTMLDivElement>, "onError"> {
   columns: DataTableColumn<T>[];
-  data: T[];
+  rows: T[];
   rowKey: (row: T) => string;
   loading?: boolean;
   error?: Error | string | null;
   onRetry?: () => void;
   emptyState?: ReactNode;
-  selectable?: boolean;
-  total?: number;
-  sort?: SortState | null;
-  onSortChange?: DataTableStateProps["onSortChange"];
-  pagination?: DataTableStateProps["pagination"];
-  onPageChange?: DataTableStateProps["onPageChange"];
-  selected?: string[];
-  onSelectedChange?: (ids: string[]) => void;
+  sort?: SortState;
+  onSortChange?: (next: SortState) => void;
+  selection?: Set<string>;
+  onSelectionChange?: (next: Set<string>) => void;
+  pagination?: DataTablePagination;
+  visibleColumns?: string[];
   toolbar?: ReactNode;
 }
 
-function getCellValue<T>(row: T, col: DataTableColumn<T>): ReactNode {
-  if (col.render) return col.render(row);
-  if (typeof col.accessor === "function") return col.accessor(row);
-  if (col.accessor) {
-    const v = row[col.accessor];
-    return v as ReactNode;
-  }
+function nextSort(current: SortState, column: string): SortState {
+  if (!current || current.column !== column) return { column, direction: "asc" };
+  if (current.direction === "asc") return { column, direction: "desc" };
   return null;
 }
 
 function DataTableInner<T>(
   {
     columns,
-    data,
+    rows,
     rowKey,
-    loading,
+    loading = false,
     error,
     onRetry,
     emptyState,
-    selectable,
-    total,
-    sort,
+    sort = null,
     onSortChange,
+    selection,
+    onSelectionChange,
     pagination,
-    onPageChange,
-    selected = [],
-    onSelectedChange,
+    visibleColumns,
     toolbar,
     className,
     ...rest
@@ -76,37 +73,49 @@ function DataTableInner<T>(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const classes = ["ui-data-table", className].filter(Boolean).join(" ");
-  const colCount = columns.length + (selectable ? 1 : 0);
-  const selectedSet = new Set(selected);
+  const selectable = !!selection && !!onSelectionChange;
+  const selectionSet = selection ?? new Set<string>();
 
-  const allSelected = data.length > 0 && data.every((r) => selectedSet.has(rowKey(r)));
-  const someSelected = data.some((r) => selectedSet.has(rowKey(r))) && !allSelected;
+  const activeColumns = visibleColumns
+    ? visibleColumns
+        .map((id) => columns.find((c) => c.id === id))
+        .filter((c): c is DataTableColumn<T> => !!c)
+    : columns;
+
+  const colCount = activeColumns.length + (selectable ? 1 : 0);
+  const skeletonCount = pagination?.pageSize ?? 5;
+
+  const allSelected = rows.length > 0 && rows.every((r) => selectionSet.has(rowKey(r)));
+  const someSelected = rows.some((r) => selectionSet.has(rowKey(r))) && !allSelected;
 
   const toggleAll = () => {
-    if (!onSelectedChange) return;
+    if (!onSelectionChange) return;
+    const next = new Set(selectionSet);
     if (allSelected) {
-      const dataKeys = new Set(data.map(rowKey));
-      onSelectedChange(selected.filter((id) => !dataKeys.has(id)));
+      for (const r of rows) next.delete(rowKey(r));
     } else {
-      const next = new Set(selected);
-      for (const r of data) next.add(rowKey(r));
-      onSelectedChange(Array.from(next));
+      for (const r of rows) next.add(rowKey(r));
     }
+    onSelectionChange(next);
   };
 
   const toggleRow = (id: string) => {
-    if (!onSelectedChange) return;
-    const next = new Set(selected);
+    if (!onSelectionChange) return;
+    const next = new Set(selectionSet);
     if (next.has(id)) next.delete(id);
     else next.add(id);
-    onSelectedChange(Array.from(next));
+    onSelectionChange(next);
+  };
+
+  const handleHeaderSort = (column: string) => {
+    if (!onSortChange) return;
+    onSortChange(nextSort(sort, column));
   };
 
   return (
     <Box
       ref={ref as React.Ref<HTMLElement>}
       className={classes}
-      display="flex"
       direction="column"
       gap="2"
       {...rest}
@@ -120,7 +129,7 @@ function DataTableInner<T>(
         />
       ) : (
         <div className="ui-data-table__scroll">
-          <Table>
+          <Table aria-busy={loading || undefined}>
             <Table.Header>
               <Table.Row>
                 {selectable && (
@@ -133,7 +142,7 @@ function DataTableInner<T>(
                     />
                   </Table.Head>
                 )}
-                {columns.map((col) => (
+                {activeColumns.map((col) => (
                   <Table.Head
                     key={col.id}
                     numeric={col.numeric}
@@ -141,7 +150,7 @@ function DataTableInner<T>(
                     sorted={sort?.column === col.id ? sort.direction : false}
                     onSort={
                       col.sortable && onSortChange
-                        ? () => onSortChange(col.id)
+                        ? () => handleHeaderSort(col.id)
                         : undefined
                     }
                     width={col.width}
@@ -153,30 +162,30 @@ function DataTableInner<T>(
             </Table.Header>
             <Table.Body>
               {loading ? (
-                Array.from({ length: 5 }).map((_, i) => (
+                Array.from({ length: skeletonCount }).map((_, i) => (
                   <Table.Row key={`skeleton-${i}`}>
                     {selectable && (
                       <Table.Cell>
                         <Skeleton width={16} height={16} />
                       </Table.Cell>
                     )}
-                    {columns.map((col) => (
+                    {activeColumns.map((col) => (
                       <Table.Cell key={col.id} numeric={col.numeric}>
                         <Skeleton width="80%" height={16} />
                       </Table.Cell>
                     ))}
                   </Table.Row>
                 ))
-              ) : data.length === 0 ? (
+              ) : rows.length === 0 ? (
                 <Table.Row>
                   <Table.Cell colSpan={colCount} className="ui-data-table__empty-cell">
                     {emptyState ?? <EmptyState title="No results" />}
                   </Table.Cell>
                 </Table.Row>
               ) : (
-                data.map((row) => {
+                rows.map((row) => {
                   const id = rowKey(row);
-                  const isSelected = selectedSet.has(id);
+                  const isSelected = selectionSet.has(id);
                   return (
                     <Table.Row
                       key={id}
@@ -192,9 +201,9 @@ function DataTableInner<T>(
                           />
                         </Table.Cell>
                       )}
-                      {columns.map((col) => (
+                      {activeColumns.map((col) => (
                         <Table.Cell key={col.id} numeric={col.numeric}>
-                          {getCellValue(row, col)}
+                          {col.accessor(row)}
                         </Table.Cell>
                       ))}
                     </Table.Row>
@@ -205,11 +214,11 @@ function DataTableInner<T>(
           </Table>
         </div>
       )}
-      {pagination && onPageChange && total != null && total > pagination.pageSize && (
+      {pagination && pagination.total > pagination.pageSize && (
         <Pagination
           page={pagination.page}
-          totalPages={Math.max(1, Math.ceil(total / pagination.pageSize))}
-          onPageChange={onPageChange}
+          totalPages={Math.max(1, Math.ceil(pagination.total / pagination.pageSize))}
+          onPageChange={pagination.onPageChange}
         />
       )}
     </Box>
