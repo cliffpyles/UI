@@ -1,51 +1,84 @@
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import {
+  forwardRef,
+  useId,
+  type HTMLAttributes,
+  type ReactNode,
+} from "react";
+import { Box } from "../../primitives/Box";
 import { Button } from "../../components/Button";
-import { Icon } from "../../primitives/Icon";
+// Toggle uses Button's `icon` prop, which renders an Icon internally.
 import "./ExpandableRow.css";
 
 export interface ExpandableRowProps
-  extends Omit<HTMLAttributes<HTMLTableRowElement>, "content"> {
+  extends Omit<HTMLAttributes<HTMLTableRowElement>, "onToggle"> {
   expanded: boolean;
-  onToggle: () => void;
-  content: ReactNode;
+  onToggle: (next: boolean) => void;
+  expandedContent: ReactNode;
+  toggleLabel?: string;
   colSpan: number;
   children: ReactNode;
+  disabled?: boolean;
 }
 
 export const ExpandableRow = forwardRef<HTMLTableRowElement, ExpandableRowProps>(
   function ExpandableRow(
-    { expanded, onToggle, content, colSpan, children, className, ...rest },
+    {
+      expanded,
+      onToggle,
+      expandedContent,
+      toggleLabel,
+      colSpan,
+      children,
+      disabled,
+      className,
+      id,
+      ...rest
+    },
     ref,
   ) {
-    const classes = ["ui-expandable-row", expanded && "ui-expandable-row--expanded", className]
+    const reactId = useId();
+    const panelId = `${id ?? reactId}-panel`;
+
+    const classes = [
+      "ui-expandable-row",
+      expanded && "ui-expandable-row--expanded",
+      className,
+    ]
       .filter(Boolean)
       .join(" ");
 
+    const label =
+      toggleLabel ?? (expanded ? "Collapse row" : "Expand row");
+
     return (
       <>
-        <tr ref={ref} className={classes} {...rest}>
+        <tr ref={ref} className={classes} id={id} {...rest}>
           <td className="ui-expandable-row__toggle-cell">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="ui-expandable-row__toggle"
-              onClick={onToggle}
-              aria-expanded={expanded}
-              aria-label={expanded ? "Collapse row" : "Expand row"}
-            >
-              <Icon
-                name={expanded ? "chevron-down" : "chevron-right"}
+            <Box display="flex" align="center" gap="1">
+              <Button
+                variant="ghost"
                 size="sm"
-                aria-hidden
+                icon={expanded ? "chevron-down" : "chevron-right"}
+                disabled={disabled}
+                aria-expanded={expanded}
+                aria-controls={panelId}
+                aria-label={label}
+                onClick={() => onToggle(!expanded)}
               />
-            </Button>
+            </Box>
           </td>
           {children}
         </tr>
         {expanded && (
-          <tr className="ui-expandable-row__detail">
-            <td colSpan={colSpan + 1} className="ui-expandable-row__content">
-              {content}
+          <tr
+            id={panelId}
+            role="row"
+            className="ui-expandable-row__detail"
+          >
+            <td colSpan={colSpan} className="ui-expandable-row__content">
+              <Box direction="column" gap="0">
+                {expandedContent}
+              </Box>
             </td>
           </tr>
         )}
