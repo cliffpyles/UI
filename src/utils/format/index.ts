@@ -18,8 +18,13 @@ export type {
   DateRangeParts,
 } from "./date";
 
-export { formatDuration } from "./duration";
-export type { FormatDurationOptions, DurationStyle } from "./duration";
+export { formatDuration, formatDurationChunks } from "./duration";
+export type {
+  FormatDurationOptions,
+  DurationStyle,
+  DurationUnit,
+  DurationChunk,
+} from "./duration";
 
 export { formatBytes } from "./bytes";
 export type { FormatBytesOptions } from "./bytes";

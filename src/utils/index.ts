@@ -6,6 +6,7 @@ export {
   formatPercent,
   formatDate,
   formatDuration,
+  formatDurationChunks,
   formatBytes,
 } from "./format";
 
@@ -19,5 +20,7 @@ export type {
   DateFormatStyle,
   FormatDurationOptions,
   DurationStyle,
+  DurationUnit,
+  DurationChunk,
   FormatBytesOptions,
 } from "./format";

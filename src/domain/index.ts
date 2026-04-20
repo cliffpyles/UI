@@ -6,7 +6,7 @@ export { Percentage } from "./Percentage";
 export type { PercentageProps } from "./Percentage";
 
 export { Duration } from "./Duration";
-export type { DurationProps } from "./Duration";
+export type { DurationProps, DurationFormat } from "./Duration";
 
 export { Timestamp } from "./Timestamp";
 export type { TimestampProps, TimestampFormat } from "./Timestamp";
@@ -269,7 +269,11 @@ export type { VersionHistoryProps, Version } from "./VersionHistory";
 
 // Group 13: Workflow & Task
 export { DueDateIndicator } from "./DueDateIndicator";
-export type { DueDateIndicatorProps, DueDateStatus } from "./DueDateIndicator";
+export type {
+  DueDateIndicatorProps,
+  DueStatus,
+  DueDateFormat,
+} from "./DueDateIndicator";
 
 export { DependencyLink } from "./DependencyLink";
 export type { DependencyLinkProps, DependencyRelation } from "./DependencyLink";

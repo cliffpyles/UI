@@ -233,6 +233,7 @@ export type {
   CurrencyProps,
   PercentageProps,
   DurationProps,
+  DurationFormat,
   TimestampProps,
   TimestampFormat,
   DateRangeProps,
@@ -382,7 +383,8 @@ export type {
   VersionHistoryProps,
   Version,
   DueDateIndicatorProps,
-  DueDateStatus,
+  DueStatus,
+  DueDateFormat,
   DependencyLinkProps,
   DependencyRelation,
   WorkflowStepIndicatorProps,
@@ -423,6 +425,7 @@ export {
   formatPercent,
   formatDate,
   formatDuration,
+  formatDurationChunks,
   formatBytes,
 } from "./utils";
 export type {
@@ -434,5 +437,7 @@ export type {
   DateFormatStyle,
   FormatDurationOptions,
   DurationStyle,
+  DurationUnit,
+  DurationChunk,
   FormatBytesOptions,
 } from "./utils";

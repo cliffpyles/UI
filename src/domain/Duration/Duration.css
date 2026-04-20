@@ -1,0 +1,9 @@
+.ui-duration {
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-duration__chunk {
+  display: inline-flex;
+  align-items: baseline;
+}

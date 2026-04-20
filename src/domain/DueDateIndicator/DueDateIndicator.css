@@ -1,22 +1,24 @@
 .ui-due-date-indicator {
   display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-1);
-  font-size: var(--font-size-xs);
   font-variant-numeric: tabular-nums;
-  color: var(--color-text-secondary);
 }
 
-.ui-due-date-indicator--approaching {
+.ui-due-date-indicator--completed .ui-due-date-indicator__text {
+  text-decoration: line-through;
+}
+
+.ui-due-date-indicator__icon--ontime {
+  color: var(--color-text-tertiary);
+}
+
+.ui-due-date-indicator__icon--due-soon {
   color: var(--color-status-warning-text);
 }
 
-.ui-due-date-indicator--overdue {
+.ui-due-date-indicator__icon--overdue {
   color: var(--color-status-error-text);
-  font-weight: var(--font-weight-semibold);
 }
 
-.ui-due-date-indicator--completed {
+.ui-due-date-indicator__icon--complete {
   color: var(--color-status-success-text);
-  text-decoration: line-through;
 }
