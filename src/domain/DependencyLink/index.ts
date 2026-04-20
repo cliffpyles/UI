@@ -1,2 +1,2 @@
 export { DependencyLink } from "./DependencyLink";
-export type { DependencyLinkProps, DependencyType } from "./DependencyLink";
+export type { DependencyLinkProps, DependencyRelation } from "./DependencyLink";

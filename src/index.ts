@@ -384,7 +384,7 @@ export type {
   DueDateIndicatorProps,
   DueDateStatus,
   DependencyLinkProps,
-  DependencyType,
+  DependencyRelation,
   WorkflowStepIndicatorProps,
   StepDef,
   StepState,

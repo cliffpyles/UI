@@ -272,7 +272,7 @@ export { DueDateIndicator } from "./DueDateIndicator";
 export type { DueDateIndicatorProps, DueDateStatus } from "./DueDateIndicator";
 
 export { DependencyLink } from "./DependencyLink";
-export type { DependencyLinkProps, DependencyType } from "./DependencyLink";
+export type { DependencyLinkProps, DependencyRelation } from "./DependencyLink";
 
 export { WorkflowStepIndicator } from "./WorkflowStepIndicator";
 export type {
