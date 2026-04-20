@@ -308,7 +308,11 @@ export { CategoryChart } from "./CategoryChart";
 export type { CategoryChartProps, CategoryBar } from "./CategoryChart";
 
 export { DistributionChart } from "./DistributionChart";
-export type { DistributionChartProps } from "./DistributionChart";
+export type {
+  DistributionChartProps,
+  DistributionMode,
+  DistributionBucket,
+} from "./DistributionChart";
 
 export { FunnelChart } from "./FunnelChart";
 export type { FunnelChartProps, FunnelStage } from "./FunnelChart";

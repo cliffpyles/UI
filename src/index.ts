@@ -402,6 +402,8 @@ export type {
   CategoryChartProps,
   CategoryBar,
   DistributionChartProps,
+  DistributionMode,
+  DistributionBucket,
   FunnelChartProps,
   FunnelStage,
   HeatmapGridProps,

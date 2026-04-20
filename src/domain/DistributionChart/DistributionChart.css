@@ -1,8 +1,40 @@
 .ui-distribution-chart {
   display: block;
   width: 100%;
+  position: relative;
+}
+
+.ui-distribution-chart__viewport {
+  position: relative;
+  width: 100%;
 }
 
 .ui-distribution-chart__svg {
-  max-width: 100%;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ui-distribution-chart__bar {
+  fill: var(--chart-series-1, var(--color-action-primary));
+  cursor: pointer;
+  outline: none;
+}
+
+.ui-distribution-chart__bar:hover,
+.ui-distribution-chart__bar:focus-visible {
+  fill: var(--chart-series-1-hover, var(--color-action-primary-hover, var(--color-action-primary)));
+}
+
+.ui-distribution-chart__density {
+  fill: var(--chart-series-1, var(--color-action-primary));
+  fill-opacity: 0.6;
+  stroke: var(--chart-series-1, var(--color-action-primary));
+}
+
+.ui-distribution-chart__tooltip-layer {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  pointer-events: none;
 }
